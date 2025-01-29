@@ -50,6 +50,12 @@ TEST(Utility, DualArrayOutOfBound) {
   ASSERT_DEATH({ ar(-1, 0); }, ".");
   ASSERT_DEATH({ ar(0, 4); }, ".");
   ASSERT_DEATH({ ar(0, -1); }, ".");
+
+  const auto& car = ar;
+  ASSERT_DEATH({ car(2, 0); }, ".");
+  ASSERT_DEATH({ car(-1, 0); }, ".");
+  ASSERT_DEATH({ car(0, 4); }, ".");
+  ASSERT_DEATH({ car(0, -1); }, ".");
 }
 
 TEST(Utility, PriorityQueue) {
