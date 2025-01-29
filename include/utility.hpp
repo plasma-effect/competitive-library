@@ -1,4 +1,6 @@
 #pragma once
+#include "boost/range/irange.hpp"
+#include <atcoder/all>
 #include <bits/stdc++.h>
 
 namespace common {
@@ -27,13 +29,13 @@ public:
   dual_array(std::size_t d0, std::size_t d1)
       : inside_(d0 * d1), dim0(d0), dim1(d1) {}
   T& operator()(int i0, int i1) {
-    assert(0 <= i0 && i0 < dim0);
-    assert(0 <= i1 && i1 < dim1);
+    assert(0 <= i0 && static_cast<std::size_t>(i0) < dim0);
+    assert(0 <= i1 && static_cast<std::size_t>(i1) < dim1);
     return inside_[i0 * dim1 + i1];
   }
   T& operator()(int i0, int i1) const {
-    assert(0 <= i0 && i0 < dim0);
-    assert(0 <= i1 && i1 < dim1);
+    assert(0 <= i0 && static_cast<std::size_t>(i0) < dim0);
+    assert(0 <= i1 && static_cast<std::size_t>(i1) < dim1);
     return inside_[i0 * dim1 + i1];
   }
   common::pair<std::size_t> dimensions() const { return {dim0, dim1}; }

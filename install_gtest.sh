@@ -9,3 +9,11 @@ if [ ! -e "googletest" ]; then
   tar xf "googletest-${VERSION}.tar.gz"
   mv "googletest-${VERSION}" googletest
 fi
+
+if [ ! -e "googletest/build/lib" ]; then
+  cd googletest
+  mkdir -p build
+  cd build
+  cmake ..
+  make
+fi

@@ -30,6 +30,7 @@
 *.exe
 *.out
 *.app
+test_all
 
 # Third Party
 boost*.tar.gz
