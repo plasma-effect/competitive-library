@@ -1,6 +1,5 @@
 #pragma once
 #include "boost/range/irange.hpp"
-#include <atcoder/all>
 #include <bits/stdc++.h>
 
 namespace common {
