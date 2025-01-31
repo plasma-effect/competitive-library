@@ -47,6 +47,14 @@ TEST(PrintBase, Floating) {
   EXPECT_EQ(ss.str(), "1.5");
 }
 
+TEST(PrintBase, ExecuteManip) {
+  std::stringstream ss;
+  print_detail::print_base_t base(ss);
+  base.print(std::setprecision(3));
+  base.print(0.1234);
+  EXPECT_EQ(ss.str(), "0.123");
+}
+
 TEST(PrintBase, AtCoderStaticModint) {
   std::stringstream ss;
   print_detail::print_base_t base(ss);
@@ -128,17 +136,4 @@ TEST(PrintBase, SetCombDec) {
   base.set_tuple_delim(", ");
   base.print(vec);
   EXPECT_EQ(ss.str(), "{(1, 2), (3, 4)}");
-}
-
-TEST(PrintBase, ExecuteManip) {
-  std::stringstream ss;
-  print_detail::print_base_t base(ss);
-  base.print(false);
-  base.execute_manip(std::endl);
-  base.execute_manip(std::boolalpha);
-  base.print(true);
-  base.execute_manip(std::endl);
-  base.execute_manip(std::setprecision(3));
-  base.print(0.1234);
-  EXPECT_EQ(ss.str(), "0\ntrue\n0.123");
 }

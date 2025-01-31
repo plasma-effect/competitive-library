@@ -78,8 +78,5 @@ public:
   void set_tuple_prefix(const char* new_prefix) { tpl_dec.prefix = new_prefix; }
   void set_tuple_suffix(const char* new_suffix) { tpl_dec.suffix = new_suffix; }
   void set_tuple_delim(const char* new_delim) { tpl_dec.delim = new_delim; }
-  void execute_manip(std::ostream& (*pf)(std::ostream&)) { pf(ost); }
-  void execute_manip(std::ios_base& (*pf)(std::ios_base&)) { pf(ost); }
-  template <typename T> void execute_manip(T const& manip) { ost << manip; }
 };
 } // namespace print_detail
