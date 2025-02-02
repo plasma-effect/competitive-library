@@ -23,6 +23,7 @@ include_directories($ENV{HOME}/boost_1_82_0/include)
 add_executable(test_all
   utility.cpp
   print_base.cpp
-  debug_print.cpp)
+  debug_print.cpp
+  numeric.cpp)
 target_link_libraries(test_all gtest gtest_main)
 gtest_discover_tests(test_all)
