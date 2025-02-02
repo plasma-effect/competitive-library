@@ -1,5 +1,5 @@
 #include "print_base.hpp"
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 
 TEST(PrintBase, String) {
   std::stringstream ss;

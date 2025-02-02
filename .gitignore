@@ -31,9 +31,3 @@
 *.out
 *.app
 test_all
-
-# Third Party
-boost*.tar.gz
-ac-library-*.tar.gz
-googletest*/
-googletest-*.tar.gz
