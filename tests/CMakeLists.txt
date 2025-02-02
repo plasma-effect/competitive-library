@@ -3,7 +3,6 @@ cmake_minimum_required(VERSION 3.17)
 cmake_policy(SET CMP0048 NEW)
 project(CompetitiveLibrary)
 
-
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -23,6 +22,7 @@ include_directories($ENV{HOME}/boost_1_82_0/include)
 
 add_executable(test_all
   utility.cpp
-  print_base.cpp)
+  print_base.cpp
+  debug_print.cpp)
 target_link_libraries(test_all gtest gtest_main)
 gtest_discover_tests(test_all)
