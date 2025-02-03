@@ -24,6 +24,11 @@ add_executable(test_all
   utility.cpp
   print_base.cpp
   debug_print.cpp
-  numeric.cpp)
+  numeric.cpp
+  segtree.cpp)
 target_link_libraries(test_all gtest gtest_main)
 gtest_discover_tests(test_all)
+
+add_executable(test_segtree segtree.cpp)
+target_link_libraries(test_segtree gtest gtest_main)
+gtest_discover_tests(test_segtree)
