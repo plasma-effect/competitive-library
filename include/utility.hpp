@@ -37,6 +37,16 @@ public:
     assert(0 <= i1 && std::cmp_less(i1, dim1));
     return inside_[i0 * dim1 + i1];
   }
+  T& operator()(std::size_t i0, std::size_t i1) {
+    assert(std::cmp_less(i0, dim0));
+    assert(std::cmp_less(i1, dim1));
+    return inside_[i0 * dim1 + i1];
+  }
+  T const& operator()(std::size_t i0, std::size_t i1) const {
+    assert(std::cmp_less(i0, dim0));
+    assert(std::cmp_less(i1, dim1));
+    return inside_[i0 * dim1 + i1];
+  }
   common::pair<std::size_t> dimensions() const { return {dim0, dim1}; }
   std::size_t size() const { return dim0 * dim1; }
 };

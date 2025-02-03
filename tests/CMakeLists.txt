@@ -25,7 +25,8 @@ add_executable(test_all
   print_base.cpp
   debug_print.cpp
   numeric.cpp
-  segtree.cpp)
+  segtree.cpp
+  warshall_floyd.cpp)
 target_link_libraries(test_all gtest gtest_main)
 gtest_discover_tests(test_all)
 
@@ -48,3 +49,7 @@ gtest_discover_tests(test_numeric)
 add_executable(test_segtree segtree.cpp)
 target_link_libraries(test_segtree gtest gtest_main)
 gtest_discover_tests(test_segtree)
+
+add_executable(test_warshall_floyd warshall_floyd.cpp)
+target_link_libraries(test_warshall_floyd gtest gtest_main)
+gtest_discover_tests(test_warshall_floyd)
