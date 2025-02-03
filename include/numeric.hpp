@@ -3,6 +3,7 @@
 
 namespace numeric {
 template <typename T, typename F> struct monoid_t {
+  using value_t = T;
   T e_;
   F op_;
   constexpr monoid_t(T e, F op) : e_(e), op_(op) {}

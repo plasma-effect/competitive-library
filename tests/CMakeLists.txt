@@ -29,6 +29,22 @@ add_executable(test_all
 target_link_libraries(test_all gtest gtest_main)
 gtest_discover_tests(test_all)
 
+add_executable(test_utility utility.cpp)
+target_link_libraries(test_utility gtest gtest_main)
+gtest_discover_tests(test_utility)
+
+add_executable(test_print_base print_base.cpp)
+target_link_libraries(test_print_base gtest gtest_main)
+gtest_discover_tests(test_print_base)
+
+add_executable(test_debug_print debug_print.cpp)
+target_link_libraries(test_debug_print gtest gtest_main)
+gtest_discover_tests(test_debug_print)
+
+add_executable(test_numeric numeric.cpp)
+target_link_libraries(test_numeric gtest gtest_main)
+gtest_discover_tests(test_numeric)
+
 add_executable(test_segtree segtree.cpp)
 target_link_libraries(test_segtree gtest gtest_main)
 gtest_discover_tests(test_segtree)
