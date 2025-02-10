@@ -1,6 +1,0 @@
-[submodule "custom-ac-library"]
-	path = custom-ac-library
-	url = git@github.com:plasma-effect/custom-ac-library.git
-[submodule "tests/googletest"]
-	path = tests/googletest
-	url = https://github.com/google/googletest

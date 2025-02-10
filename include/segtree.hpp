@@ -1,7 +1,7 @@
 #pragma once
+#include "atcoder/lazysegtree.hpp"
+#include "atcoder/segtree.hpp"
 #include "numeric.hpp"
-#include <atcoder/lazysegtree.hpp>
-#include <atcoder/segtree.hpp>
 
 namespace common {
 namespace detail {
