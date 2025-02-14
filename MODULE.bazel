@@ -5,9 +5,9 @@
 # For more details, please check https://github.com/bazelbuild/bazel/issues/18958
 ###############################################################################
 
-module(name = "competitive_library", version = "0.0.1")
+module(name = "competitive_library", version = "0.0.2")
 
-bazel_dep(name = "googletest", version = "1.15.2")
+bazel_dep(name = "googletest", version = "1.16.0")
 bazel_dep(name = "custom_ac_library", version = "0.0.1")
 git_override(
     module_name = "custom_ac_library",
