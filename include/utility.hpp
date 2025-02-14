@@ -1,4 +1,5 @@
 #pragma once
+#include "atcoder/all"
 #include "boost/range/irange.hpp"
 #include <bits/stdc++.h>
 

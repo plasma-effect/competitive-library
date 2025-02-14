@@ -8,7 +8,7 @@
 
 namespace {
 void expand_impl(
-    std::istream& ist, std::ostream& ost, std::stringstream& buffer,
+    std::istream& ist, std::ostream& ost,
     std::map<std::string, std::reference_wrapper<std::istream>> const& headers,
     std::set<std::string>& included) {
   std::string line;
@@ -23,13 +23,13 @@ void expand_impl(
       if (!included.contains(match[1])) {
         included.emplace(match[1]);
         if (headers.contains(match[1])) {
-          expand_impl(headers.at(match[1]), ost, buffer, headers, included);
+          expand_impl(headers.at(match[1]), ost, headers, included);
         } else {
           ost << line << std::endl;
         }
       }
     } else {
-      buffer << line << std::endl;
+      ost << line << std::endl;
     }
   }
 }
@@ -53,13 +53,6 @@ source_expander::parse_result_t parse_argc_impl(int argc, const char* argv[]) {
       } else {
         result.outpath = argv[++i];
       }
-    } else if (argv[i] == "-d"sv) {
-      if (i + 1 >= argc) {
-        throw std::runtime_error(
-            "no filename is specified after the '-d' option.");
-      } else {
-        result.dirpath.emplace_back(argv[++i]);
-      }
     } else if (!result.inpath.empty()) {
       throw std::runtime_error("the <file> has been specified multiple times.");
     } else {
@@ -76,9 +69,7 @@ void expand(std::istream& ist, std::ostream& ost,
             std::map<std::string, std::reference_wrapper<std::istream>> const&
                 headers) {
   std::set<std::string> included;
-  std::stringstream buffer;
-  expand_impl(ist, ost, buffer, headers, included);
-  ost << buffer.str();
+  expand_impl(ist, ost, headers, included);
 }
 parse_result_t parse_argc(int argv, const char* argc[]) {
   return parse_argc_impl(argv, argc);

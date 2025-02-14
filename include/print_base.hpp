@@ -1,5 +1,5 @@
 #pragma once
-#include "atcoder/modint.hpp"
+#include "atcoder/all"
 #include "utility.hpp"
 
 namespace atcoder {

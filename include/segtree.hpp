@@ -1,6 +1,5 @@
 #pragma once
-#include "atcoder/lazysegtree.hpp"
-#include "atcoder/segtree.hpp"
+#include "atcoder/all"
 #include "numeric.hpp"
 
 namespace common {

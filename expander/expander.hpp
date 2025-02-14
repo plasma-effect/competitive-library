@@ -16,7 +16,6 @@ struct parse_result_t {
   const char* execname;
   std::filesystem::path inpath;
   std::filesystem::path outpath;
-  std::vector<std::filesystem::path> dirpath;
   bool help;
 };
 parse_result_t parse_argc(int argc, const char* argv[]);

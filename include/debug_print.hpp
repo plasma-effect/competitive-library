@@ -1,6 +1,6 @@
 #pragma once
 #include "print_base.hpp"
-#include <type_traits>
+#include <bits/stdc++.h>
 
 namespace debug {
 namespace detail {
