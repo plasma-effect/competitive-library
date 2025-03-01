@@ -16,6 +16,11 @@ library_cc_test(
 )
 
 library_cc_test(
+    name = "normal_print_test",
+    srcs = ["normal_print.cpp"],
+)
+
+library_cc_test(
     name = "numeric_test",
     srcs = ["numeric.cpp"],
 )
@@ -34,6 +39,7 @@ test_suite(
     name = "tests",
     tests = [
         ":debug_print_test",
+        ":normal_print_test",
         ":numeric_test",
         ":print_base_test",
         ":segtree_test",
