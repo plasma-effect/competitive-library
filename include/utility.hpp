@@ -52,6 +52,11 @@ public:
   std::size_t size() const { return dim0 * dim1; }
 };
 
+template <> class dual_array<bool> : public dual_array<std::uint8_t> {
+public:
+  using dual_array<std::uint8_t>::dual_array;
+};
+
 template <typename T, typename F = std::greater<>>
 using priority_queue = std::priority_queue<T, std::vector<T>, F>;
 } // namespace common

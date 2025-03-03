@@ -58,6 +58,42 @@ TEST(Utility, DualArrayOutOfBound) {
   ASSERT_DEATH({ car(0, -1); }, ".");
 }
 
+TEST(Utility, DualArrayBoolAssignAndRead) {
+  common::dual_array<bool> ar(2, 2);
+  ar(0, 0) = true;
+  ar(1, 1) = true;
+  ASSERT_EQ(ar(0, 0), true);
+  ASSERT_EQ(ar(0, 1), false);
+  ASSERT_EQ(ar(1, 0), false);
+  ASSERT_EQ(ar(1, 1), true);
+}
+
+TEST(Utility, DualArrayBoolGetDimensions) {
+  common::dual_array<bool> ar(2, 3);
+  auto [d0, d1] = ar.dimensions();
+  ASSERT_EQ(d0, 2u);
+  ASSERT_EQ(d1, 3u);
+}
+
+TEST(Utility, DualArrayBoolGetSize) {
+  common::dual_array<bool> ar(2, 3);
+  ASSERT_EQ(ar.size(), 6u);
+}
+
+TEST(Utility, DualArrayBoolOutOfBound) {
+  common::dual_array<bool> ar(2, 3);
+  ASSERT_DEATH({ ar(2, 0); }, ".");
+  ASSERT_DEATH({ ar(-1, 0); }, ".");
+  ASSERT_DEATH({ ar(0, 4); }, ".");
+  ASSERT_DEATH({ ar(0, -1); }, ".");
+
+  const auto& car = ar;
+  ASSERT_DEATH({ car(2, 0); }, ".");
+  ASSERT_DEATH({ car(-1, 0); }, ".");
+  ASSERT_DEATH({ car(0, 4); }, ".");
+  ASSERT_DEATH({ car(0, -1); }, ".");
+}
+
 TEST(Utility, PriorityQueue) {
   common::priority_queue<int> queue;
   for (auto v : {1, 3, 2, 4}) {
