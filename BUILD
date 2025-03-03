@@ -10,6 +10,7 @@ cc_library(
     strip_include_prefix = "include",
     visibility = ["//visibility:public"],
     deps = [
+        "@boost//:container",
         "@boost//:range",
         "@custom_ac_library//:ac_library",
     ],

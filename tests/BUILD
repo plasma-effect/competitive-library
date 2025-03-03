@@ -35,10 +35,16 @@ library_cc_test(
     srcs = ["warshall_floyd.cpp"],
 )
 
+library_cc_test(
+    name = "heuristic_test",
+    srcs = ["heuristic.cpp"],
+)
+
 test_suite(
     name = "tests",
     tests = [
         ":debug_print_test",
+        ":heuristic_test",
         ":normal_print_test",
         ":numeric_test",
         ":print_base_test",
