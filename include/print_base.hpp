@@ -79,4 +79,12 @@ public:
   void set_tuple_suffix(const char* new_suffix) { tpl_dec.suffix = new_suffix; }
   void set_tuple_delim(const char* new_delim) { tpl_dec.delim = new_delim; }
 };
+
+template <typename T>
+constexpr bool is_std_manip_v =
+    std::is_same_v<T, decltype(std::setbase(std::declval<int>()))> ||
+    std::is_same_v<T, decltype(std::setfill(std::declval<char>()))> ||
+    std::is_same_v<T, decltype(std::setprecision(std::declval<int>()))> ||
+    std::is_same_v<T, decltype(std::setw(std::declval<int>()))> ||
+    std::is_convertible_v<T, std::ios_base& (*)(std::ios_base&)>;
 } // namespace print_detail
