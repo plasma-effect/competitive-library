@@ -2,13 +2,7 @@
 #include "atcoder/all"
 #include "utility.hpp"
 
-namespace atcoder {
-template <int mod>
-std::ostream& operator<<(std::ostream& ost, static_modint<mod> const& val) {
-  return ost << val.val();
-}
-} // namespace atcoder
-namespace print_detail {
+namespace common::detail {
 template <typename T>
 concept stdstream_able = requires(T a) { std::declval<std::ostream&>() << a; };
 
@@ -30,6 +24,9 @@ public:
   void print(std::string const& str) { ost << str; }
   void print(std::string_view const& view) { ost << view; }
   void print(const char* str) { ost << str; }
+  template <int mod> void print(atcoder::static_modint<mod> const& val) {
+    ost << val.val();
+  }
   template <stdstream_able T> void print(T const& v) { ost << v; }
   template <std::input_iterator It> void print(It first, It last) {
     ost << rng_dec.prefix;
@@ -87,4 +84,4 @@ constexpr bool is_std_manip_v =
     std::is_same_v<T, decltype(std::setprecision(std::declval<int>()))> ||
     std::is_same_v<T, decltype(std::setw(std::declval<int>()))> ||
     std::is_convertible_v<T, std::ios_base& (*)(std::ios_base&)>;
-} // namespace print_detail
+} // namespace common::detail
