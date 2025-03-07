@@ -1,22 +1,17 @@
 #pragma once
 #include "atcoder/all"
-#include "boost/range/irange.hpp"
 #include <bits/stdc++.h>
 
 namespace common {
 template <typename T> constexpr auto max_v = std::numeric_limits<T>::max();
 template <typename T> constexpr auto min_v = std::numeric_limits<T>::min();
 
-template <typename Integer>
-struct integer_range : boost::integer_range<Integer>, std::ranges::view_base {
-  using boost::integer_range<Integer>::integer_range;
-};
-template <typename Integer> integer_range<Integer> irange(Integer last) {
-  return integer_range<Integer>(Integer(0), last);
+template <std::integral Int> auto irange(Int first, Int last) {
+  assert(std::cmp_less_equal(first, last));
+  return std::views::iota(first, last);
 }
-template <typename Integer>
-integer_range<Integer> irange(Integer first, Integer last) {
-  return integer_range<Integer>(first, last);
+template <std::integral Int> auto irange(Int last) {
+  return irange(Int(0), last);
 }
 
 template <typename T> using pair = std::pair<T, T>;
@@ -44,8 +39,8 @@ public:
     return inside_[i0 * dim1 + i1];
   }
   T const& operator()(std::size_t i0, std::size_t i1) const {
-    assert(std::cmp_less(i0, dim0));
-    assert(std::cmp_less(i1, dim1));
+    assert(i0 < dim0);
+    assert(i1 < dim1);
     return inside_[i0 * dim1 + i1];
   }
   common::pair<std::size_t> dimensions() const { return {dim0, dim1}; }

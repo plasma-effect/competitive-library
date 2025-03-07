@@ -21,9 +21,9 @@ template <typename T> void local_update(T& base, T a, T b) {
 template <typename T> void warshall_floyd(common::dual_array<T>& data) {
   auto [N, d1] = data.dimensions();
   assert(N == d1);
-  for (auto k : boost::irange(N)) {
-    for (auto i : boost::irange(N)) {
-      for (auto j : boost::irange(N)) {
+  for (auto k : common::irange(N)) {
+    for (auto i : common::irange(N)) {
+      for (auto j : common::irange(N)) {
         detail::local_update(data(i, j), data(i, k), data(k, j));
       }
     }

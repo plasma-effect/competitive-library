@@ -11,7 +11,6 @@ cc_library(
     visibility = ["//visibility:public"],
     deps = [
         "@boost//:container",
-        "@boost//:range",
         "@custom_ac_library//:ac_library",
     ],
 )

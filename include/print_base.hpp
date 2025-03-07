@@ -39,10 +39,6 @@ public:
     }
     ost << rng_dec.suffix;
   }
-  template <std::integral Int>
-  void print(common::integer_range<Int> const& rng) {
-    print(rng.begin(), rng.end());
-  }
   template <std::ranges::input_range T> void print(T const& rng) {
     print(rng.begin(), rng.end());
   }
