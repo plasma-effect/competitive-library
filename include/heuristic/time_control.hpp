@@ -1,4 +1,5 @@
 #pragma once
+#include "heuristic/random.hpp"
 #include <bits/stdc++.h>
 
 namespace heuristic {
