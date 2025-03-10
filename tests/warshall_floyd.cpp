@@ -4,42 +4,42 @@
 TEST(WarshallFloyd, LocalUpdate) {
   {
     std::optional<int> result, a = 1, b = 2;
-    graph::detail::local_update(result, a, b);
+    graph::internal::local_update(result, a, b);
     EXPECT_EQ(result, 3);
   }
   {
     std::optional<int> result = 4, a = 1, b = 2;
-    graph::detail::local_update(result, a, b);
+    graph::internal::local_update(result, a, b);
     EXPECT_EQ(result, 3);
   }
   {
     std::optional<int> result = 2, a = 1, b = 2;
-    graph::detail::local_update(result, a, b);
+    graph::internal::local_update(result, a, b);
     EXPECT_EQ(result, 2);
   }
   {
     std::optional<int> result, a, b = 2;
-    graph::detail::local_update(result, a, b);
+    graph::internal::local_update(result, a, b);
     EXPECT_EQ(result, std::nullopt);
   }
   {
     std::optional<int> result = 4, a, b = 2;
-    graph::detail::local_update(result, a, b);
+    graph::internal::local_update(result, a, b);
     EXPECT_EQ(result, 4);
   }
   {
     std::optional<int> result, a = 1, b;
-    graph::detail::local_update(result, a, b);
+    graph::internal::local_update(result, a, b);
     EXPECT_EQ(result, std::nullopt);
   }
   {
     std::optional<int> result = 4, a = 1, b;
-    graph::detail::local_update(result, a, b);
+    graph::internal::local_update(result, a, b);
     EXPECT_EQ(result, 4);
   }
   {
     int result = 4, a = 1, b = 2;
-    graph::detail::local_update(result, a, b);
+    graph::internal::local_update(result, a, b);
     EXPECT_EQ(result, 3);
   }
 }

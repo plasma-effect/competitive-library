@@ -22,3 +22,6 @@ template <typename T>
 constexpr monoid_t max{common::min_v<T>,
                        static_cast<T const& (*)(T const&, T const&)>(std::max)};
 } // namespace numeric
+namespace numeric::internal {
+template <auto monoid> using value_t = typename decltype(monoid)::value_t;
+}

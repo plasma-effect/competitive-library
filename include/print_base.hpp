@@ -2,7 +2,7 @@
 #include "atcoder/all"
 #include "utility.hpp"
 
-namespace common::detail {
+namespace common::internal {
 template <typename T>
 concept stdstream_able = requires(T a) { std::declval<std::ostream&>() << a; };
 
@@ -80,4 +80,4 @@ constexpr bool is_std_manip_v =
     std::is_same_v<T, decltype(std::setprecision(std::declval<int>()))> ||
     std::is_same_v<T, decltype(std::setw(std::declval<int>()))> ||
     std::is_convertible_v<T, std::ios_base& (*)(std::ios_base&)>;
-} // namespace common::detail
+} // namespace common::internal
