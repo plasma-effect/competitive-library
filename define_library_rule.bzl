@@ -1,7 +1,11 @@
-def cl_library(name, deps = []):
+def cl_library(name, hdrs = [], deps = []):
+    if hdrs == []:
+        hdrs = ["include/" + name + ".hpp"]
+    else:
+        hdrs = ["include/" + n for n in hdrs]
     return native.cc_library(
         name = name,
-        hdrs = ["include/" + name + ".hpp"],
+        hdrs = hdrs,
         deps = deps,
         strip_include_prefix = "include",
         visibility = ["//visibility:public"],

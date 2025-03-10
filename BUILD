@@ -48,8 +48,32 @@ cl_library(
 )
 
 cl_library(
+    name = "heuristic_random",
+    hdrs = ["heuristic/random.hpp"],
+)
+
+cl_library(
+    name = "heuristic_time_control",
+    hdrs = ["heuristic/time_control.hpp"],
+)
+
+cl_library(
+    name = "heuristic_static_container",
+    hdrs = ["heuristic/static_container.hpp"],
+)
+
+cl_library(
+    name = "heuristic_grid_bfs_queue",
+    hdrs = ["heuristic/grid_bfs_queue.hpp"],
+)
+
+cl_library(
     name = "heuristic",
     deps = [
+        ":heuristic_grid_bfs_queue",
+        ":heuristic_random",
+        ":heuristic_static_container",
+        ":heuristic_time_control",
         ":utility",
         "@boost//:container",
     ],
