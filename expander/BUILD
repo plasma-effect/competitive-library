@@ -44,7 +44,7 @@ genrule(
         echo '  using namespace source_expander;' >> $@
         echo '  embedded_data_t ret;' >> $@
         for file in $(locations //:cl_headers); do
-            name=$$(basename $${file})
+            name=$$(echo $${file} | sed 's|^[^/]*/||')
             echo '  {' >> $@
             echo "    const char* name = \\\"$${name}\\\";" >> $@
             printf '    const char* source = R"embed(' >> $@
@@ -82,4 +82,24 @@ cc_binary(
         ":lib_embedded_headers",
         ":lib_expander",
     ],
+)
+
+genrule(
+    name = "make_sample_algorithm",
+    srcs = ["sample_algorithm.cpp"],
+    outs = ["sample_algorithm_out.cpp"],
+    cmd = """
+        $(location :expander) $(location sample_algorithm.cpp) -o $@
+    """,
+    tools = [":expander"],
+)
+
+genrule(
+    name = "make_sample_heuristic",
+    srcs = ["sample_heuristic.cpp"],
+    outs = ["sample_heuristic_out.cpp"],
+    cmd = """
+        $(location :expander) $(location sample_heuristic.cpp) -o $@
+    """,
+    tools = [":expander"],
 )

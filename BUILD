@@ -2,7 +2,7 @@ load("define_library_rule.bzl", "cl_library")
 
 filegroup(
     name = "cl_headers",
-    srcs = glob(["include/*.hpp"]),
+    srcs = glob(["include/**/*.hpp"]),
     visibility = ["//visibility:public"],
 )
 
