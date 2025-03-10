@@ -44,7 +44,7 @@ genrule(
         echo '  using namespace source_expander;' >> $@
         echo '  embedded_data_t ret;' >> $@
         for file in $(locations //:cl_headers); do
-            name=$$(echo $${file} | sed 's|^[^/]*/||')
+            name=$$(echo $${file} | sed 's|^[^i]*include/||')
             echo '  {' >> $@
             echo "    const char* name = \\\"$${name}\\\";" >> $@
             printf '    const char* source = R"embed(' >> $@
