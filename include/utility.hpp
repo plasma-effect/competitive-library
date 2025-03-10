@@ -1,5 +1,4 @@
 #pragma once
-#include "atcoder/all"
 #include <bits/stdc++.h>
 
 namespace common {

@@ -13,12 +13,12 @@ LINKOPTS = [
     "-fsanitize=undefined,address",
 ]
 
-def library_cc_test(name, srcs = []):
+def library_cc_test(target):
     return native.cc_test(
-        name = name,
-        srcs = srcs,
+        name = target + "_test",
+        srcs = [target + ".cpp"],
         deps = [
-            "//:competitive_library",
+            "//:" + target,
             "@googletest//:gtest",
             "@googletest//:gtest_main",
         ],

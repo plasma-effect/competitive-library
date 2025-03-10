@@ -1,5 +1,6 @@
 #pragma once
 #include "utility.hpp"
+#include <bits/stdc++.h>
 
 namespace numeric {
 template <typename T, typename F> struct monoid_t {
