@@ -5,7 +5,7 @@
 TEST(GridBFSQueue, General) {
   heuristic::grid_bfs_queue<int, 3, 3> queue;
   queue.emplace(0, 0, 0);
-  common::dual_array<std::optional<int>> result(3, 3);
+  heuristic::static_dual_array<std::optional<int>, 3, 3> result;
   while (auto top = queue.pop()) {
     auto [i, j, d] = *top;
     EXPECT_FALSE(result(i, j)) << std::format("(i, j) = ({}, {})", i, j);
@@ -30,14 +30,14 @@ TEST(GridBFSQueue, Snake) {
   // .#...
   // .#.#.
   // ...#.
-  common::dual_array<bool> maze(3, 5);
+  heuristic::static_dual_array<bool, 3, 5> maze;
   maze(0, 1) = true;
   maze(1, 1) = true;
   maze(1, 3) = true;
   maze(2, 3) = true;
   heuristic::grid_bfs_queue<int, 3, 5> queue;
   queue.emplace(0, 0, 0);
-  common::dual_array<std::optional<int>> result(3, 5);
+  heuristic::static_dual_array<std::optional<int>, 3, 5> result;
   while (auto top = queue.pop()) {
     auto [i, j, d] = *top;
     EXPECT_FALSE(result(i, j)) << std::format("(i, j) = ({}, {})", i, j);
@@ -71,14 +71,14 @@ TEST(GridBFSQueue, Emplace) {
   // .#...
   // .#.#.
   // ...#.
-  common::dual_array<bool> maze(3, 5);
+  heuristic::static_dual_array<bool, 3, 5> maze;
   maze(0, 1) = true;
   maze(1, 1) = true;
   maze(1, 3) = true;
   maze(2, 3) = true;
-  heuristic::grid_bfs_queue<common::pair<int>, 3, 5> queue;
+  heuristic::grid_bfs_queue<std::pair<int, int>, 3, 5> queue;
   queue.emplace(0, 0, 0, 0);
-  common::dual_array<common::pair<int>> result(3, 5);
+  heuristic::static_dual_array<std::pair<int, int>, 3, 5> result;
   while (auto top = queue.pop()) {
     auto [i, j, p] = *top;
     if (maze(i, j)) {
@@ -104,14 +104,14 @@ TEST(GridBFSQueue, Emplace) {
 }
 
 TEST(GridBFSQueue, Recursive) {
-  common::dual_array<int> count(3, 3);
+  heuristic::static_dual_array<int, 3, 3> count;
   heuristic::grid_bfs_queue<int, 3, 3> queue;
   queue.emplace(0, 0);
   while (auto center = queue.pop()) {
     auto [ci, cj, _] = *center;
     heuristic::grid_bfs_queue<int, 3, 3> internal;
-    for (auto i : common::irange(-1, 2)) {
-      for (auto j : common::irange(-1, 2)) {
+    for (int i = -1; i <= 1; ++i) {
+      for (int j = -1; j <= 1; ++j) {
         internal.emplace(ci + i, cj + j);
       }
     }

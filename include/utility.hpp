@@ -22,24 +22,16 @@ template <typename T> class dual_array {
 public:
   dual_array(std::size_t d0, std::size_t d1)
       : inside_(d0 * d1), dim0(d0), dim1(d1) {}
-  T& operator()(int i0, int i1) {
-    assert(0 <= i0 && std::cmp_less(i0, dim0));
-    assert(0 <= i1 && std::cmp_less(i1, dim1));
+  template <std::integral Int0, std::integral Int1>
+  T& operator()(Int0 i0, Int1 i1) {
+    assert(std::cmp_greater_equal(i0, 0) && std::cmp_less(i0, dim0));
+    assert(std::cmp_greater_equal(i1, 0) && std::cmp_less(i1, dim1));
     return inside_[i0 * dim1 + i1];
   }
-  T const& operator()(int i0, int i1) const {
-    assert(0 <= i0 && std::cmp_less(i0, dim0));
-    assert(0 <= i1 && std::cmp_less(i1, dim1));
-    return inside_[i0 * dim1 + i1];
-  }
-  T& operator()(std::size_t i0, std::size_t i1) {
-    assert(std::cmp_less(i0, dim0));
-    assert(std::cmp_less(i1, dim1));
-    return inside_[i0 * dim1 + i1];
-  }
-  T const& operator()(std::size_t i0, std::size_t i1) const {
-    assert(i0 < dim0);
-    assert(i1 < dim1);
+  template <std::integral Int0, std::integral Int1>
+  T const& operator()(Int0 i0, Int1 i1) const {
+    assert(std::cmp_greater_equal(i0, 0) && std::cmp_less(i0, dim0));
+    assert(std::cmp_greater_equal(i1, 0) && std::cmp_less(i1, dim1));
     return inside_[i0 * dim1 + i1];
   }
   common::pair<std::size_t> dimensions() const { return {dim0, dim1}; }

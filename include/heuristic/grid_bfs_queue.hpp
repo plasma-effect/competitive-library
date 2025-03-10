@@ -1,9 +1,9 @@
 #pragma once
-#include "utility.hpp"
+#include "heuristic/static_container.hpp"
 
 namespace heuristic {
 template <typename T, std::size_t H, std::size_t W> class grid_bfs_queue {
-  using internal_t = std::pair<int, common::dual_array<int>>;
+  using internal_t = std::pair<int, heuristic::static_dual_array<int, H, W>>;
   using internal_ptr = std::unique_ptr<internal_t>;
   static inline std::vector<internal_ptr> grids;
   internal_ptr grid_ptr;
@@ -34,7 +34,7 @@ public:
       grids.pop_back();
     } else {
       grid_ptr = std::make_unique<internal_t>(
-          std::pair(0, common::dual_array<int>(H, W)));
+          std::pair(0, heuristic::static_dual_array<int, H, W>()));
     }
     ++grid_ptr->first;
   }
