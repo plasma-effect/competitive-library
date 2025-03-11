@@ -1,5 +1,6 @@
 #pragma once
 #include "boost/container/static_vector.hpp"
+#include "print_base.hpp"
 #include <bits/stdc++.h>
 
 namespace heuristic {
@@ -43,5 +44,9 @@ public:
   }
   std::pair<std::size_t, std::size_t> dimensions() const { return {H, W}; }
   std::size_t size() const { return H * W; }
+  friend common::internal::print_base_t&
+  operator<<(common::internal::print_base_t& pb, static_dual_array const& ar) {
+    return pb << ar.inside_;
+  }
 };
 } // namespace heuristic

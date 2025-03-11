@@ -1,4 +1,6 @@
 #include "heuristic/static_container.hpp"
+#include "debug_print.hpp"
+#include "normal_print.hpp"
 #include "test_async.hpp"
 #include <gtest/gtest.h>
 
@@ -96,4 +98,30 @@ TEST(StaticDualArray, DualArrayOutOfBound) {
   ASSERT_DEATH({ car(-1, 0); }, ".");
   ASSERT_DEATH({ car(0, 4); }, ".");
   ASSERT_DEATH({ car(0, -1); }, ".");
+}
+
+TEST(StaticDualArray, DebugPrint) {
+  heuristic::static_dual_array<int, 2, 3> ar;
+  ar(0, 0) = 0;
+  ar(0, 1) = 1;
+  ar(0, 2) = 2;
+  ar(1, 0) = 3;
+  ar(1, 1) = 4;
+  ar(1, 2) = 5;
+  testing::internal::CaptureStderr();
+  debug::println(ar);
+  EXPECT_EQ(testing::internal::GetCapturedStderr(), "{{0, 1, 2}, {3, 4, 5}}\n");
+}
+
+TEST(StaticDualArray, NormalPrint) {
+  heuristic::static_dual_array<int, 2, 3> ar;
+  ar(0, 0) = 0;
+  ar(0, 1) = 1;
+  ar(0, 2) = 2;
+  ar(1, 0) = 3;
+  ar(1, 1) = 4;
+  ar(1, 2) = 5;
+  testing::internal::CaptureStdout();
+  common::println(ar);
+  EXPECT_EQ(testing::internal::GetCapturedStdout(), "0 1 2 3 4 5\n");
 }

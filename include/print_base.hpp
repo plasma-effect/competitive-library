@@ -21,29 +21,46 @@ public:
       : base_flags(os.flags()), ost(os), rng_dec{}, tpl_dec{} {}
   ~print_base_t() { ost.setf(base_flags); }
 
-  void print(std::string const& str) { ost << str; }
-  void print(std::string_view const& view) { ost << view; }
-  void print(const char* str) { ost << str; }
-  template <int mod> void print(atcoder::static_modint<mod> const& val) {
-    ost << val.val();
+  print_base_t& operator<<(std::string const& str) {
+    ost << str;
+    return *this;
   }
-  template <stdstream_able T> void print(T const& v) { ost << v; }
-  template <std::input_iterator It> void print(It first, It last) {
+  print_base_t& operator<<(std::string_view const& view) {
+    ost << view;
+    return *this;
+  }
+  print_base_t& operator<<(const char* str) {
+    ost << str;
+    return *this;
+  }
+  template <int mod>
+  print_base_t& operator<<(atcoder::static_modint<mod> const& val) {
+    ost << val.val();
+    return *this;
+  }
+  template <stdstream_able T> print_base_t& operator<<(T const& v) {
+    ost << v;
+    return *this;
+  }
+  template <std::input_iterator It> void print_ite(It first, It last) {
     ost << rng_dec.prefix;
     if (first != last) {
-      print(*first);
+      *this << *first;
       for (++first; first != last; ++first) {
         ost << rng_dec.delim;
-        print(*first);
+        *this << *first;
       }
     }
     ost << rng_dec.suffix;
   }
-  template <std::ranges::input_range T> void print(T const& rng) {
-    print(rng.begin(), rng.end());
+  template <std::ranges::input_range T> print_base_t& operator<<(T const& rng) {
+    print_ite(rng.begin(), rng.end());
+    return *this;
   }
-  template <typename T, std::size_t N> void print(T const (&ar)[N]) {
-    print(std::ranges::begin(ar), std::ranges::end(ar));
+  template <typename T, std::size_t N>
+  print_base_t& operator<<(T const (&ar)[N]) {
+    print_ite(std::ranges::begin(ar), std::ranges::end(ar));
+    return *this;
   }
   template <std::size_t S, std::size_t I, typename T>
   void tuple_print(T const& t) {
@@ -52,18 +69,30 @@ public:
     } else {
       ost << tpl_dec.delim;
     }
-    print(std::get<I>(t));
+    *this << std::get<I>(t);
     if constexpr (I + 1 != S) {
       tuple_print<S, I + 1>(t);
     } else {
       ost << tpl_dec.suffix;
     }
   }
-  template <typename T0, typename T1> void print(std::pair<T0, T1> const& p) {
+  template <typename T0, typename T1>
+  print_base_t& operator<<(std::pair<T0, T1> const& p) {
     tuple_print<2, 0>(p);
+    return *this;
   }
-  template <typename... Ts> void print(std::tuple<Ts...> const& t) {
+  template <typename... Ts>
+  print_base_t& operator<<(std::tuple<Ts...> const& t) {
     tuple_print<sizeof...(Ts), 0>(t);
+    return *this;
+  }
+  template <typename T> print_base_t& operator<<(std::optional<T> const& opt) {
+    if (opt) {
+      *this << *opt;
+    } else {
+      ost << "<nullopt>";
+    }
+    return *this;
   }
   void set_range_prefix(const char* new_prefix) { rng_dec.prefix = new_prefix; }
   void set_range_suffix(const char* new_suffix) { rng_dec.suffix = new_suffix; }

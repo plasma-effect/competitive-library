@@ -40,7 +40,11 @@ library_cc_test(
 library_cc_test(
     name = "heuristic_static_container_test",
     srcs = ["heuristic/static_container.cpp"],
-    deps = [":test_async"],
+    deps = [
+        ":test_async",
+        "//:debug_print",
+        "//:normal_print",
+    ],
 )
 
 library_cc_test(

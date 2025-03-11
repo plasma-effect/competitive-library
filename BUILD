@@ -61,7 +61,10 @@ cl_library(
 cl_library(
     name = "heuristic_static_container",
     hdrs = ["heuristic/static_container.hpp"],
-    deps = ["@boost//:container"],
+    deps = [
+        ":print_base",
+        "@boost//:container",
+    ],
 )
 
 cl_library(
