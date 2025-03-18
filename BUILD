@@ -43,7 +43,8 @@ cl_library(
 )
 
 cl_library(
-    name = "warshall_floyd",
+    name = "graph_warshall_floyd",
+    hdrs = ["graph/warshall_floyd.hpp"],
     deps = [":utility"],
 )
 
