@@ -235,7 +235,7 @@
     "@@rules_boost+//:boost/repositories.bzl%non_module_dependencies": {
       "general": {
         "bzlTransitiveDigest": "dlyTMe23FsMDhVHvaT18pr66UfaohrC4JFiNLq+UFYc=",
-        "usagesDigest": "EqSIjZIcCQWsx8FiUHwnDXsByEkUbeJviA4oaKafPvs=",
+        "usagesDigest": "TjObQYNzsiH6kEYbDr+JiMHHiq1HDq+Z9+Qw5ROxW28=",
         "recordedFileInputs": {},
         "recordedDirentsInputs": {},
         "envVariables": {},

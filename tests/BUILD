@@ -29,6 +29,11 @@ library_cc_test(
 )
 
 library_cc_test(
+    name = "graph_topological_sort_test",
+    srcs = ["graph/topological_sort.cpp"],
+)
+
+library_cc_test(
     name = "heuristic_random_test",
     srcs = ["heuristic/random.cpp"],
     deps = [":test_async"],

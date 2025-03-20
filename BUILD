@@ -49,6 +49,12 @@ cl_library(
 )
 
 cl_library(
+    name = "graph_topological_sort",
+    hdrs = ["graph/topological_sort.hpp"],
+    deps = [":utility"],
+)
+
+cl_library(
     name = "heuristic_random",
     hdrs = ["heuristic/random.hpp"],
 )
