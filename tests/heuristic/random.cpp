@@ -2,7 +2,28 @@
 #include "test_utils.hpp"
 #include <gtest/gtest.h>
 
-TEST(HeuristicRandom, MakeUniformIntDistribution) {
+TEST(HeuristicRandom, MakeUniformIntDistribution1) {
+  auto results = test_utils::async([] {
+    auto dist = heuristic::make_uniform_int_distribution(3);
+    std::array<int, 5> result{};
+    for (int c = 0; c < 10000; ++c) {
+      auto v = dist();
+      if (v < 0 || v >= 4) {
+        ++result[4];
+      } else {
+        ++result[v];
+      }
+    }
+    return result;
+  });
+  EXPECT_NE(results[0], 0);
+  EXPECT_NE(results[1], 0);
+  EXPECT_NE(results[2], 0);
+  EXPECT_NE(results[3], 0);
+  EXPECT_EQ(results[4], 0);
+}
+
+TEST(HeuristicRandom, MakeUniformIntDistribution2) {
   auto results = test_utils::async([] {
     auto dist = heuristic::make_uniform_int_distribution(0, 3);
     std::array<int, 5> result{};
