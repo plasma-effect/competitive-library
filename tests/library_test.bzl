@@ -24,6 +24,7 @@ def library_cc_test(name, srcs = [], deps = []):
         srcs = srcs,
         deps = deps + [
             "//:" + target,
+            ":test_utils",
             "@googletest//:gtest",
             "@googletest//:gtest_main",
         ],

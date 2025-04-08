@@ -1,9 +1,9 @@
 #include "heuristic/random.hpp"
-#include "test_async.hpp"
+#include "test_utils.hpp"
 #include <gtest/gtest.h>
 
 TEST(HeuristicRandom, MakeUniformIntDistribution) {
-  auto results = test_async([] {
+  auto results = test_utils::async([] {
     auto dist = heuristic::make_uniform_int_distribution(0, 3);
     std::array<int, 5> result{};
     for (int c = 0; c < 10000; ++c) {
@@ -24,7 +24,7 @@ TEST(HeuristicRandom, MakeUniformIntDistribution) {
 }
 
 TEST(HeuristicRandom, GenerateCanonical) {
-  EXPECT_TRUE(test_async([] {
+  EXPECT_TRUE(test_utils::async([] {
     for (int c = 0; c < 10000; ++c) {
       auto v = heuristic::generate_canonical();
       if (v < 0.0 || v >= 1.0) {
@@ -37,14 +37,14 @@ TEST(HeuristicRandom, GenerateCanonical) {
 
 TEST(HeuristicRandom, GenerateCanonicalThreadLocal) {
   constexpr int N = 0x100;
-  auto first = test_async([] {
+  auto first = test_utils::async([] {
     std::array<double, N> result{};
     for (auto& v : result) {
       v = heuristic::generate_canonical();
     }
     return result;
   });
-  auto second = test_async([] {
+  auto second = test_utils::async([] {
     std::array<double, N> result{};
     for (auto& v : result) {
       v = heuristic::generate_canonical();
@@ -56,7 +56,7 @@ TEST(HeuristicRandom, GenerateCanonicalThreadLocal) {
 
 TEST(HeuristicRandom, ShuffleRng) {
   std::array<int, 8> base = {0, 1, 2, 3, 4, 5, 6, 7};
-  auto [first, second] = test_async([base] {
+  auto [first, second] = test_utils::async([base] {
     auto first_rng = base;
     heuristic::shuffle(first_rng);
     auto second_rng = base;
@@ -74,7 +74,7 @@ TEST(HeuristicRandom, ShuffleRng) {
 
 TEST(HeuristicRandom, ShuffleIterator) {
   std::array<int, 8> base = {0, 1, 2, 3, 4, 5, 6, 7};
-  auto [first, second] = test_async([base] {
+  auto [first, second] = test_utils::async([base] {
     auto first_rng = base;
     heuristic::shuffle(first_rng.begin(), first_rng.end());
     auto second_rng = base;

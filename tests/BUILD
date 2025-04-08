@@ -6,9 +6,10 @@ filegroup(
 )
 
 cc_library(
-    name = "test_async",
-    hdrs = ["heuristic/test_async.hpp"],
-    strip_include_prefix = "heuristic",
+    name = "test_utils",
+    hdrs = glob(["test_utils/*.hpp"]),
+    strip_include_prefix = "test_utils",
+    deps = ["@custom_ac_library//:ac_library"],
 )
 
 library_cc_test(name = "utility_test")
@@ -36,20 +37,17 @@ library_cc_test(
 library_cc_test(
     name = "heuristic_random_test",
     srcs = ["heuristic/random.cpp"],
-    deps = [":test_async"],
 )
 
 library_cc_test(
     name = "heuristic_time_control_test",
     srcs = ["heuristic/time_control.cpp"],
-    deps = [":test_async"],
 )
 
 library_cc_test(
     name = "heuristic_static_container_test",
     srcs = ["heuristic/static_container.cpp"],
     deps = [
-        ":test_async",
         "//:debug_print",
         "//:normal_print",
     ],
@@ -58,5 +56,4 @@ library_cc_test(
 library_cc_test(
     name = "heuristic_grid_bfs_queue_test",
     srcs = ["heuristic/grid_bfs_queue.cpp"],
-    deps = [":test_async"],
 )

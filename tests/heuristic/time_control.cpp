@@ -1,10 +1,10 @@
 #include "heuristic/time_control.hpp"
-#include "test_async.hpp"
+#include "test_utils.hpp"
 #include <gtest/gtest.h>
 using namespace std::chrono_literals;
 
 TEST(HeuristicGeneral, GetTime) {
-  auto [first, second] = test_async([] {
+  auto [first, second] = test_utils::async([] {
     auto f = heuristic::get_time();
     std::this_thread::sleep_for(10ms);
     auto s = heuristic::get_time();
@@ -15,17 +15,17 @@ TEST(HeuristicGeneral, GetTime) {
 }
 
 TEST(HeuristicGeneral, GetTimeThreadLocal) {
-  auto f = test_async([] {
+  auto f = test_utils::async([] {
     heuristic::get_time();
     std::this_thread::sleep_for(10ms);
     return heuristic::get_time();
   });
-  auto s = test_async([] { return heuristic::get_time(); });
+  auto s = test_utils::async([] { return heuristic::get_time(); });
   EXPECT_LT(s, f);
 }
 
 TEST(TimeControl, OperatorBool) {
-  auto [first, second] = test_async([] {
+  auto [first, second] = test_utils::async([] {
     heuristic::time_control_t control(100ms);
     auto f = static_cast<bool>(control);
     std::this_thread::sleep_for(100ms);
@@ -37,7 +37,7 @@ TEST(TimeControl, OperatorBool) {
 }
 
 TEST(TimeControl, Frequency) {
-  auto result = test_async([] {
+  auto result = test_utils::async([] {
     std::array<bool, 4> ret{};
     heuristic::time_control_t control(100ms, 2);
     ret[0] = static_cast<bool>(control);
@@ -54,7 +54,7 @@ TEST(TimeControl, Frequency) {
 }
 
 TEST(TimeControl, AnnealingThreshold) {
-  auto result = test_async([] {
+  auto result = test_utils::async([] {
     heuristic::time_control_t control(100ms);
     if (control.annealing_threshold(0.5) <= 1.0) {
       return false;
@@ -69,7 +69,7 @@ TEST(TimeControl, AnnealingThreshold) {
 }
 
 TEST(TimeControl, TransitionCheck) {
-  auto result = test_async([] {
+  auto result = test_utils::async([] {
     heuristic::time_control_t control(100ms);
     std::array<int, 3> count{};
     count[0] = control.transition_check(1.0);

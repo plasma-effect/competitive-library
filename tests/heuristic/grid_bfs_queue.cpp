@@ -1,5 +1,4 @@
 #include "heuristic/grid_bfs_queue.hpp"
-#include "test_async.hpp"
 #include <gtest/gtest.h>
 
 TEST(GridBFSQueue, General) {
