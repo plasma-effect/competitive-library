@@ -10,7 +10,7 @@ namespace {
 void expand_impl(
     std::istream& ist, std::ostream& ost,
     std::map<std::string, std::reference_wrapper<std::istream>> const& headers,
-    std::set<std::string>& included) {
+    std::set<std::string>& included, bool in_header) {
   std::string line;
   std::smatch match;
   while (std::getline(ist, line)) {
@@ -23,12 +23,12 @@ void expand_impl(
       if (!included.contains(match[1])) {
         included.emplace(match[1]);
         if (headers.contains(match[1])) {
-          expand_impl(headers.at(match[1]), ost, headers, included);
+          expand_impl(headers.at(match[1]), ost, headers, included, true);
         } else {
           ost << line << std::endl;
         }
       }
-    } else {
+    } else if (!in_header || line != "") {
       ost << line << std::endl;
     }
   }
@@ -69,7 +69,7 @@ void expand(std::istream& ist, std::ostream& ost,
             std::map<std::string, std::reference_wrapper<std::istream>> const&
                 headers) {
   std::set<std::string> included;
-  expand_impl(ist, ost, headers, included);
+  expand_impl(ist, ost, headers, included, false);
 }
 parse_result_t parse_argc(int argv, const char* argc[]) {
   return parse_argc_impl(argv, argc);
