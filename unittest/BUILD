@@ -24,6 +24,8 @@ library_cc_test(name = "numeric_test")
 
 library_cc_test(name = "segtree_test")
 
+library_cc_test(name = "rolling_hash_test")
+
 library_cc_test(
     name = "graph_warshall_floyd_test",
     srcs = ["graph/warshall_floyd.cpp"],

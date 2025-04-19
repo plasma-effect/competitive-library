@@ -43,6 +43,14 @@ cl_library(
 )
 
 cl_library(
+    name = "rolling_hash",
+    deps = [
+        ":utility",
+        "@boost//:multiprecision",
+    ],
+)
+
+cl_library(
     name = "graph_warshall_floyd",
     hdrs = ["graph/warshall_floyd.hpp"],
     deps = [":utility"],

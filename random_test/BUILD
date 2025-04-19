@@ -11,3 +11,7 @@ library_cc_test(
     srcs = ["graph/topological_sort.cpp"],
     deps = ["@custom_ac_library//:ac_library"],
 )
+
+library_cc_test(
+    name = "rolling_hash_test",
+)
