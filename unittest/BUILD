@@ -16,7 +16,10 @@ library_cc_test(name = "utility_test")
 
 library_cc_test(name = "print_base_test")
 
-library_cc_test(name = "debug_print_test")
+library_cc_test(
+    name = "debug_print_test",
+    copts = ["-DLOCAL_DEBUG"],
+)
 
 library_cc_test(name = "normal_print_test")
 
@@ -49,6 +52,7 @@ library_cc_test(
 library_cc_test(
     name = "heuristic_static_container_test",
     srcs = ["heuristic/static_container.cpp"],
+    copts = ["-DLOCAL_DEBUG"],
     deps = [
         "//:debug_print",
         "//:normal_print",
