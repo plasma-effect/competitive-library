@@ -1,6 +1,20 @@
 #include "rolling_hash.hpp"
 #include "gtest/gtest.h"
 
+TEST(RollingHash, Utilities) {
+  using hash_t = common::rolling_hash<'a', 'z'>;
+  hash_t h0("abc");
+  auto raw0 = h0.raw();
+  EXPECT_EQ(h0.size(), 3);
+
+  static_assert(!std::is_copy_constructible_v<hash_t>);
+  static_assert(!std::is_copy_assignable_v<hash_t>);
+  auto h1 = std::move(h0);
+  EXPECT_EQ(h1.raw(), raw0);
+  h0 = std::move(h1);
+  EXPECT_EQ(h0.raw(), raw0);
+}
+
 TEST(RollingHash, Parent) {
   using hash_t = common::rolling_hash<'a', 'z'>;
   std::string s0 = "abc";
@@ -34,7 +48,33 @@ TEST(RollingHash, SubHash) {
   auto sh3 = h0.subhash(0);
   auto sh4 = h0.subhash(3);
   EXPECT_NE(sh0, sh1);
-  EXPECT_EQ(sh0, sh2) << int64_t(sh0.hash()) << " " << int64_t(sh2.hash());
+  EXPECT_EQ(sh0, sh2);
   EXPECT_NE(sh0, sh3);
   EXPECT_EQ(sh0, sh4);
+
+  // rolling_hash can compare to subhash_t
+  EXPECT_EQ(h0, sh3);
+  EXPECT_EQ(sh3, h0);
+}
+
+TEST(RollingHash, Set) {
+  using hash_t = common::rolling_hash<'a', 'z'>;
+  std::set<hash_t> set;
+  set.emplace("abc");
+  set.emplace("def");
+  set.emplace("ghi");
+  EXPECT_EQ(set.size(), 3);
+  EXPECT_TRUE(set.contains("abc"));
+  EXPECT_FALSE(set.contains("bcd"));
+}
+
+TEST(RollingHash, UnorderedSet) {
+  using hash_t = common::rolling_hash<'a', 'z'>;
+  std::unordered_set<hash_t> set;
+  set.emplace("abc");
+  set.emplace("def");
+  set.emplace("ghi");
+  EXPECT_EQ(set.size(), 3);
+  EXPECT_TRUE(set.contains("abc"));
+  EXPECT_FALSE(set.contains("bcd"));
 }

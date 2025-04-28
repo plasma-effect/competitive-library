@@ -37,13 +37,13 @@ class rolling_hash {
     return pow;
   }
   std::vector<int_t> hashes;
-  std::size_t size;
+  std::size_t size_;
 
 public:
-  template <typename Rng>
-  rolling_hash(Rng&& rng) : hashes(), size(std::size(rng)) {
+  template <std::ranges::input_range Rng>
+  rolling_hash(Rng&& rng) : hashes(), size_(std::size(rng)) {
     int_t hash = 0;
-    hashes.reserve(size + 1);
+    hashes.reserve(size_ + 1);
     hashes.emplace_back(hash);
     for (auto c : rng) {
       assert(Min <= c && c <= Max);
@@ -52,6 +52,17 @@ public:
       hash %= mod();
       hashes.emplace_back(hash);
     }
+  }
+  template <std::size_t N>
+  rolling_hash(const char (&str)[N]) : rolling_hash(std::string_view(str)) {}
+  rolling_hash(const rolling_hash&) = delete;
+  rolling_hash& operator=(const rolling_hash&) = delete;
+  rolling_hash(rolling_hash&& h)
+      : hashes(std::move(h.hashes)), size_(h.size_) {}
+  rolling_hash& operator=(rolling_hash&& h) {
+    hashes = std::move(h.hashes);
+    size_ = h.size_;
+    return *this;
   }
   class subhash_t {
     const rolling_hash& parent;
@@ -67,21 +78,33 @@ public:
       return h >= 0 ? h : h + mod();
     }
     friend class rolling_hash;
-
-    bool operator==(const subhash_t& rhs) const {
-      return len == rhs.len && hash() == rhs.hash();
-    }
-    bool operator!=(const subhash_t& rhs) const { return !(*this == rhs); }
   };
   subhash_t subhash(std::size_t first,
                     std::size_t len = common::max_v<std::size_t>) const {
-    assert(first <= size);
-    len = std::min(len, size - first);
+    assert(first <= size_);
+    len = std::min(len, size_ - first);
     return subhash_t{*this, first, len};
   }
-  bool operator==(const rolling_hash& rhs) const {
-    return size == rhs.size && hashes.back() == rhs.hashes.back();
-  }
-  bool operator!=(const rolling_hash& rhs) const { return !(*this == rhs); }
+  auto size() const { return size_; }
+  auto raw() const { return static_cast<std::size_t>(hashes.back()); }
+  int_t hash() const { return hashes.back(); }
 };
+template <typename T>
+concept rolling_hash_t = requires(T const& h) { h.hash(); };
+template <rolling_hash_t Lhs, rolling_hash_t Rhs>
+bool operator==(Lhs const& lhs, Rhs const& rhs) {
+  return lhs.hash() == rhs.hash();
+}
+template <rolling_hash_t Lhs, rolling_hash_t Rhs>
+auto operator<=>(Lhs const& lhs, Rhs const& rhs) {
+  return lhs == rhs ? std::strong_ordering::equal : lhs.hash() <=> rhs.hash();
+}
 } // namespace common
+namespace std {
+template <char Min, char Max, std::size_t Size>
+struct hash<common::rolling_hash<Min, Max, Size>> {
+  std::size_t operator()(common::rolling_hash<Min, Max, Size> const& h) const {
+    return h.raw();
+  }
+};
+} // namespace std
