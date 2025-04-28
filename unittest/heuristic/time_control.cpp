@@ -53,9 +53,9 @@ TEST(TimeControl, Frequency) {
   EXPECT_FALSE(result[3]);
 }
 
-TEST(TimeControl, AnnealingThreshold) {
+TEST(TimeControlAnnealing, AnnealingThreshold) {
   auto result = test_utils::async([] {
-    heuristic::time_control_t control(100ms);
+    heuristic::time_control_with_annealing control(100ms, 100, 50);
     if (control.annealing_threshold(0.5) <= 1.0) {
       return false;
     } else if (control.annealing_threshold(0.0) != 1.0) {
@@ -68,9 +68,9 @@ TEST(TimeControl, AnnealingThreshold) {
   EXPECT_TRUE(result);
 }
 
-TEST(TimeControl, TransitionCheck) {
+TEST(TimeControlAnnealing, TransitionCheck) {
   auto result = test_utils::async([] {
-    heuristic::time_control_t control(100ms);
+    heuristic::time_control_with_annealing control(100ms, 100, 50);
     std::array<int, 3> count{};
     count[0] = control.transition_check(1.0);
     for (int c = 0; c < 10000; ++c) {
