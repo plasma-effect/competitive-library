@@ -45,4 +45,12 @@ public:
 
 template <typename T, typename F = std::greater<>>
 using priority_queue = std::priority_queue<T, std::vector<T>, F>;
+
+constexpr bool is_debug() {
+#ifdef LOCAL_DEBUG
+  return true;
+#else
+  return false;
+#endif
+}
 } // namespace common

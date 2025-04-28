@@ -14,6 +14,13 @@ cc_library(
 
 library_cc_test(name = "utility_test")
 
+library_cc_test(
+    name = "utility_debug_test",
+    srcs = ["utility.cpp"],
+    copts = ["-DLOCAL_DEBUG"],
+    target = "utility",
+)
+
 library_cc_test(name = "print_base_test")
 
 library_cc_test(

@@ -13,10 +13,11 @@ LINKOPTS = [
     "-fsanitize=undefined,address",
 ]
 
-def library_cc_test(name, srcs = [], deps = [], copts = []):
+def library_cc_test(name, target = "", srcs = [], deps = [], copts = []):
     if not name.endswith("_test"):
         fail("Error: name of 'library_cc_test' must have '_test' suffix ({})".format(name))
-    target = name[:-len("_test")]
+    if target == "":
+        target = name[:-len("_test")]
     if srcs == []:
         srcs = [target + ".cpp"]
     return native.cc_test(

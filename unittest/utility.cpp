@@ -120,3 +120,9 @@ TEST(Utility, PriorityQueue) {
     ASSERT_EQ(v, 4);
   }
 }
+
+#ifdef LOCAL_DEBUG
+static_assert(common::is_debug());
+#else
+static_assert(!common::is_debug());
+#endif
