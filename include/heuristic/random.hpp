@@ -1,13 +1,13 @@
 #pragma once
 #include <bits/stdc++.h>
 
-namespace heuristic::internal {
+namespace heuristic {
+namespace internal {
 std::mt19937& get_common_engine() {
   thread_local std::mt19937 engine{};
   return engine;
 }
-} // namespace heuristic::internal
-namespace heuristic {
+} // namespace internal
 template <typename T> auto make_uniform_int_distribution(T min, T max) {
   auto& engine = internal::get_common_engine();
   std::uniform_int_distribution<T> dist(min, max);

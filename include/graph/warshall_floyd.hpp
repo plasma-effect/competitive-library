@@ -1,7 +1,8 @@
 #pragma once
 #include "utility.hpp"
 
-namespace graph::internal {
+namespace graph {
+namespace internal {
 template <typename T>
 void local_update(std::optional<T>& base, std::optional<T> a,
                   std::optional<T> b) {
@@ -16,8 +17,7 @@ void local_update(std::optional<T>& base, std::optional<T> a,
 template <typename T> void local_update(T& base, T a, T b) {
   base = std::min(base, a + b);
 }
-} // namespace graph::internal
-namespace graph {
+} // namespace internal
 template <typename T> void warshall_floyd(common::dual_array<T>& data) {
   auto [N, d1] = data.dimensions();
   assert(N == d1);

@@ -2,7 +2,8 @@
 #include "utility.hpp"
 #include <bits/stdc++.h>
 
-namespace graph::internal {
+namespace graph {
+namespace internal {
 template <std::integral Int> struct topological_sort_impl {
   enum class flag { none, temporary, done };
   std::vector<std::set<Int>> const& edge;
@@ -24,8 +25,7 @@ template <std::integral Int> struct topological_sort_impl {
     return true;
   }
 };
-} // namespace graph::internal
-namespace graph {
+} // namespace internal
 template <std::integral Int>
 std::optional<std::vector<Int>>
 topological_sort(std::vector<std::set<Int>> const& edge) {
