@@ -30,6 +30,8 @@ library_cc_test(
 
 library_cc_test(name = "normal_print_test")
 
+library_cc_test(name = "math_test")
+
 library_cc_test(name = "numeric_test")
 
 library_cc_test(name = "segtree_test")

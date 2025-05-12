@@ -34,6 +34,10 @@ cl_library(
 )
 
 cl_library(
+    name = "math",
+)
+
+cl_library(
     name = "segtree",
     deps = [
         ":numeric",
