@@ -35,6 +35,7 @@ cl_library(
 
 cl_library(
     name = "math",
+    deps = [":utility"],
 )
 
 cl_library(

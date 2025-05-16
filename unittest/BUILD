@@ -30,7 +30,10 @@ library_cc_test(
 
 library_cc_test(name = "normal_print_test")
 
-library_cc_test(name = "math_test")
+library_cc_test(
+    name = "math_test",
+    deps = ["@custom_ac_library//:ac_library"],
+)
 
 library_cc_test(name = "numeric_test")
 
