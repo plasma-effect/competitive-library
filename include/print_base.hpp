@@ -19,7 +19,7 @@ class print_base_t {
 public:
   print_base_t(std::ostream& os)
       : base_flags(os.flags()), ost(os), rng_dec{}, tpl_dec{} {}
-  ~print_base_t() { ost.setf(base_flags); }
+  ~print_base_t() { ost.flags(base_flags); }
 
   print_base_t& operator<<(std::string const& str) {
     ost << str;
@@ -92,6 +92,39 @@ public:
     } else {
       ost << "<nullopt>";
     }
+    return *this;
+  }
+  template <typename T>
+  print_base_t& operator<<(common::dual_array<T> const& ar) {
+    auto [H, W] = ar.dimensions();
+    const char* outer_delim = "";
+    ost << rng_dec.prefix;
+    for (auto i : common::irange(H)) {
+      ost << std::exchange(outer_delim, rng_dec.delim) << rng_dec.prefix;
+      const char* inner_delim = "";
+      for (auto j : common::irange(W)) {
+        ost << std::exchange(inner_delim, rng_dec.delim);
+        *this << ar(i, j);
+      }
+      ost << rng_dec.suffix;
+    }
+    ost << rng_dec.suffix;
+    return *this;
+  }
+  print_base_t& operator<<(common::dual_array<bool> const& ar) {
+    auto [H, W] = ar.dimensions();
+    const char* outer_delim = "";
+    ost << rng_dec.prefix;
+    for (auto i : common::irange(H)) {
+      ost << std::exchange(outer_delim, rng_dec.delim) << rng_dec.prefix;
+      const char* inner_delim = "";
+      for (auto j : common::irange(W)) {
+        ost << std::exchange(inner_delim, rng_dec.delim);
+        ost << bool(ar(i, j));
+      }
+      ost << rng_dec.suffix;
+    }
+    ost << rng_dec.suffix;
     return *this;
   }
   void set_range_prefix(const char* new_prefix) { rng_dec.prefix = new_prefix; }
