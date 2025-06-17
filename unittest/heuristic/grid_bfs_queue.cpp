@@ -7,7 +7,7 @@ TEST(GridBFSQueue, General) {
   heuristic::static_dual_array<std::optional<int>, 3, 3> result;
   while (auto top = queue.pop()) {
     auto [i, j, d] = *top;
-    EXPECT_FALSE(result(i, j)) << std::format("(i, j) = ({}, {})", i, j);
+    EXPECT_FALSE(result(i, j)) << "i = " << i << ", j = " << j;
     result(i, j) = d;
     queue.push(i + 1, j, d + 1);
     queue.push(i, j + 1, d + 1);
@@ -39,7 +39,7 @@ TEST(GridBFSQueue, Snake) {
   heuristic::static_dual_array<std::optional<int>, 3, 5> result;
   while (auto top = queue.pop()) {
     auto [i, j, d] = *top;
-    EXPECT_FALSE(result(i, j)) << std::format("(i, j) = ({}, {})", i, j);
+    EXPECT_FALSE(result(i, j)) << "i = " << i << ", j = " << j;
     if (maze(i, j)) {
       continue;
     }

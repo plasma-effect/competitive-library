@@ -20,8 +20,8 @@ template <typename T> constexpr monoid_t plus{T(0), std::plus<>()};
 template <typename T> constexpr monoid_t multiplies{T(1), std::multiplies<>()};
 template <typename T>
 constexpr monoid_t min{common::max_v<T>,
-                       static_cast<T const& (*)(T const&, T const&)>(std::min)};
+                       [](T const& a, T const& b) { return std::min(a, b); }};
 template <typename T>
 constexpr monoid_t max{common::min_v<T>,
-                       static_cast<T const& (*)(T const&, T const&)>(std::max)};
+                       [](T const& a, T const& b) { return std::max(a, b); }};
 } // namespace numeric
