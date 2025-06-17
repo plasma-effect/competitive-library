@@ -23,6 +23,9 @@ target_link_libraries(unittest PRIVATE
   unittest_utils
   GTest::gtest_main
 )
+if(COMPETITIVE_BUILD_MODE STREQUAL "Develop")
+target_link_libraries(unittest PRIVATE competitive stdc++exp)
+endif()
 
 include(GoogleTest)
 gtest_discover_tests(unittest)

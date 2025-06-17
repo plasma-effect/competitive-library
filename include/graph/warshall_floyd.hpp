@@ -1,4 +1,5 @@
 #pragma once
+#include "assert.h"
 #include "utility.hpp"
 
 namespace graph {
@@ -20,7 +21,7 @@ template <typename T> void local_update(T& base, T a, T b) {
 } // namespace internal
 template <typename T> void warshall_floyd(common::dual_array<T>& data) {
   auto [N, d1] = data.dimensions();
-  assert(N == d1);
+  CL_ASSERT(N == d1);
   for (auto k : common::irange(N)) {
     for (auto i : common::irange(N)) {
       for (auto j : common::irange(N)) {

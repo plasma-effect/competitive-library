@@ -85,19 +85,21 @@ TEST(StaticDualArray, DualArrayGetSize) {
   ASSERT_EQ(ar.size(), 6u);
 }
 
+#ifdef LOCAL_DEBUG
 TEST(StaticDualArray, DualArrayOutOfBound) {
   heuristic::static_dual_array<int, 2, 3> ar;
-  ASSERT_DEATH({ ar(2, 0); }, ".");
-  ASSERT_DEATH({ ar(-1, 0); }, ".");
-  ASSERT_DEATH({ ar(0, 4); }, ".");
-  ASSERT_DEATH({ ar(0, -1); }, ".");
+  ASSERT_THROW({ ar(2, 0); }, std::logic_error);
+  ASSERT_THROW({ ar(-1, 0); }, std::logic_error);
+  ASSERT_THROW({ ar(0, 4); }, std::logic_error);
+  ASSERT_THROW({ ar(0, -1); }, std::logic_error);
 
   const auto& car = ar;
-  ASSERT_DEATH({ car(2, 0); }, ".");
-  ASSERT_DEATH({ car(-1, 0); }, ".");
-  ASSERT_DEATH({ car(0, 4); }, ".");
-  ASSERT_DEATH({ car(0, -1); }, ".");
+  ASSERT_THROW({ car(2, 0); }, std::logic_error);
+  ASSERT_THROW({ car(-1, 0); }, std::logic_error);
+  ASSERT_THROW({ car(0, 4); }, std::logic_error);
+  ASSERT_THROW({ car(0, -1); }, std::logic_error);
 }
+#endif
 
 TEST(StaticDualArray, DebugPrint) {
   heuristic::static_dual_array<int, 2, 3> ar;

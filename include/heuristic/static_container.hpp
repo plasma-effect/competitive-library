@@ -1,4 +1,5 @@
 #pragma once
+#include "assert.hpp"
 #include "boost/container/static_vector.hpp"
 #include "print_base.hpp"
 #include <bits/stdc++.h>
@@ -32,14 +33,14 @@ public:
   static_dual_array() : inside_{} {};
   template <std::integral Int0, std::integral Int1>
   T& operator()(Int0 i0, Int1 i1) {
-    assert(std::cmp_greater_equal(i0, 0) && std::cmp_less(i0, H));
-    assert(std::cmp_greater_equal(i1, 0) && std::cmp_less(i1, W));
+    CL_ASSERT(std::cmp_greater_equal(i0, 0) && std::cmp_less(i0, H));
+    CL_ASSERT(std::cmp_greater_equal(i1, 0) && std::cmp_less(i1, W));
     return inside_[i0][i1];
   }
   template <std::integral Int0, std::integral Int1>
   T const& operator()(Int0 i0, Int1 i1) const {
-    assert(std::cmp_greater_equal(i0, 0) && std::cmp_less(i0, H));
-    assert(std::cmp_greater_equal(i1, 0) && std::cmp_less(i1, W));
+    CL_ASSERT(std::cmp_greater_equal(i0, 0) && std::cmp_less(i0, H));
+    CL_ASSERT(std::cmp_greater_equal(i1, 0) && std::cmp_less(i1, W));
     return inside_[i0][i1];
   }
   std::pair<std::size_t, std::size_t> dimensions() const { return {H, W}; }

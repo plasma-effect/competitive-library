@@ -23,6 +23,9 @@ target_link_libraries(random_test PRIVATE
   random_test_utils
   GTest::gtest_main
 )
+if(COMPETITIVE_BUILD_MODE STREQUAL "Develop")
+target_link_libraries(random_test PRIVATE competitive stdc++exp)
+endif()
 
 include(GoogleTest)
 gtest_discover_tests(random_test)
