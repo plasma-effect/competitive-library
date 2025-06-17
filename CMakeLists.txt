@@ -14,6 +14,7 @@ target_include_directories(competitive INTERFACE
   ${HOME_DIR}/boost_1_82_0/include
 )
 
+enable_testing()
 include(FetchContent)
 FetchContent_Declare(
   googletest

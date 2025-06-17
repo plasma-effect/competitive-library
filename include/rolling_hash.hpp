@@ -1,5 +1,7 @@
 #pragma once
+#ifndef __GNUC__
 #include "boost/multiprecision/cpp_int.hpp"
+#endif
 #include "utility.hpp"
 #include <bits/stdc++.h>
 
