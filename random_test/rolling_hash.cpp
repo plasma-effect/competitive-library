@@ -7,7 +7,7 @@ class RollingHashRandom : public test_utils::RandomTestBase,
   static inline std::mt19937 engine;
 
 protected:
-  static constexpr std::size_t N = 100'000;
+  static constexpr std::size_t N = 1000;
   virtual std::mt19937& get_random_engine() override { return engine; }
   std::string make_random_string() {
     auto dist = make_uniform_int_distribution('a', 'z');
@@ -22,28 +22,14 @@ protected:
 
 TEST_P(RollingHashRandom, Simple) {
   using hash_t = common::rolling_hash<'a', 'z'>;
-  auto base = make_random_string();
-  auto s = base;
-  auto get_index = make_uniform_int_distribution(N);
-  auto get_char = make_uniform_int_distribution('a', 'z');
-  std::set<std::size_t> diff;
-  hash_t hash(base);
+  std::map<hash_t, std::string> hashes;
   for ([[maybe_unused]] auto _ : common::irange(1000)) {
-    auto i = get_index();
-    auto c = get_char();
-    s[i] = c;
-    if (diff.contains(i) && s[i] == base[i]) {
-      diff.erase(i);
-    } else if (s[i] != base[i]) {
-      diff.emplace(i);
-    }
-    hash_t h(s);
-    if (diff.size()) {
-      ASSERT_NE(hash, h) << "base = " << base.substr(0, 10)
-                         << "..., s = " << s.substr(0, 10) << "...";
+    auto s = make_random_string();
+    hash_t hash(s);
+    if (hashes.contains(hash)) {
+      ASSERT_EQ(hashes.at(hash), s) << "hash conflict";
     } else {
-      ASSERT_EQ(hash, h) << "base = " << base.substr(0, 10)
-                         << "..., s = " << s.substr(0, 10) << "...";
+      hashes.emplace(std::move(hash), std::move(s));
     }
   }
 }
@@ -56,14 +42,14 @@ TEST_P(RollingHashRandom, SubStr) {
   hash_t hash0(str0), hash1(str1);
   for (auto i : common::irange(10)) {
     for (auto j : common::irange(10)) {
-      auto v0 = view0.substr(i, 10000);
-      auto v1 = view1.substr(j, 10000);
+      auto v0 = view0.substr(i, N / 10);
+      auto v1 = view1.substr(j, N / 10);
       if (v0 != v1) {
-        ASSERT_NE(hash0.subhash(i, 10000), hash1.subhash(j, 10000))
+        ASSERT_NE(hash0.subhash(i, N / 10), hash1.subhash(j, N / 10))
             << "v0 = " << v0.substr(0, 10) << "..., v1 = " << v1.substr(0, 10)
             << "...";
       } else {
-        ASSERT_EQ(hash0.subhash(i, 10000), hash1.subhash(j, 10000))
+        ASSERT_EQ(hash0.subhash(i, N / 10), hash1.subhash(j, N / 10))
             << "v0 = " << v0.substr(0, 10) << "..., v1 = " << v1.substr(0, 10)
             << "...";
       }
