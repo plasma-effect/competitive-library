@@ -3,7 +3,7 @@
 
 namespace heuristic {
 namespace internal {
-std::mt19937& get_common_engine() {
+inline std::mt19937& get_common_engine() {
   thread_local std::mt19937 engine{};
   return engine;
 }
@@ -16,7 +16,7 @@ template <typename T> auto make_uniform_int_distribution(T min, T max) {
 template <typename T> auto make_uniform_int_distribution(T max) {
   return make_uniform_int_distribution<T>(0, max);
 }
-double generate_canonical() {
+inline double generate_canonical() {
   auto& engine = internal::get_common_engine();
   constexpr auto digits = std::numeric_limits<double>::digits;
   return std::generate_canonical<double, digits>(engine);

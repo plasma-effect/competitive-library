@@ -2,7 +2,6 @@
 #include "print_base.hpp"
 #include <bits/stdc++.h>
 
-#ifdef LOCAL_DEBUG
 namespace debug {
 inline void println() { std::cerr << std::endl; }
 template <typename... Ts> void println(Ts const&... args) {
@@ -17,6 +16,7 @@ template <typename... Ts> void println(Ts const&... args) {
   std::cerr << std::endl;
 }
 } // namespace debug
+#ifdef LOCAL_DEBUG
 #define DEBUG_PRINT(...) debug::println(__LINE__, ":", __VA_ARGS__)
 #else
 #define DEBUG_PRINT(...) (void)(0)

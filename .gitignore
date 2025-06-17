@@ -32,5 +32,5 @@
 *.app
 test_all
 
-# Other
-bazel-*
+# Directories
+build
