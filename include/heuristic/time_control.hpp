@@ -50,7 +50,9 @@ public:
     T = T1 * std::pow(dT, 1 - nt);
   }
 
-  double annealing_threshold(double diff) { return std::exp(diff / T); }
+  double annealing_threshold(double diff) {
+    return std::exp(diff / T);
+  }
   bool transition_check(double diff) {
     if (diff > 0) {
       return true;

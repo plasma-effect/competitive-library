@@ -8,7 +8,9 @@ class RollingHashRandom : public test_utils::RandomTestBase,
 
 protected:
   static constexpr std::size_t N = 1000;
-  virtual std::mt19937& get_random_engine() override { return engine; }
+  virtual std::mt19937& get_random_engine() override {
+    return engine;
+  }
   std::string make_random_string() {
     auto dist = make_uniform_int_distribution('a', 'z');
     std::string s;

@@ -13,7 +13,9 @@ protected:
   static constexpr int N = 100'000;
   static constexpr int E = 200'000;
 
-  virtual std::mt19937& get_random_engine() override { return engine; }
+  virtual std::mt19937& get_random_engine() override {
+    return engine;
+  }
   virtual void SetUp() override {
     order.resize(N);
     edge.resize(N);

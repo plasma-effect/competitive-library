@@ -11,7 +11,9 @@ inline std::mt19937& get_common_engine() {
 template <typename T> auto make_uniform_int_distribution(T min, T max) {
   auto& engine = internal::get_common_engine();
   std::uniform_int_distribution<T> dist(min, max);
-  return [&engine, dist]() mutable { return dist(engine); };
+  return [&engine, dist]() mutable {
+    return dist(engine);
+  };
 }
 template <typename T> auto make_uniform_int_distribution(T max) {
   return make_uniform_int_distribution<T>(0, max);

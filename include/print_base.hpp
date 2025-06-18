@@ -19,7 +19,9 @@ class print_base_t {
 public:
   print_base_t(std::ostream& os)
       : base_flags(os.flags()), ost(os), rng_dec{}, tpl_dec{} {}
-  ~print_base_t() { ost.flags(base_flags); }
+  ~print_base_t() {
+    ost.flags(base_flags);
+  }
 
   print_base_t& operator<<(std::string const& str) {
     ost << str;
@@ -127,12 +129,24 @@ public:
     ost << rng_dec.suffix;
     return *this;
   }
-  void set_range_prefix(const char* new_prefix) { rng_dec.prefix = new_prefix; }
-  void set_range_suffix(const char* new_suffix) { rng_dec.suffix = new_suffix; }
-  void set_range_delim(const char* new_delim) { rng_dec.delim = new_delim; }
-  void set_tuple_prefix(const char* new_prefix) { tpl_dec.prefix = new_prefix; }
-  void set_tuple_suffix(const char* new_suffix) { tpl_dec.suffix = new_suffix; }
-  void set_tuple_delim(const char* new_delim) { tpl_dec.delim = new_delim; }
+  void set_range_prefix(const char* new_prefix) {
+    rng_dec.prefix = new_prefix;
+  }
+  void set_range_suffix(const char* new_suffix) {
+    rng_dec.suffix = new_suffix;
+  }
+  void set_range_delim(const char* new_delim) {
+    rng_dec.delim = new_delim;
+  }
+  void set_tuple_prefix(const char* new_prefix) {
+    tpl_dec.prefix = new_prefix;
+  }
+  void set_tuple_suffix(const char* new_suffix) {
+    tpl_dec.suffix = new_suffix;
+  }
+  void set_tuple_delim(const char* new_delim) {
+    tpl_dec.delim = new_delim;
+  }
 };
 
 template <typename T>

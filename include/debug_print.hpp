@@ -3,7 +3,9 @@
 #include <bits/stdc++.h>
 
 namespace debug {
-inline void println() { std::cerr << std::endl; }
+inline void println() {
+  std::cerr << std::endl;
+}
 template <typename... Ts> void println(Ts const&... args) {
   common::internal::print_base_t pb(std::cerr);
   pb.set_range_prefix("{");

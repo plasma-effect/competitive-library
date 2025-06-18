@@ -35,8 +35,12 @@ public:
     CL_ASSERT(std::cmp_greater_equal(i1, 0) && std::cmp_less(i1, dim1));
     return inside_[i0 * dim1 + i1];
   }
-  common::pair<std::size_t> dimensions() const { return {dim0, dim1}; }
-  std::size_t size() const { return dim0 * dim1; }
+  common::pair<std::size_t> dimensions() const {
+    return {dim0, dim1};
+  }
+  std::size_t size() const {
+    return dim0 * dim1;
+  }
 };
 
 template <> class dual_array<bool> : public dual_array<std::uint8_t> {

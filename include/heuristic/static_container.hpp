@@ -22,8 +22,12 @@ public:
       std::ranges::push_heap(cont, comp);
     }
   }
-  auto begin() const { return cont.begin(); }
-  auto end() const { return cont.end(); }
+  auto begin() const {
+    return cont.begin();
+  }
+  auto end() const {
+    return cont.end();
+  }
 };
 
 template <typename T, std::size_t H, std::size_t W> class static_dual_array {
@@ -43,8 +47,12 @@ public:
     CL_ASSERT(std::cmp_greater_equal(i1, 0) && std::cmp_less(i1, W));
     return inside_[i0][i1];
   }
-  std::pair<std::size_t, std::size_t> dimensions() const { return {H, W}; }
-  std::size_t size() const { return H * W; }
+  std::pair<std::size_t, std::size_t> dimensions() const {
+    return {H, W};
+  }
+  std::size_t size() const {
+    return H * W;
+  }
   friend common::internal::print_base_t&
   operator<<(common::internal::print_base_t& pb, static_dual_array const& ar) {
     return pb << ar.inside_;

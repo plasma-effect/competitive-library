@@ -38,9 +38,15 @@ public:
     }
     ++grid_ptr->first;
   }
-  ~grid_bfs_queue() { grids.push_back(std::move(grid_ptr)); }
-  void push(int i, int j, T&& arg) { queue.emplace(i, j, std::move(arg)); }
-  void push(int i, int j, const T& arg) { queue.emplace(i, j, arg); }
+  ~grid_bfs_queue() {
+    grids.push_back(std::move(grid_ptr));
+  }
+  void push(int i, int j, T&& arg) {
+    queue.emplace(i, j, std::move(arg));
+  }
+  void push(int i, int j, const T& arg) {
+    queue.emplace(i, j, arg);
+  }
   template <typename... Args> void emplace(int i, int j, Args&&... args) {
     push(i, j, T(std::forward<Args>(args)...));
   }

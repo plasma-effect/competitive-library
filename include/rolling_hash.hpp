@@ -34,7 +34,9 @@ class rolling_hash {
     static const int_t b = internal::make_base();
     return b;
   }
-  static int_t mod() { return (1LL << 61) - 1; }
+  static int_t mod() {
+    return (1LL << 61) - 1;
+  }
   static const std::vector<int_t>& get_pow() {
     static const auto pow = internal::make_pow(base(), mod(), MaxSize);
     return pow;
@@ -88,9 +90,15 @@ public:
     len = std::min(len, size_ - first);
     return subhash_t{*this, first, len};
   }
-  auto size() const { return size_; }
-  auto raw() const { return static_cast<std::size_t>(hashes.back()); }
-  int_t hash() const { return hashes.back(); }
+  auto size() const {
+    return size_;
+  }
+  auto raw() const {
+    return static_cast<std::size_t>(hashes.back());
+  }
+  int_t hash() const {
+    return hashes.back();
+  }
 };
 template <typename T>
 concept rolling_hash_t = requires(T const& h) { h.hash(); };
