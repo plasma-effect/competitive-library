@@ -7,8 +7,10 @@ add_custom_command(
 add_library(lib_expander lib_expander.cpp)
 target_include_directories(lib_expander PUBLIC ${CMAKE_CURRENT_LIST_DIR})
 
+file(GLOB_RECURSE EMBED_FILES ${CMAKE_SOURCE_DIR}/include/*)
 add_library(lib_embedded_headers ${EMBEDDED_HEADERS_CPP})
 target_include_directories(lib_embedded_headers PUBLIC ${CMAKE_CURRENT_LIST_DIR})
+target_sources(lib_embedded_headers PUBLIC ${EMBED_FILES})
 
 add_executable(expander expander.cpp)
 target_link_libraries(expander PRIVATE
