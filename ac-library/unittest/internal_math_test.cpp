@@ -1,4 +1,8 @@
+#ifdef LOCAL_DEBUG
+#include "atcoder/internal/math.hpp"
+#else
 #include "atcoder/internal_math.hpp"
+#endif
 
 #include "utils/math.hpp"
 

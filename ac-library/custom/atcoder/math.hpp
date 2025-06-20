@@ -6,7 +6,7 @@
 #include <tuple>
 #include <vector>
 
-#include "atcoder/internal_math.hpp"
+#include "atcoder/internal/math.hpp"
 
 namespace atcoder {
 

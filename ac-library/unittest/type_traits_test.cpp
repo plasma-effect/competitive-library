@@ -1,4 +1,8 @@
+#ifdef LOCAL_DEBUG
+#include "atcoder/internal/type_traits.hpp"
+#else
 #include "atcoder/internal_type_traits.hpp"
+#endif
 
 #include <type_traits>
 

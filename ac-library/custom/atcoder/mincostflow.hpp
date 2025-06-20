@@ -7,8 +7,8 @@
 #include <queue>
 #include <vector>
 
-#include "atcoder/internal_csr.hpp"
-#include "atcoder/internal_queue.hpp"
+#include "atcoder/internal/csr.hpp"
+#include "atcoder/internal/queue.hpp"
 
 namespace atcoder {
 
