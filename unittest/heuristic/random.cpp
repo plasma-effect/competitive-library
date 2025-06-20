@@ -44,6 +44,38 @@ TEST(HeuristicRandom, MakeUniformIntDistribution2) {
   EXPECT_EQ(results[4], 0);
 }
 
+TEST(HeuristicRandom, MakeUniformRealDistribution1) {
+  EXPECT_TRUE(test_utils::async([] {
+    auto dist = heuristic::make_uniform_real_distribution(4.0);
+    std::array<bool, 4> flag{};
+    for (int c = 0; c < 10000; ++c) {
+      auto v = dist();
+      if (v < 0.0 || v >= 4.0) {
+        return false;
+      }
+      auto i = static_cast<int>(v);
+      flag[i] = true;
+    }
+    return std::ranges::all_of(flag, [](bool f) { return f; });
+  }));
+}
+
+TEST(HeuristicRandom, MakeUniformRealDistribution2) {
+  EXPECT_TRUE(test_utils::async([] {
+    auto dist = heuristic::make_uniform_real_distribution(0.0, 4.0);
+    std::array<bool, 4> flag{};
+    for (int c = 0; c < 10000; ++c) {
+      auto v = dist();
+      if (v < 0.0 || v >= 4.0) {
+        return false;
+      }
+      auto i = static_cast<int>(v);
+      flag[i] = true;
+    }
+    return std::ranges::all_of(flag, [](bool f) { return f; });
+  }));
+}
+
 TEST(HeuristicRandom, GenerateCanonical) {
   EXPECT_TRUE(test_utils::async([] {
     for (int c = 0; c < 10000; ++c) {

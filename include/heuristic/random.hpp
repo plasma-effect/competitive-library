@@ -18,6 +18,16 @@ template <typename T> auto make_uniform_int_distribution(T min, T max) {
 template <typename T> auto make_uniform_int_distribution(T max) {
   return make_uniform_int_distribution<T>(0, max);
 }
+template <typename T> auto make_uniform_real_distribution(T min, T max) {
+  auto& engine = internal::get_common_engine();
+  std::uniform_real_distribution<T> dist(min, max);
+  return [&engine, dist]() mutable {
+    return dist(engine);
+  };
+}
+template <typename T> auto make_uniform_real_distribution(T max) {
+  return make_uniform_real_distribution<T>(0, max);
+}
 inline double generate_canonical() {
   auto& engine = internal::get_common_engine();
   constexpr auto digits = std::numeric_limits<double>::digits;
