@@ -1,19 +1,11 @@
 #pragma once
 #include "assert.hpp"
+#include "utility/irange.hpp"
 #include <bits/stdc++.h>
 
 namespace common {
 template <typename T> constexpr auto max_v = std::numeric_limits<T>::max();
 template <typename T> constexpr auto min_v = std::numeric_limits<T>::min();
-
-template <std::integral Int> auto irange(Int first, Int last) {
-  CL_ASSERT(std::cmp_less_equal(first, last));
-  return std::views::iota(first, last);
-}
-template <std::integral Int> auto irange(Int last) {
-  return irange(Int(0), last);
-}
-
 template <typename T> using pair = std::pair<T, T>;
 
 template <typename T> class dual_array {

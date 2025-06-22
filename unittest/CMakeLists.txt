@@ -52,6 +52,9 @@ apply_common_options(heuristic_static_container_unittest)
 add_executable(heuristic_time_control_unittest heuristic/time_control.cpp)
 apply_common_options(heuristic_time_control_unittest)
 
+add_executable(utility_irange_unittest utility/irange.cpp)
+apply_common_options(utility_irange_unittest)
+
 add_executable(assert_unittest assert.cpp)
 apply_common_options(assert_unittest)
 
