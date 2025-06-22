@@ -4,7 +4,7 @@
 
 namespace heuristic {
 using time_t = std::chrono::milliseconds;
-auto get_time() {
+inline auto get_time() {
   using namespace std::chrono;
   thread_local const auto start = system_clock::now();
   return duration_cast<milliseconds>(system_clock::now() - start);
