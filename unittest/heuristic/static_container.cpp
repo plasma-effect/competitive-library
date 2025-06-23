@@ -73,6 +73,22 @@ TEST(StaticDualArray, DualArrayAssignAndRead) {
   ASSERT_EQ(ar(1, 2), 5);
 }
 
+TEST(StaticDualArray, DualArrayAssignAndReadByAt) {
+  heuristic::static_dual_array<int, 2, 3> ar;
+  ar.at(0, 0) = 0;
+  ar.at(0, 1) = 1;
+  ar.at(0, 2) = 2;
+  ar.at(1, 0) = 3;
+  ar.at(1, 1) = 4;
+  ar.at(1, 2) = 5;
+  ASSERT_EQ(ar.at(0, 0), 0);
+  ASSERT_EQ(ar.at(0, 1), 1);
+  ASSERT_EQ(ar.at(0, 2), 2);
+  ASSERT_EQ(ar.at(1, 0), 3);
+  ASSERT_EQ(ar.at(1, 1), 4);
+  ASSERT_EQ(ar.at(1, 2), 5);
+}
+
 TEST(StaticDualArray, DualArrayGetDimensions) {
   heuristic::static_dual_array<int, 2, 3> ar;
   auto [d0, d1] = ar.dimensions();
