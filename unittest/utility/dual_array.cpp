@@ -53,15 +53,15 @@ TEST(Utility, DualArrayOutOfBound) {
   ASSERT_DEATH({ car(0, 4); }, ".");
   ASSERT_DEATH({ car(0, -1); }, ".");
 #endif
-  // ASSERT_THROW({ ar.at(2, 0); }, std::out_of_range);
-  // ASSERT_THROW({ ar.at(-1, 0); }, std::out_of_range);
-  // ASSERT_THROW({ ar.at(0, 4); }, std::out_of_range);
-  // ASSERT_THROW({ ar.at(0, -1); }, std::out_of_range);
+  ASSERT_THROW({ ar.at(2, 0); }, std::out_of_range);
+  ASSERT_THROW({ ar.at(-1, 0); }, std::out_of_range);
+  ASSERT_THROW({ ar.at(0, 4); }, std::out_of_range);
+  ASSERT_THROW({ ar.at(0, -1); }, std::out_of_range);
 
-  // ASSERT_THROW({ car.at(2, 0); }, std::out_of_range);
-  // ASSERT_THROW({ car.at(-1, 0); }, std::out_of_range);
-  // ASSERT_THROW({ car.at(0, 4); }, std::out_of_range);
-  // ASSERT_THROW({ car.at(0, -1); }, std::out_of_range);
+  ASSERT_THROW({ car.at(2, 0); }, std::out_of_range);
+  ASSERT_THROW({ car.at(-1, 0); }, std::out_of_range);
+  ASSERT_THROW({ car.at(0, 4); }, std::out_of_range);
+  ASSERT_THROW({ car.at(0, -1); }, std::out_of_range);
 }
 
 TEST(Utility, DualArrayBoolAssignAndRead) {
@@ -110,13 +110,13 @@ TEST(Utility, DualArrayBoolOutOfBound) {
   ASSERT_DEATH({ car(0, 4); }, ".");
   ASSERT_DEATH({ car(0, -1); }, ".");
 #endif
-  // ASSERT_THROW({ ar.at(2, 0); }, std::out_of_range);
-  // ASSERT_THROW({ ar.at(-1, 0); }, std::out_of_range);
-  // ASSERT_THROW({ ar.at(0, 4); }, std::out_of_range);
-  // ASSERT_THROW({ ar.at(0, -1); }, std::out_of_range);
+  ASSERT_THROW({ ar.at(2, 0); }, std::out_of_range);
+  ASSERT_THROW({ ar.at(-1, 0); }, std::out_of_range);
+  ASSERT_THROW({ ar.at(0, 4); }, std::out_of_range);
+  ASSERT_THROW({ ar.at(0, -1); }, std::out_of_range);
 
-  // ASSERT_THROW({ car.at(2, 0); }, std::out_of_range);
-  // ASSERT_THROW({ car.at(-1, 0); }, std::out_of_range);
-  // ASSERT_THROW({ car.at(0, 4); }, std::out_of_range);
-  // ASSERT_THROW({ car.at(0, -1); }, std::out_of_range);
+  ASSERT_THROW({ car.at(2, 0); }, std::out_of_range);
+  ASSERT_THROW({ car.at(-1, 0); }, std::out_of_range);
+  ASSERT_THROW({ car.at(0, 4); }, std::out_of_range);
+  ASSERT_THROW({ car.at(0, -1); }, std::out_of_range);
 }
