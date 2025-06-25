@@ -19,7 +19,10 @@ template <typename... Ts> void println(Ts const&... args) {
 }
 } // namespace debug
 #ifdef LOCAL_DEBUG
-#define DEBUG_PRINT(...) debug::println(__LINE__, ":", __VA_ARGS__)
+#define CL_PP_STR_I(s) #s
+#define CL_PP_STR(s) CL_PP_STR_I(s)
+#define DEBUG_PRINT(...)                                                       \
+  debug::println(CL_PP_STR(__LINE__) ":" __VA_OPT__(, ) __VA_ARGS__)
 #else
 #define DEBUG_PRINT(...) (void)(0)
 #endif

@@ -81,3 +81,23 @@ TEST(DebugPrint, BooleanDualArray) {
   debug::println(ar);
   EXPECT_EQ(GetCapturedStderr(), "{{1, 0, 1}, {0, 1, 0}}\n");
 }
+
+TEST(DebugPrint, DebugPrintMacro) {
+  CaptureStderr();
+  DEBUG_PRINT(1, 2);
+#ifdef LOCAL_DEBUG
+  EXPECT_EQ(GetCapturedStderr(), "87: 1 2\n");
+#else
+  EXPECT_EQ(GetCapturedStderr(), "");
+#endif
+}
+
+TEST(DebugPrint, DebugPrintMacroNone) {
+  CaptureStderr();
+  DEBUG_PRINT();
+#ifdef LOCAL_DEBUG
+  EXPECT_EQ(GetCapturedStderr(), "97:\n");
+#else
+  EXPECT_EQ(GetCapturedStderr(), "");
+#endif
+}
