@@ -76,6 +76,119 @@ TEST(HeuristicRandom, MakeUniformRealDistribution2) {
   }));
 }
 
+TEST(HeuristicRandom, MakeBernoulliDistribution0) {
+  EXPECT_TRUE(test_utils::async([] {
+    auto dist = heuristic::make_bernoulli_distribution();
+    std::array<bool, 2> flag{};
+    for (int c = 0; c < 10000; ++c) {
+      flag[dist()] = true;
+    }
+    return std::ranges::all_of(flag, [](bool f) { return f; });
+  }));
+}
+
+TEST(HeuristicRandom, MakeBernoulliDistribution1) {
+  EXPECT_TRUE(test_utils::async([] {
+    auto dist = heuristic::make_bernoulli_distribution(0.75);
+    std::array<bool, 2> flag{};
+    for (int c = 0; c < 10000; ++c) {
+      flag[dist()] = true;
+    }
+    return std::ranges::all_of(flag, [](bool f) { return f; });
+  }));
+}
+
+TEST(HeuristicRandom, MakeBernoulliDistributionExtreme) {
+  std::array<bool, 2> flag{};
+  test_utils::async([&flag] {
+    auto dist = heuristic::make_bernoulli_distribution(1.0);
+    for (int c = 0; c < 10000; ++c) {
+      flag[dist()] = true;
+    }
+  });
+  EXPECT_FALSE(flag[0]);
+  EXPECT_TRUE(flag[1]);
+}
+
+TEST(HeuristicRandom, MakeDiscreteDistibutionIterator) {
+  auto result = test_utils::async([] {
+    std::array probabilities = {0.0, 0.1, 0.2, 0.3, 0.4};
+    std::array<std::size_t, 6> count{};
+    auto dist = heuristic::make_discrete_distribution(probabilities.begin(),
+                                                      probabilities.end());
+    for (int c = 0; c < 10000; ++c) {
+      auto v = dist();
+      if (v >= 5) {
+        ++count[5];
+      } else {
+        ++count[v];
+      }
+    }
+    return count;
+  });
+  EXPECT_EQ(result[0], 0);
+  EXPECT_NE(result[1], 0);
+  EXPECT_LT(result[1], result[2]);
+  EXPECT_NE(result[2], 0);
+  EXPECT_LT(result[2], result[3]);
+  EXPECT_NE(result[3], 0);
+  EXPECT_LT(result[3], result[4]);
+  EXPECT_NE(result[4], 0);
+  EXPECT_EQ(result[5], 0);
+}
+
+TEST(HeuristicRandom, MakeDiscreteDistibutionRange) {
+  auto result = test_utils::async([] {
+    std::array probabilities = {0.0, 0.1, 0.2, 0.3, 0.4};
+    std::array<std::size_t, 6> count{};
+    auto dist = heuristic::make_discrete_distribution(probabilities);
+    for (int c = 0; c < 10000; ++c) {
+      auto v = dist();
+      if (v >= 5) {
+        ++count[5];
+      } else {
+        ++count[v];
+      }
+    }
+    return count;
+  });
+  EXPECT_EQ(result[0], 0);
+  EXPECT_NE(result[1], 0);
+  EXPECT_LT(result[1], result[2]);
+  EXPECT_NE(result[2], 0);
+  EXPECT_LT(result[2], result[3]);
+  EXPECT_NE(result[3], 0);
+  EXPECT_LT(result[3], result[4]);
+  EXPECT_NE(result[4], 0);
+  EXPECT_EQ(result[5], 0);
+}
+
+TEST(HeuristicRandom, MakeDiscreteDistibutionInitList) {
+  auto result = test_utils::async([] {
+    std::array<std::size_t, 6> count{};
+    auto dist =
+        heuristic::make_discrete_distribution({0.0, 0.1, 0.2, 0.3, 0.4});
+    for (int c = 0; c < 10000; ++c) {
+      auto v = dist();
+      if (v >= 5) {
+        ++count[5];
+      } else {
+        ++count[v];
+      }
+    }
+    return count;
+  });
+  EXPECT_EQ(result[0], 0);
+  EXPECT_NE(result[1], 0);
+  EXPECT_LT(result[1], result[2]);
+  EXPECT_NE(result[2], 0);
+  EXPECT_LT(result[2], result[3]);
+  EXPECT_NE(result[3], 0);
+  EXPECT_LT(result[3], result[4]);
+  EXPECT_NE(result[4], 0);
+  EXPECT_EQ(result[5], 0);
+}
+
 TEST(HeuristicRandom, GenerateCanonical) {
   EXPECT_TRUE(test_utils::async([] {
     for (int c = 0; c < 10000; ++c) {
