@@ -1,0 +1,98 @@
+#include "heuristic/partially_persistent_array.hpp"
+#include <gtest/gtest.h>
+
+TEST(HeuristicPersistentArray, General) {
+  heuristic::partially_persistent_array<int> ar(4);
+  ar.update(0, 1);
+  ar.update(1, 3);
+  ar.update(2, 5);
+  ar.update(3, 7);
+  ASSERT_EQ(ar.size(), 4);
+  EXPECT_EQ(ar.get(0), 1);
+  EXPECT_EQ(ar.get(1), 3);
+  EXPECT_EQ(ar.get(2), 5);
+  EXPECT_EQ(ar.get(3), 7);
+}
+
+TEST(HeuristicPersistentArray, SaveHistory) {
+  heuristic::partially_persistent_array<int> ar0(6);
+  ar0.update(0, 1);
+  ar0.update(1, 3);
+  auto ar1 = ar0;
+  ar1.update(2, 5);
+  ar1.update(3, 7);
+  auto ar2 = ar1;
+  ar2.update(4, 9);
+  ar2.update(5, 11);
+
+  EXPECT_EQ(ar0.get(0), 1);
+  EXPECT_EQ(ar0.get(1), 3);
+  EXPECT_EQ(ar0.get(2), 0);
+  EXPECT_EQ(ar0.get(3), 0);
+  EXPECT_EQ(ar0.get(4), 0);
+  EXPECT_EQ(ar0.get(5), 0);
+
+  EXPECT_EQ(ar1.get(0), 1);
+  EXPECT_EQ(ar1.get(1), 3);
+  EXPECT_EQ(ar1.get(2), 5);
+  EXPECT_EQ(ar1.get(3), 7);
+  EXPECT_EQ(ar1.get(4), 0);
+  EXPECT_EQ(ar1.get(5), 0);
+
+  EXPECT_EQ(ar2.get(0), 1);
+  EXPECT_EQ(ar2.get(1), 3);
+  EXPECT_EQ(ar2.get(2), 5);
+  EXPECT_EQ(ar2.get(3), 7);
+  EXPECT_EQ(ar2.get(4), 9);
+  EXPECT_EQ(ar2.get(5), 11);
+}
+
+TEST(HeuristicPersistentArray, MemoryExpired) {
+  heuristic::partially_persistent_array<std::shared_ptr<int>> ar(4);
+  ar.update(0, std::make_shared<int>(0));
+  ar.update(1, std::make_shared<int>(1));
+  ar.update(2, std::make_shared<int>(2));
+  ar.update(3, std::make_shared<int>(3));
+  std::weak_ptr wp0 = ar.get(0);
+  std::weak_ptr wp1 = ar.get(1);
+  std::weak_ptr wp2 = ar.get(2);
+  std::weak_ptr wp3 = ar.get(3);
+  EXPECT_FALSE(wp0.expired());
+  EXPECT_FALSE(wp1.expired());
+  EXPECT_FALSE(wp2.expired());
+  EXPECT_FALSE(wp3.expired());
+
+  ar.update(0, std::make_shared<int>(4));
+  EXPECT_TRUE(wp0.expired());
+  EXPECT_FALSE(wp1.expired());
+  EXPECT_FALSE(wp2.expired());
+  EXPECT_FALSE(wp3.expired());
+
+  ar.update(1, std::make_shared<int>(5));
+  EXPECT_TRUE(wp0.expired());
+  EXPECT_TRUE(wp1.expired());
+  EXPECT_FALSE(wp2.expired());
+  EXPECT_FALSE(wp3.expired());
+
+  ar.update(2, std::make_shared<int>(6));
+  EXPECT_TRUE(wp0.expired());
+  EXPECT_TRUE(wp1.expired());
+  EXPECT_TRUE(wp2.expired());
+  EXPECT_FALSE(wp3.expired());
+
+  ar.update(3, std::make_shared<int>(7));
+  EXPECT_TRUE(wp0.expired());
+  EXPECT_TRUE(wp1.expired());
+  EXPECT_TRUE(wp2.expired());
+  EXPECT_TRUE(wp3.expired());
+}
+
+TEST(HeuristicPersistentArray, Iteration) {
+  heuristic::partially_persistent_array<int> ar(4);
+  ar.update(0, 1);
+  ar.update(1, 3);
+  ar.update(2, 5);
+  ar.update(3, 7);
+  std::vector vec = {1, 3, 5, 7};
+  EXPECT_TRUE(std::ranges::equal(ar, vec));
+}

@@ -43,6 +43,9 @@ apply_common_options(heuristic_unittest)
 add_executable(heuristic_grid_bfs_queue_unittest heuristic/grid_bfs_queue.cpp)
 apply_common_options(heuristic_grid_bfs_queue_unittest)
 
+add_executable(heuristic_partially_persistent_array_unittest heuristic/partially_persistent_array.cpp)
+apply_common_options(heuristic_partially_persistent_array_unittest)
+
 add_executable(heuristic_random_unittest heuristic/random.cpp)
 apply_common_options(heuristic_random_unittest)
 
