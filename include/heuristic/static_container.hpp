@@ -40,6 +40,12 @@ public:
   auto end() const {
     return cont.end();
   }
+  std::size_t size() const {
+    return cont.size();
+  }
+  void clear() {
+    cont.clear();
+  }
 };
 
 template <typename T, std::size_t H, std::size_t W> class static_dual_array {

@@ -6,15 +6,20 @@
 TEST(StaticPriorityContainer, General) {
   heuristic::static_priority_container<int, 4> container;
   container.push(0);
+  EXPECT_EQ(container.size(), 1);
   container.push(1);
+  EXPECT_EQ(container.size(), 2);
   container.push(2);
+  EXPECT_EQ(container.size(), 3);
   container.push(3);
+  EXPECT_EQ(container.size(), 4);
   EXPECT_EQ(std::ranges::count(container, 0), 1);
   EXPECT_EQ(std::ranges::count(container, 1), 1);
   EXPECT_EQ(std::ranges::count(container, 2), 1);
   EXPECT_EQ(std::ranges::count(container, 3), 1);
 
   container.push(4);
+  EXPECT_EQ(container.size(), 4);
   EXPECT_EQ(std::ranges::count(container, 0), 0);
   EXPECT_EQ(std::ranges::count(container, 1), 1);
   EXPECT_EQ(std::ranges::count(container, 2), 1);
@@ -22,12 +27,16 @@ TEST(StaticPriorityContainer, General) {
   EXPECT_EQ(std::ranges::count(container, 4), 1);
 
   container.push(-1);
+  EXPECT_EQ(container.size(), 4);
   EXPECT_EQ(std::ranges::count(container, -1), 0);
   EXPECT_EQ(std::ranges::count(container, 0), 0);
   EXPECT_EQ(std::ranges::count(container, 1), 1);
   EXPECT_EQ(std::ranges::count(container, 2), 1);
   EXPECT_EQ(std::ranges::count(container, 3), 1);
   EXPECT_EQ(std::ranges::count(container, 4), 1);
+
+  container.clear();
+  EXPECT_EQ(container.size(), 0);
 }
 
 TEST(StaticPriorityContainer, Less) {
