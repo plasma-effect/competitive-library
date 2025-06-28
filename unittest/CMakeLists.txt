@@ -31,6 +31,9 @@ function(apply_common_options)
   endif()
 endfunction()
 
+add_executable(data_structure_min_max_heap_unittest data_structure/min_max_heap.cpp)
+apply_common_options(data_structure_min_max_heap_unittest)
+
 add_executable(graph_topological_sort_unittest graph/topological_sort.cpp)
 apply_common_options(graph_topological_sort_unittest)
 

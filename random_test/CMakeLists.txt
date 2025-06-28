@@ -31,6 +31,9 @@ function(apply_common_options)
   endif()
 endfunction()
 
+add_executable(data_structure_min_max_heap_random_test data_structure/min_max_heap.cpp)
+apply_common_options(data_structure_min_max_heap_random_test)
+
 add_executable(graph_topological_sort_random_test graph/topological_sort.cpp)
 apply_common_options(graph_topological_sort_random_test)
 
