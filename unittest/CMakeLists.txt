@@ -71,6 +71,13 @@ apply_common_options(utility_irange_unittest)
 add_executable(utility_priority_queue_unittest utility/priority_queue.cpp)
 apply_common_options(utility_priority_queue_unittest)
 
+# math
+add_executable(math_factorial_unittest math/factorial.cpp)
+apply_common_options(math_factorial_unittest)
+
+add_executable(math_monoid_unittest math/monoid.cpp)
+apply_common_options(math_monoid_unittest)
+
 # stdin/stdout
 add_executable(io_debug_print_unittest io/debug_print.cpp)
 apply_common_options(io_debug_print_unittest)
@@ -91,13 +98,10 @@ apply_common_options(utility_unittest)
 add_executable(heuristic_unittest heuristic.cpp)
 apply_common_options(heuristic_unittest)
 
-# others
 add_executable(math_unittest math.cpp)
 apply_common_options(math_unittest)
 
-add_executable(numeric_unittest numeric.cpp)
-apply_common_options(numeric_unittest)
-
+# others
 add_executable(rolling_hash_unittest rolling_hash.cpp)
 apply_common_options(rolling_hash_unittest)
 

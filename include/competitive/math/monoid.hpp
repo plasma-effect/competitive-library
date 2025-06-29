@@ -2,10 +2,7 @@
 #include "competitive/utility.hpp"
 #include <bits/stdc++.h>
 
-namespace numeric {
-namespace internal {
-template <auto monoid> using value_t = typename decltype(monoid)::value_t;
-}
+namespace math {
 template <typename T, typename F> struct monoid_t {
   using value_t = T;
   T e_;
@@ -28,4 +25,4 @@ template <typename T>
 constexpr monoid_t max{common::min_v<T>, [](T const& a, T const& b) {
                          return std::max(a, b);
                        }};
-} // namespace numeric
+} // namespace math
