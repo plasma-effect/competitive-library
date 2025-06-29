@@ -1,6 +1,5 @@
 #include "heuristic/static_container.hpp"
-#include "debug_print.hpp"
-#include "normal_print.hpp"
+#include "stdio.hpp"
 #include <gtest/gtest.h>
 
 TEST(StaticPriorityContainer, General) {

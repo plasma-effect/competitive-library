@@ -1,4 +1,4 @@
-#include "debug_print.hpp"
+#include "io/debug_print.hpp"
 #include <gtest/gtest.h>
 using testing::internal::CaptureStderr;
 using testing::internal::GetCapturedStderr;

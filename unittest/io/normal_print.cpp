@@ -1,4 +1,4 @@
-#include "normal_print.hpp"
+#include "io/normal_print.hpp"
 #include <gtest/gtest.h>
 using testing::internal::CaptureStdout;
 using testing::internal::GetCapturedStdout;
