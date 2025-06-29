@@ -1,4 +1,4 @@
-#include "rolling_hash.hpp"
+#include "competitive/rolling_hash.hpp"
 #include "random_test_base.hpp"
 #include "gtest/gtest.h"
 

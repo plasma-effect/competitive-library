@@ -59,6 +59,9 @@ add_executable(heuristic_time_control_unittest heuristic/time_control.cpp)
 apply_common_options(heuristic_time_control_unittest)
 
 # common utility
+add_executable(utility_assert_unittest utility/assert.cpp)
+apply_common_options(utility_assert_unittest)
+
 add_executable(utility_dual_array_unittest utility/dual_array.cpp)
 apply_common_options(utility_dual_array_unittest)
 
@@ -89,9 +92,6 @@ add_executable(heuristic_unittest heuristic.cpp)
 apply_common_options(heuristic_unittest)
 
 # others
-add_executable(assert_unittest assert.cpp)
-apply_common_options(assert_unittest)
-
 add_executable(math_unittest math.cpp)
 apply_common_options(math_unittest)
 

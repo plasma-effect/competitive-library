@@ -29,10 +29,10 @@ add_subdirectory(expander)
 add_subdirectory(random_test)
 
 function(check_testfile_exists)
-  file(GLOB_RECURSE ALL_HEADERS "${CMAKE_SOURCE_DIR}/include/*.hpp")
+  file(GLOB_RECURSE ALL_HEADERS "${CMAKE_SOURCE_DIR}/include/competitive/*.hpp")
   set(MISSING_TESTS "")
   foreach(header IN LISTS ALL_HEADERS)
-    file(RELATIVE_PATH rel_path ${CMAKE_SOURCE_DIR}/include ${header})
+    file(RELATIVE_PATH rel_path ${CMAKE_SOURCE_DIR}/include/competitive ${header})
     string(REPLACE ".hpp" ".cpp" test_path ${rel_path})
     set(full_test_path ${CMAKE_SOURCE_DIR}/unittest/${test_path})
     

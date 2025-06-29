@@ -1,4 +1,4 @@
-#include "rolling_hash.hpp"
+#include "competitive/rolling_hash.hpp"
 #include "gtest/gtest.h"
 
 TEST(RollingHash, Utilities) {

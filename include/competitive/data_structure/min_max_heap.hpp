@@ -1,5 +1,5 @@
 #pragma once
-#include "utility.hpp"
+#include "competitive/utility.hpp"
 #include <bits/stdc++.h>
 
 namespace competitive {

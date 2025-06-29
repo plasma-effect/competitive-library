@@ -1,4 +1,4 @@
-#include "segtree.hpp"
+#include "competitive/segtree.hpp"
 #include <gtest/gtest.h>
 
 TEST(SegTree, AddSegTreeProd) {

@@ -1,4 +1,4 @@
-#include "graph/warshall_floyd.hpp"
+#include "competitive/graph/warshall_floyd.hpp"
 #include <gtest/gtest.h>
 
 TEST(WarshallFloyd, LocalUpdate) {

@@ -1,4 +1,4 @@
-#include "math.hpp"
+#include "competitive/math.hpp"
 #include "atcoder/all"
 #include <gtest/gtest.h>
 

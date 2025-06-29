@@ -1,4 +1,4 @@
-#include "heuristic/partially_persistent_array.hpp"
+#include "competitive/heuristic/partially_persistent_array.hpp"
 #include <gtest/gtest.h>
 
 TEST(HeuristicPersistentArray, General) {

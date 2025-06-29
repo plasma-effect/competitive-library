@@ -1,4 +1,4 @@
-#include "heuristic/time_control.hpp"
+#include "competitive/heuristic/time_control.hpp"
 #include "test_utils.hpp"
 #include <gtest/gtest.h>
 using namespace std::chrono_literals;

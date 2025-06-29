@@ -1,6 +1,5 @@
 #pragma once
-#include "assert.h"
-#include "utility.hpp"
+#include "competitive/utility.hpp"
 
 namespace graph {
 namespace internal {

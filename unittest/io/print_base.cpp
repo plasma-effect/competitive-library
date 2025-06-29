@@ -1,4 +1,4 @@
-#include "io/print_base.hpp"
+#include "competitive/io/print_base.hpp"
 #include <gtest/gtest.h>
 
 TEST(PrintBase, String) {

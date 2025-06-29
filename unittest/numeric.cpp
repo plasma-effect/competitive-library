@@ -1,4 +1,4 @@
-#include "numeric.hpp"
+#include "competitive/numeric.hpp"
 #include <gtest/gtest.h>
 
 TEST(Numeric, MonoidPlus) {

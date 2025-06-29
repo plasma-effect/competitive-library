@@ -1,6 +1,6 @@
 #pragma once
-#include "bits/stdc++.h"
-#include "utility.hpp"
+#include "competitive/utility.hpp"
+#include <bits/stdc++.h>
 
 namespace common {
 template <typename T> std::vector<T> make_factorial_array(std::size_t max) {

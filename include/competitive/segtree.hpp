@@ -1,6 +1,6 @@
 #pragma once
 #include "atcoder/all"
-#include "numeric.hpp"
+#include "competitive/numeric.hpp"
 
 namespace common {
 template <auto monoid>

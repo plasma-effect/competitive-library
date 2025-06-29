@@ -1,4 +1,4 @@
-#include "utility/priority_queue.hpp"
+#include "competitive/utility/priority_queue.hpp"
 #include <gtest/gtest.h>
 
 TEST(Utility, PriorityQueueDefault) {

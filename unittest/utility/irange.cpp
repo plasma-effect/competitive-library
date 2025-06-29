@@ -1,4 +1,4 @@
-#include "utility/irange.hpp"
+#include "competitive/utility/irange.hpp"
 #include <gtest/gtest.h>
 
 TEST(Utility, Irange1Arg) {

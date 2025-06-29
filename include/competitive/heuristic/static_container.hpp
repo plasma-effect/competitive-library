@@ -1,7 +1,7 @@
 #pragma once
-#include "assert.hpp"
 #include "boost/container/static_vector.hpp"
-#include "stdio.hpp"
+#include "competitive/io/print_base.hpp"
+#include "competitive/utility/assert.hpp"
 #include <bits/stdc++.h>
 
 namespace heuristic {

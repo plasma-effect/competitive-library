@@ -1,4 +1,4 @@
-#include "assert.hpp"
+#include "competitive/utility/assert.hpp"
 #include <gtest/gtest.h>
 
 #ifdef LOCAL_DEBUG

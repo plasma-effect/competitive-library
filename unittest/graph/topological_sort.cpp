@@ -1,4 +1,4 @@
-#include "graph/topological_sort.hpp"
+#include "competitive/graph/topological_sort.hpp"
 #include "test_utils.hpp"
 #include <gtest/gtest.h>
 

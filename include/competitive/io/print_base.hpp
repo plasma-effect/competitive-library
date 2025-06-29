@@ -1,6 +1,6 @@
 #pragma once
 #include "atcoder/all"
-#include "utility.hpp"
+#include "competitive/utility.hpp"
 
 namespace common::internal {
 template <typename T>

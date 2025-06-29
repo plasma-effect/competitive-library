@@ -1,4 +1,4 @@
-#include "utility/dual_array.hpp"
+#include "competitive/utility/dual_array.hpp"
 #include <gtest/gtest.h>
 
 TEST(Utility, DualArrayAssignAndRead) {

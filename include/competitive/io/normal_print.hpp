@@ -1,5 +1,5 @@
 #pragma once
-#include "io/print_base.hpp"
+#include "competitive/io/print_base.hpp"
 #include <bits/stdc++.h>
 
 namespace common {

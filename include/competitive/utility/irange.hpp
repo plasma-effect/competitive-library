@@ -1,5 +1,5 @@
 #pragma once
-#include "assert.hpp"
+#include "competitive/utility/assert.hpp"
 
 namespace common {
 template <std::integral Int> auto irange(Int first, Int last) {

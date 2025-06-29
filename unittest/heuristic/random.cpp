@@ -1,4 +1,4 @@
-#include "heuristic/random.hpp"
+#include "competitive/heuristic/random.hpp"
 #include "test_utils.hpp"
 #include <gtest/gtest.h>
 

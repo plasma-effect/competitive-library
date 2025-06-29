@@ -1,4 +1,4 @@
-#include "heuristic/grid_bfs_queue.hpp"
+#include "competitive/heuristic/grid_bfs_queue.hpp"
 #include <gtest/gtest.h>
 
 TEST(GridBFSQueue, General) {

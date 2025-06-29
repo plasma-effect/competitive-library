@@ -2,8 +2,7 @@
 #ifndef __GNUC__
 #include "boost/multiprecision/cpp_int.hpp"
 #endif
-#include "assert.hpp"
-#include "utility.hpp"
+#include "competitive/utility.hpp"
 #include <bits/stdc++.h>
 
 namespace common {

@@ -1,5 +1,5 @@
 #pragma once
-#include "heuristic/random.hpp"
+#include "competitive/heuristic/random.hpp"
 #include <bits/stdc++.h>
 
 namespace heuristic {

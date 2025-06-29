@@ -1,4 +1,4 @@
-#include "data_structure/min_max_heap.hpp"
+#include "competitive/data_structure/min_max_heap.hpp"
 #include "random_test_base.hpp"
 #include <gtest/gtest.h>
 

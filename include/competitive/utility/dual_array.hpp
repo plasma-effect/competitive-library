@@ -1,5 +1,5 @@
 #pragma once
-#include "assert.hpp"
+#include "competitive/utility/assert.hpp"
 #include <bits/stdc++.h>
 
 namespace common {

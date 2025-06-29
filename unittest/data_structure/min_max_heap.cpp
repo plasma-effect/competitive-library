@@ -1,4 +1,4 @@
-#include "data_structure/min_max_heap.hpp"
+#include "competitive/data_structure/min_max_heap.hpp"
 #include <gtest/gtest.h>
 
 namespace {

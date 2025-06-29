@@ -1,5 +1,5 @@
 #pragma once
-#include "heuristic/static_container.hpp"
+#include "competitive/heuristic/static_container.hpp"
 
 namespace heuristic {
 template <typename T, std::size_t H, std::size_t W> class grid_bfs_queue {
