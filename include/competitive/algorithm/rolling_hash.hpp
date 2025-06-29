@@ -5,7 +5,7 @@
 #include "competitive/utility.hpp"
 #include <bits/stdc++.h>
 
-namespace common {
+namespace algorithm {
 namespace internal {
 inline std::int64_t make_base() {
   std::uniform_int_distribution<std::int64_t> dist(2, 2LL << 50);
@@ -109,11 +109,11 @@ template <rolling_hash_t Lhs, rolling_hash_t Rhs>
 auto operator<=>(Lhs const& lhs, Rhs const& rhs) {
   return lhs == rhs ? std::strong_ordering::equal : lhs.hash() <=> rhs.hash();
 }
-} // namespace common
+} // namespace algorithm
 namespace std {
 template <char Min, char Max, std::size_t Size>
-struct hash<common::rolling_hash<Min, Max, Size>> {
-  std::size_t operator()(common::rolling_hash<Min, Max, Size> const& h) const {
+struct hash<algorithm::rolling_hash<Min, Max, Size>> {
+  auto operator()(algorithm::rolling_hash<Min, Max, Size> const& h) const {
     return h.raw();
   }
 };

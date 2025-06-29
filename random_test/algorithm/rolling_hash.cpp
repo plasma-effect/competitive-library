@@ -1,4 +1,4 @@
-#include "competitive/rolling_hash.hpp"
+#include "competitive/algorithm/rolling_hash.hpp"
 #include "random_test_base.hpp"
 #include "gtest/gtest.h"
 
@@ -23,7 +23,7 @@ protected:
 };
 
 TEST_P(RollingHashRandom, Simple) {
-  using hash_t = common::rolling_hash<'a', 'z'>;
+  using hash_t = algorithm::rolling_hash<'a', 'z'>;
   std::map<hash_t, std::string> hashes;
   for ([[maybe_unused]] auto _ : common::irange(1000)) {
     auto s = make_random_string();
@@ -37,7 +37,7 @@ TEST_P(RollingHashRandom, Simple) {
 }
 
 TEST_P(RollingHashRandom, SubStr) {
-  using hash_t = common::rolling_hash<'a', 'z'>;
+  using hash_t = algorithm::rolling_hash<'a', 'z'>;
   auto str0 = make_random_string();
   auto str1 = make_random_string();
   std::string_view view0(str0), view1(str1);

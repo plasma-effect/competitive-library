@@ -2,7 +2,7 @@
 #include "competitive/utility.hpp"
 #include <bits/stdc++.h>
 
-namespace graph {
+namespace algorithm {
 namespace internal {
 template <std::integral Int> struct topological_sort_impl {
   enum class flag { none, temporary, done };
@@ -40,4 +40,4 @@ topological_sort(std::vector<std::set<Int>> const& edge) {
   std::ranges::reverse(impl.result);
   return impl.result;
 }
-} // namespace graph
+} // namespace algorithm

@@ -1,7 +1,7 @@
 #pragma once
 #include "competitive/utility.hpp"
 
-namespace graph {
+namespace algorithm {
 namespace internal {
 template <typename T>
 void local_update(std::optional<T>& base, std::optional<T> a,
@@ -29,4 +29,4 @@ template <typename T> void warshall_floyd(common::dual_array<T>& data) {
     }
   }
 }
-} // namespace graph
+} // namespace algorithm

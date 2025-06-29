@@ -38,12 +38,15 @@ apply_common_options(data_structure_min_max_heap_unittest)
 add_executable(data_structure_segtree_unittest data_structure/segtree.cpp)
 apply_common_options(data_structure_segtree_unittest)
 
-# graph algorithm
-add_executable(graph_topological_sort_unittest graph/topological_sort.cpp)
-apply_common_options(graph_topological_sort_unittest)
+# algorithm
+add_executable(algorithm_rolling_hash_unittest algorithm/rolling_hash.cpp)
+apply_common_options(algorithm_rolling_hash_unittest)
 
-add_executable(graph_warshall_floyd_unittest graph/warshall_floyd.cpp)
-apply_common_options(graph_warshall_floyd_unittest)
+add_executable(algorithm_topological_sort_unittest algorithm/topological_sort.cpp)
+apply_common_options(algorithm_topological_sort_unittest)
+
+add_executable(algorithm_warshall_floyd_unittest algorithm/warshall_floyd.cpp)
+apply_common_options(algorithm_warshall_floyd_unittest)
 
 # heuristic utility
 add_executable(heuristic_grid_bfs_queue_unittest heuristic/grid_bfs_queue.cpp)
@@ -104,10 +107,7 @@ apply_common_options(heuristic_unittest)
 add_executable(math_unittest math.cpp)
 apply_common_options(math_unittest)
 
-# others
-add_executable(rolling_hash_unittest rolling_hash.cpp)
-apply_common_options(rolling_hash_unittest)
-
+# link all
 file(GLOB_RECURSE TEST_SOURCES CONFIGURE_DEPENDS *.cpp)
 add_executable(unittest ${TEST_SOURCES})
 apply_common_options(unittest ignore)

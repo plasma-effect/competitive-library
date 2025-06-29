@@ -34,11 +34,11 @@ endfunction()
 add_executable(data_structure_min_max_heap_random_test data_structure/min_max_heap.cpp)
 apply_common_options(data_structure_min_max_heap_random_test)
 
-add_executable(graph_topological_sort_random_test graph/topological_sort.cpp)
-apply_common_options(graph_topological_sort_random_test)
+add_executable(algorithm_rolling_hash_random_test algorithm/rolling_hash.cpp)
+apply_common_options(algorithm_rolling_hash_random_test)
 
-add_executable(rolling_hash_random_test rolling_hash.cpp)
-apply_common_options(rolling_hash_random_test)
+add_executable(algorithm_topological_sort_random_test algorithm/topological_sort.cpp)
+apply_common_options(algorithm_topological_sort_random_test)
 
 file(GLOB_RECURSE TEST_SOURCES CONFIGURE_DEPENDS *.cpp)
 add_executable(random_test ${TEST_SOURCES})

@@ -1,4 +1,4 @@
-#include "competitive/graph/topological_sort.hpp"
+#include "competitive/algorithm/topological_sort.hpp"
 #include "atcoder/dsu.hpp"
 #include "random_test_base.hpp"
 #include <gtest/gtest.h>
@@ -49,7 +49,7 @@ protected:
 };
 
 TEST_P(TopologicalSortRandom, NonCycleGraph) {
-  auto result = graph::topological_sort(edge);
+  auto result = algorithm::topological_sort(edge);
   ASSERT_TRUE(result);
   const auto& vec = *result;
   std::vector<int> rvec(N);
@@ -75,7 +75,7 @@ TEST_P(TopologicalSortRandom, CycleGraph) {
   };
   edge[e].emplace(s);
 
-  auto result = graph::topological_sort(edge);
+  auto result = algorithm::topological_sort(edge);
   ASSERT_FALSE(result);
 }
 INSTANTIATE_TEST_CASE_P(RandomCaseTest, TopologicalSortRandom,
