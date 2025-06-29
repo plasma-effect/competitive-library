@@ -35,6 +35,9 @@ endfunction()
 add_executable(data_structure_min_max_heap_unittest data_structure/min_max_heap.cpp)
 apply_common_options(data_structure_min_max_heap_unittest)
 
+add_executable(data_structure_segtree_unittest data_structure/segtree.cpp)
+apply_common_options(data_structure_segtree_unittest)
+
 # graph algorithm
 add_executable(graph_topological_sort_unittest graph/topological_sort.cpp)
 apply_common_options(graph_topological_sort_unittest)
@@ -104,9 +107,6 @@ apply_common_options(math_unittest)
 # others
 add_executable(rolling_hash_unittest rolling_hash.cpp)
 apply_common_options(rolling_hash_unittest)
-
-add_executable(segtree_unittest segtree.cpp)
-apply_common_options(segtree_unittest)
 
 file(GLOB_RECURSE TEST_SOURCES CONFIGURE_DEPENDS *.cpp)
 add_executable(unittest ${TEST_SOURCES})

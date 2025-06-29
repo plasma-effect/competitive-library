@@ -2,7 +2,7 @@
 #include "atcoder/all"
 #include "competitive/math/monoid.hpp"
 
-namespace common {
+namespace competitive {
 namespace internal {
 template <auto monoid> using value_t = typename decltype(monoid)::value_t;
 }
@@ -16,4 +16,4 @@ template <auto monoid, auto mapping>
 using lazy_segtree = atcoder::lazy_segtree<internal::value_t<monoid>, monoid,
                                            monoid, internal::value_t<mapping>,
                                            mapping, mapping, mapping>;
-} // namespace common
+} // namespace competitive
