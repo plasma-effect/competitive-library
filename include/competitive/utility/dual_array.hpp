@@ -50,8 +50,20 @@ public:
   }
 };
 
-template <> class dual_array<bool> : public dual_array<std::uint8_t> {
+namespace internal {
+struct bool_ploxy {
+  bool v = false;
+  operator bool() const {
+    return v;
+  }
+  bool_ploxy& operator=(bool u) {
+    v = u;
+    return *this;
+  }
+};
+} // namespace internal
+template <> class dual_array<bool> : public dual_array<internal::bool_ploxy> {
 public:
-  using dual_array<std::uint8_t>::dual_array;
+  using dual_array<internal::bool_ploxy>::dual_array;
 };
 } // namespace common

@@ -81,12 +81,23 @@ TEST(DebugPrint, BooleanDualArray) {
   debug::println(ar);
   EXPECT_EQ(GetCapturedStderr(), "{{1, 0, 1}, {0, 1, 0}}\n");
 }
+TEST(DebugPrint, BooleanDualArrayElem) {
+  CaptureStderr();
+  common::dual_array<bool> ar(2, 2);
+  ar(0, 0) = true;
+  ar(0, 1) = false;
+  ar(1, 0) = false;
+  ar(1, 1) = true;
+  debug::println(ar(0, 0), ar(0, 1), ar(1, 0), ar(1, 1));
+  std::cout << std::flush;
+  EXPECT_EQ(GetCapturedStderr(), "1 0 0 1\n");
+}
 
 TEST(DebugPrint, DebugPrintMacro) {
   CaptureStderr();
   DEBUG_PRINT(1, 2);
 #ifdef LOCAL_DEBUG
-  EXPECT_EQ(GetCapturedStderr(), "87: 1 2\n");
+  EXPECT_EQ(GetCapturedStderr(), "98: 1 2\n");
 #else
   EXPECT_EQ(GetCapturedStderr(), "");
 #endif
@@ -96,7 +107,7 @@ TEST(DebugPrint, DebugPrintMacroNone) {
   CaptureStderr();
   DEBUG_PRINT();
 #ifdef LOCAL_DEBUG
-  EXPECT_EQ(GetCapturedStderr(), "97:\n");
+  EXPECT_EQ(GetCapturedStderr(), "108:\n");
 #else
   EXPECT_EQ(GetCapturedStderr(), "");
 #endif
