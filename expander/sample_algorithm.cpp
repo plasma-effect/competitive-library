@@ -1,17 +1,15 @@
 #include "atcoder/all"
 #include "bits/stdc++.h"
+#include "boost/multiprecision/cpp_int.hpp"
 #include "boost/range/irange.hpp"
-#include "normal_print.hpp"
-#include "numeric.hpp"
-#include "segtree.hpp"
-#include "warshall_floyd.hpp"
-#ifdef LOCAL_DEBUG
-#include "debug_print.hpp"
-#else
-namespace debug {
-template <typename... Ts> void println(Ts const&...) {}
-} // namespace debug
-#endif
+#include "competitive/algorithm/rolling_hash.hpp"
+#include "competitive/algorithm/topological_sort.hpp"
+#include "competitive/algorithm/warshall_floyd.hpp"
+#include "competitive/data_structure/segtree.hpp"
+#include "competitive/math.hpp"
+#include "competitive/stdio.hpp"
+#include "competitive/utility.hpp"
+#define IGNORE [[maybe_unused]] auto _##__COUNTER__
 
 void Main() {}
 

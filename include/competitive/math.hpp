@@ -1,3 +1,3 @@
 #pragma once
-#include "math/factorial.hpp"
-#include "math/monoid.hpp"
+#include "competitive/math/factorial.hpp"
+#include "competitive/math/monoid.hpp"

@@ -1,16 +1,14 @@
+#if !defined(LOCAL_DEBUG) && !defined(LOCAL_MEASURE)
+#define NDEBUG
+#endif
 #include "atcoder/all"
 #include "bits/stdc++.h"
 #include "boost/container/static_vector.hpp"
 #include "boost/range/irange.hpp"
-#include "heuristic.hpp"
-#include "normal_print.hpp"
-#ifdef LOCAL_DEBUG
-#include "debug_print.hpp"
-#else
-namespace debug {
-template <typename... Ts> void println(Ts const&...) {}
-} // namespace debug
-#endif
+#include "competitive/heuristic.hpp"
+#include "competitive/math.hpp"
+#include "competitive/stdio.hpp"
+#define IGNORE [[maybe_unused]] auto _
 
 void Main() {}
 
