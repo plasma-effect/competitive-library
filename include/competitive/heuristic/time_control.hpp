@@ -34,15 +34,18 @@ struct time_control_t : internal::time_control_base<time_control_t> {
   using time_control_base::time_control_base;
 };
 
+template <typename Engine = std::minstd_rand>
 class time_control_with_annealing
-    : public internal::time_control_base<time_control_with_annealing> {
-  using time_control_base::time_control_base;
+    : public internal::time_control_base<time_control_with_annealing<Engine>> {
+  using basetype =
+      internal::time_control_base<time_control_with_annealing<Engine>>;
+  using generator = random_engine_generator<Engine>;
 
 public:
   double T1, dT, T;
   time_control_with_annealing(time_t time_limit, std::size_t ufreq, double t0,
                               double t1)
-      : time_control_base(time_limit, ufreq), T1(t1), dT(t0 / t1), T(t0) {}
+      : basetype(time_limit, ufreq), T1(t1), dT(t0 / t1), T(t0) {}
   time_control_with_annealing(time_t time_limit, double t0, double t1)
       : time_control_with_annealing(time_limit, 1, t0, t1) {}
   void update(time_t const& time_limit, time_t const& current) {
@@ -57,7 +60,7 @@ public:
     if (diff > 0) {
       return true;
     } else {
-      return generate_canonical() < annealing_threshold(diff);
+      return generator::generate_canonical() < annealing_threshold(diff);
     }
   }
 };

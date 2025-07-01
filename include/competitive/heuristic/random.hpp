@@ -2,59 +2,74 @@
 #include <bits/stdc++.h>
 
 namespace heuristic {
-namespace internal {
-inline std::mt19937& get_common_engine() {
-  thread_local std::mt19937 engine{};
-  return engine;
-}
-template <typename T, typename... Args> auto make_distribution(Args&&... args) {
-  auto& engine = get_common_engine();
-  T dist(std::forward<Args>(args)...);
-  return [&engine, dist]() mutable {
-    return dist(engine);
-  };
-}
-} // namespace internal
-template <typename T> auto make_uniform_int_distribution(T min, T max) {
-  using type = std::uniform_int_distribution<T>;
-  return internal::make_distribution<type>(min, max);
-}
-template <typename T> auto make_uniform_int_distribution(T max) {
-  return make_uniform_int_distribution<T>(0, max);
-}
-template <typename T> auto make_uniform_real_distribution(T min, T max) {
-  using type = std::uniform_real_distribution<T>;
-  return internal::make_distribution<type>(min, max);
-}
-template <typename T> auto make_uniform_real_distribution(T max) {
-  return make_uniform_real_distribution<T>(0, max);
-}
-inline auto make_bernoulli_distribution(double p = 0.5) {
-  using type = std::bernoulli_distribution;
-  return internal::make_distribution<type>(p);
-}
-template <std::input_iterator Ite>
-auto make_discrete_distribution(const Ite& first, const Ite& last) {
-  using type = std::discrete_distribution<std::size_t>;
-  return internal::make_distribution<type>(first, last);
-}
-template <std::ranges::input_range Rng>
-auto make_discrete_distribution(const Rng& rng) {
-  return make_discrete_distribution(rng.begin(), rng.end());
-}
-inline auto make_discrete_distribution(std::initializer_list<double> list) {
-  return make_discrete_distribution(list.begin(), list.end());
-}
+template <typename Engine> class random_engine_generator {
+  static auto& get_engine() {
+    thread_local Engine engine;
+    return engine;
+  }
+  template <typename T> static auto make_distribution(T&& dist) {
+    return [&engine = get_engine(), dist = std::move(dist)] mutable {
+      return dist(engine);
+    };
+  }
 
-inline double generate_canonical() {
-  auto& engine = internal::get_common_engine();
-  constexpr auto digits = std::numeric_limits<double>::digits;
-  return std::generate_canonical<double, digits>(engine);
-}
-template <typename Rng> void shuffle(Rng& rng) {
-  std::ranges::shuffle(rng, internal::get_common_engine());
-}
-template <std::random_access_iterator It> void shuffle(It first, It last) {
-  std::shuffle(first, last, internal::get_common_engine());
-}
+public:
+  template <typename T> static auto uniform_int_distribution(T min, T max) {
+    return make_distribution(std::uniform_int_distribution<T>(min, max));
+  }
+  template <typename T> static auto uniform_int_distribution(T max) {
+    return uniform_int_distribution(T(0), max);
+  }
+  template <typename T> static auto uniform_real_distribution(T min, T max) {
+    return make_distribution(std::uniform_real_distribution<T>(min, max));
+  }
+  template <typename T> static auto uniform_real_distribution(T max) {
+    return uniform_real_distribution<T>(0, max);
+  }
+  static auto bernoulli_distribution(double p = 0.5) {
+    return make_distribution(std::bernoulli_distribution(p));
+  }
+  template <std::input_iterator Ite>
+  static auto discrete_distribution(const Ite& first, const Ite& last) {
+    return make_distribution(
+        std::discrete_distribution<std::size_t>(first, last));
+  }
+  template <std::ranges::input_range Rng>
+  static auto discrete_distribution(const Rng& rng) {
+    return make_distribution(std::discrete_distribution<std::size_t>(
+        std::ranges::begin(rng), std::ranges::end(rng)));
+  }
+  static auto discrete_distribution(std::initializer_list<double> list) {
+    return discrete_distribution(list.begin(), list.end());
+  }
+  static double generate_canonical() {
+    constexpr auto digits = std::numeric_limits<double>::digits;
+    return std::generate_canonical<double, digits>(get_engine());
+  }
+  template <typename Rng> static void shuffle(Rng& rng) {
+    std::ranges::shuffle(rng, get_engine());
+  }
+  template <std::random_access_iterator It>
+  static void shuffle(It first, It last) {
+    std::shuffle(first, last, get_engine());
+  }
+};
+
+struct xorshift {
+  std::uint64_t state;
+  xorshift(std::uint64_t seed = 1) : state(seed) {}
+  std::uint64_t operator()() {
+    state ^= state << 13;
+    state ^= state >> 7;
+    state ^= state << 17;
+    return state ^ (state >> 16);
+  }
+  using result_type = std::uint64_t;
+  static constexpr std::uint64_t min() {
+    return 1;
+  }
+  static constexpr std::uint64_t max() {
+    return std::numeric_limits<std::uint64_t>::max();
+  }
+};
 } // namespace heuristic

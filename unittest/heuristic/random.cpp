@@ -2,9 +2,15 @@
 #include "test_utils.hpp"
 #include <gtest/gtest.h>
 
-TEST(HeuristicRandom, MakeUniformIntDistribution1) {
+template <typename T> class HeuristicRandom : public ::testing::Test {};
+using types =
+    ::testing::Types<std::mt19937, std::minstd_rand, heuristic::xorshift>;
+TYPED_TEST_CASE(HeuristicRandom, types);
+
+TYPED_TEST(HeuristicRandom, MakeUniformIntDistribution1) {
+  using generator = heuristic::random_engine_generator<TypeParam>;
   auto results = test_utils::async([] {
-    auto dist = heuristic::make_uniform_int_distribution(3);
+    auto dist = generator::uniform_int_distribution(3);
     std::array<int, 5> result{};
     for (int c = 0; c < 10000; ++c) {
       auto v = dist();
@@ -23,9 +29,10 @@ TEST(HeuristicRandom, MakeUniformIntDistribution1) {
   EXPECT_EQ(results[4], 0);
 }
 
-TEST(HeuristicRandom, MakeUniformIntDistribution2) {
+TYPED_TEST(HeuristicRandom, MakeUniformIntDistribution2) {
+  using generator = heuristic::random_engine_generator<TypeParam>;
   auto results = test_utils::async([] {
-    auto dist = heuristic::make_uniform_int_distribution(0, 3);
+    auto dist = generator::uniform_int_distribution(0, 3);
     std::array<int, 5> result{};
     for (int c = 0; c < 10000; ++c) {
       auto v = dist();
@@ -44,9 +51,10 @@ TEST(HeuristicRandom, MakeUniformIntDistribution2) {
   EXPECT_EQ(results[4], 0);
 }
 
-TEST(HeuristicRandom, MakeUniformRealDistribution1) {
+TYPED_TEST(HeuristicRandom, MakeUniformRealDistribution1) {
+  using generator = heuristic::random_engine_generator<TypeParam>;
   EXPECT_TRUE(test_utils::async([] {
-    auto dist = heuristic::make_uniform_real_distribution(4.0);
+    auto dist = generator::uniform_real_distribution(4.0);
     std::array<bool, 4> flag{};
     for (int c = 0; c < 10000; ++c) {
       auto v = dist();
@@ -60,9 +68,10 @@ TEST(HeuristicRandom, MakeUniformRealDistribution1) {
   }));
 }
 
-TEST(HeuristicRandom, MakeUniformRealDistribution2) {
+TYPED_TEST(HeuristicRandom, MakeUniformRealDistribution2) {
+  using generator = heuristic::random_engine_generator<TypeParam>;
   EXPECT_TRUE(test_utils::async([] {
-    auto dist = heuristic::make_uniform_real_distribution(0.0, 4.0);
+    auto dist = generator::uniform_real_distribution(0.0, 4.0);
     std::array<bool, 4> flag{};
     for (int c = 0; c < 10000; ++c) {
       auto v = dist();
@@ -76,9 +85,10 @@ TEST(HeuristicRandom, MakeUniformRealDistribution2) {
   }));
 }
 
-TEST(HeuristicRandom, MakeBernoulliDistribution0) {
+TYPED_TEST(HeuristicRandom, MakeBernoulliDistribution0) {
+  using generator = heuristic::random_engine_generator<TypeParam>;
   EXPECT_TRUE(test_utils::async([] {
-    auto dist = heuristic::make_bernoulli_distribution();
+    auto dist = generator::bernoulli_distribution();
     std::array<bool, 2> flag{};
     for (int c = 0; c < 10000; ++c) {
       flag[dist()] = true;
@@ -87,9 +97,10 @@ TEST(HeuristicRandom, MakeBernoulliDistribution0) {
   }));
 }
 
-TEST(HeuristicRandom, MakeBernoulliDistribution1) {
+TYPED_TEST(HeuristicRandom, MakeBernoulliDistribution1) {
+  using generator = heuristic::random_engine_generator<TypeParam>;
   EXPECT_TRUE(test_utils::async([] {
-    auto dist = heuristic::make_bernoulli_distribution(0.75);
+    auto dist = generator::bernoulli_distribution(0.75);
     std::array<bool, 2> flag{};
     for (int c = 0; c < 10000; ++c) {
       flag[dist()] = true;
@@ -98,10 +109,11 @@ TEST(HeuristicRandom, MakeBernoulliDistribution1) {
   }));
 }
 
-TEST(HeuristicRandom, MakeBernoulliDistributionExtreme) {
+TYPED_TEST(HeuristicRandom, MakeBernoulliDistributionExtreme) {
+  using generator = heuristic::random_engine_generator<TypeParam>;
   std::array<bool, 2> flag{};
   test_utils::async([&flag] {
-    auto dist = heuristic::make_bernoulli_distribution(1.0);
+    auto dist = generator::bernoulli_distribution(1.0);
     for (int c = 0; c < 10000; ++c) {
       flag[dist()] = true;
     }
@@ -110,12 +122,13 @@ TEST(HeuristicRandom, MakeBernoulliDistributionExtreme) {
   EXPECT_TRUE(flag[1]);
 }
 
-TEST(HeuristicRandom, MakeDiscreteDistibutionIterator) {
+TYPED_TEST(HeuristicRandom, MakeDiscreteDistibutionIterator) {
+  using generator = heuristic::random_engine_generator<TypeParam>;
   auto result = test_utils::async([] {
     std::array probabilities = {0.0, 0.1, 0.2, 0.3, 0.4};
     std::array<std::size_t, 6> count{};
-    auto dist = heuristic::make_discrete_distribution(probabilities.begin(),
-                                                      probabilities.end());
+    auto dist = generator::discrete_distribution(probabilities.begin(),
+                                                 probabilities.end());
     for (int c = 0; c < 10000; ++c) {
       auto v = dist();
       if (v >= 5) {
@@ -137,11 +150,12 @@ TEST(HeuristicRandom, MakeDiscreteDistibutionIterator) {
   EXPECT_EQ(result[5], 0);
 }
 
-TEST(HeuristicRandom, MakeDiscreteDistibutionRange) {
+TYPED_TEST(HeuristicRandom, MakeDiscreteDistibutionRange) {
+  using generator = heuristic::random_engine_generator<TypeParam>;
   auto result = test_utils::async([] {
     std::array probabilities = {0.0, 0.1, 0.2, 0.3, 0.4};
     std::array<std::size_t, 6> count{};
-    auto dist = heuristic::make_discrete_distribution(probabilities);
+    auto dist = generator::discrete_distribution(probabilities);
     for (int c = 0; c < 10000; ++c) {
       auto v = dist();
       if (v >= 5) {
@@ -163,11 +177,11 @@ TEST(HeuristicRandom, MakeDiscreteDistibutionRange) {
   EXPECT_EQ(result[5], 0);
 }
 
-TEST(HeuristicRandom, MakeDiscreteDistibutionInitList) {
+TYPED_TEST(HeuristicRandom, MakeDiscreteDistibutionInitList) {
+  using generator = heuristic::random_engine_generator<TypeParam>;
   auto result = test_utils::async([] {
     std::array<std::size_t, 6> count{};
-    auto dist =
-        heuristic::make_discrete_distribution({0.0, 0.1, 0.2, 0.3, 0.4});
+    auto dist = generator::discrete_distribution({0.0, 0.1, 0.2, 0.3, 0.4});
     for (int c = 0; c < 10000; ++c) {
       auto v = dist();
       if (v >= 5) {
@@ -189,10 +203,11 @@ TEST(HeuristicRandom, MakeDiscreteDistibutionInitList) {
   EXPECT_EQ(result[5], 0);
 }
 
-TEST(HeuristicRandom, GenerateCanonical) {
+TYPED_TEST(HeuristicRandom, GenerateCanonical) {
+  using generator = heuristic::random_engine_generator<TypeParam>;
   EXPECT_TRUE(test_utils::async([] {
     for (int c = 0; c < 10000; ++c) {
-      auto v = heuristic::generate_canonical();
+      auto v = generator::generate_canonical();
       if (v < 0.0 || v >= 1.0) {
         return false;
       }
@@ -201,32 +216,34 @@ TEST(HeuristicRandom, GenerateCanonical) {
   }));
 }
 
-TEST(HeuristicRandom, GenerateCanonicalThreadLocal) {
+TYPED_TEST(HeuristicRandom, GenerateCanonicalThreadLocal) {
+  using generator = heuristic::random_engine_generator<TypeParam>;
   constexpr int N = 0x100;
   auto first = test_utils::async([] {
     std::array<double, N> result{};
     for (auto& v : result) {
-      v = heuristic::generate_canonical();
+      v = generator::generate_canonical();
     }
     return result;
   });
   auto second = test_utils::async([] {
     std::array<double, N> result{};
     for (auto& v : result) {
-      v = heuristic::generate_canonical();
+      v = generator::generate_canonical();
     }
     return result;
   });
   EXPECT_EQ(first, second);
 }
 
-TEST(HeuristicRandom, ShuffleRng) {
+TYPED_TEST(HeuristicRandom, ShuffleRng) {
+  using generator = heuristic::random_engine_generator<TypeParam>;
   std::array<int, 8> base = {0, 1, 2, 3, 4, 5, 6, 7};
   auto [first, second] = test_utils::async([base] {
     auto first_rng = base;
-    heuristic::shuffle(first_rng);
+    generator::shuffle(first_rng);
     auto second_rng = base;
-    heuristic::shuffle(second_rng);
+    generator::shuffle(second_rng);
     return std::pair(first_rng, second_rng);
   });
   for (int i = 0; i < 8; ++i) {
@@ -238,13 +255,14 @@ TEST(HeuristicRandom, ShuffleRng) {
   EXPECT_NE(first, second);
 }
 
-TEST(HeuristicRandom, ShuffleIterator) {
+TYPED_TEST(HeuristicRandom, ShuffleIterator) {
+  using generator = heuristic::random_engine_generator<TypeParam>;
   std::array<int, 8> base = {0, 1, 2, 3, 4, 5, 6, 7};
   auto [first, second] = test_utils::async([base] {
     auto first_rng = base;
-    heuristic::shuffle(first_rng.begin(), first_rng.end());
+    generator::shuffle(first_rng.begin(), first_rng.end());
     auto second_rng = base;
-    heuristic::shuffle(second_rng.begin(), second_rng.end());
+    generator::shuffle(second_rng.begin(), second_rng.end());
     return std::pair(first_rng, second_rng);
   });
   for (int i = 0; i < 8; ++i) {
