@@ -1,6 +1,5 @@
 #pragma once
 #include "atcoder/all"
-#include "random_test_base.hpp"
 #include <future>
 
 namespace test_utils {
