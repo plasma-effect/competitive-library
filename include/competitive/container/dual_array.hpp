@@ -1,8 +1,9 @@
 #pragma once
+#include "competitive/io/print_base.hpp"
 #include "competitive/utility/assert.hpp"
 #include <bits/stdc++.h>
 
-namespace common {
+namespace competitive::container {
 template <typename T> class dual_array {
   std::vector<T> inside_;
   std::size_t dim0, dim1;
@@ -66,4 +67,22 @@ template <> class dual_array<bool> : public dual_array<internal::bool_ploxy> {
 public:
   using dual_array<internal::bool_ploxy>::dual_array;
 };
-} // namespace common
+template <typename T>
+common::internal::print_base_t& operator<<(common::internal::print_base_t& pb,
+                                           dual_array<T> const& ar) {
+  auto [H, W] = ar.dimensions();
+  const auto [prefix, suffix, delim] = pb.get_range_decolater();
+  const char* outer_delim = "";
+  pb << prefix;
+  for (auto i = 0uz; i < H; ++i) {
+    pb << std::exchange(outer_delim, delim) << prefix;
+    const char* inner_delim = "";
+    for (auto j = 0uz; j < W; ++j) {
+      pb << std::exchange(inner_delim, delim) << ar(i, j);
+    }
+    pb << suffix;
+  }
+  pb << suffix;
+  return pb;
+}
+} // namespace competitive::container

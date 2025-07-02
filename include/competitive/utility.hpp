@@ -1,6 +1,5 @@
 #pragma once
 #include "competitive/utility/assert.hpp"
-#include "competitive/utility/dual_array.hpp"
 #include "competitive/utility/irange.hpp"
 #include "competitive/utility/priority_queue.hpp"
 #include <bits/stdc++.h>

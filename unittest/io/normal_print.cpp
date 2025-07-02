@@ -1,4 +1,5 @@
 #include "competitive/io/normal_print.hpp"
+#include "competitive/utility/irange.hpp"
 #include <gtest/gtest.h>
 using testing::internal::CaptureStdout;
 using testing::internal::GetCapturedStdout;
@@ -62,44 +63,4 @@ TEST(NormalPrint, UseManip) {
   common::println(std::boolalpha, true);
   std::cout << std::flush;
   EXPECT_EQ(GetCapturedStdout(), "true\n");
-}
-
-TEST(NormalPrint, DualArray) {
-  CaptureStdout();
-  common::dual_array<int> ar(2, 3);
-  ar(0, 0) = 1;
-  ar(0, 1) = 2;
-  ar(0, 2) = 3;
-  ar(1, 0) = 4;
-  ar(1, 1) = 5;
-  ar(1, 2) = 6;
-  common::println(ar);
-  std::cout << std::flush;
-  EXPECT_EQ(GetCapturedStdout(), "1 2 3 4 5 6\n");
-}
-
-TEST(NormalPrint, BooleanDualArray) {
-  CaptureStdout();
-  common::dual_array<bool> ar(2, 3);
-  ar(0, 0) = true;
-  ar(0, 1) = false;
-  ar(0, 2) = true;
-  ar(1, 0) = false;
-  ar(1, 1) = true;
-  ar(1, 2) = false;
-  common::println(ar);
-  std::cout << std::flush;
-  EXPECT_EQ(GetCapturedStdout(), "1 0 1 0 1 0\n");
-}
-
-TEST(NormalPrint, BooleanDualArrayElem) {
-  CaptureStdout();
-  common::dual_array<bool> ar(2, 2);
-  ar(0, 0) = true;
-  ar(0, 1) = false;
-  ar(1, 0) = false;
-  ar(1, 1) = true;
-  common::println(ar(0, 0), ar(0, 1), ar(1, 0), ar(1, 1));
-  std::cout << std::flush;
-  EXPECT_EQ(GetCapturedStdout(), "1 0 0 1\n");
 }

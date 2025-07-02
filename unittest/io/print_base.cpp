@@ -1,4 +1,5 @@
 #include "competitive/io/print_base.hpp"
+#include "competitive/utility/irange.hpp"
 #include <gtest/gtest.h>
 
 TEST(PrintBase, String) {
@@ -126,9 +127,7 @@ TEST(PrintBase, SetRangeDec) {
   std::stringstream ss;
   common::internal::print_base_t base(ss);
   std::vector vec = {0, 1, 2};
-  base.set_range_prefix("{");
-  base.set_range_suffix("}");
-  base.set_range_delim(",");
+  base.set_range_decolater("{", "}", ",");
   base << vec;
   EXPECT_EQ(ss.str(), "{0,1,2}");
 }
@@ -137,9 +136,7 @@ TEST(PrintBase, SetTupleDec) {
   std::stringstream ss;
   common::internal::print_base_t base(ss);
   std::tuple tpl(0, 1, 2);
-  base.set_tuple_prefix("(");
-  base.set_tuple_suffix(")");
-  base.set_tuple_delim(",");
+  base.set_tuple_decolater("(", ")", ",");
   base << tpl;
   EXPECT_EQ(ss.str(), "(0,1,2)");
 }
@@ -148,12 +145,8 @@ TEST(PrintBase, SetCombDec) {
   std::stringstream ss;
   common::internal::print_base_t base(ss);
   std::vector vec = {std::pair(1, 2), std::pair(3, 4)};
-  base.set_range_prefix("{");
-  base.set_range_suffix("}");
-  base.set_range_delim(", ");
-  base.set_tuple_prefix("(");
-  base.set_tuple_suffix(")");
-  base.set_tuple_delim(", ");
+  base.set_range_decolater("{", "}", ", ");
+  base.set_tuple_decolater("(", ")", ", ");
   base << vec;
   EXPECT_EQ(ss.str(), "{(1, 2), (3, 4)}");
 }

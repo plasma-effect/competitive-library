@@ -8,12 +8,8 @@ inline void println() {
 }
 template <typename... Ts> void println(Ts const&... args) {
   common::internal::print_base_t pb(std::cerr);
-  pb.set_range_prefix("{");
-  pb.set_range_suffix("}");
-  pb.set_range_delim(", ");
-  pb.set_tuple_prefix("(");
-  pb.set_tuple_suffix(")");
-  pb.set_tuple_delim(", ");
+  pb.set_range_decolater("{", "}", ", ");
+  pb.set_tuple_decolater("(", ")", ", ");
   common::internal::print<false>(pb, args...);
   std::cerr << std::endl;
 }

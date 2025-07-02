@@ -2,6 +2,7 @@
 #include "boost/container/static_vector.hpp"
 #include "competitive/io/print_base.hpp"
 #include "competitive/utility/assert.hpp"
+#include "competitive/utility/priority_queue.hpp"
 #include <bits/stdc++.h>
 
 namespace heuristic {

@@ -31,6 +31,10 @@ function(apply_common_options)
   endif()
 endfunction()
 
+# container
+add_executable(container_dual_array_unittest container/dual_array.cpp)
+apply_common_options(container_dual_array_unittest)
+
 # data structure
 add_executable(data_structure_min_max_heap_unittest data_structure/min_max_heap.cpp)
 apply_common_options(data_structure_min_max_heap_unittest)
@@ -67,9 +71,6 @@ apply_common_options(heuristic_time_control_unittest)
 # common utility
 add_executable(utility_assert_unittest utility/assert.cpp)
 apply_common_options(utility_assert_unittest)
-
-add_executable(utility_dual_array_unittest utility/dual_array.cpp)
-apply_common_options(utility_dual_array_unittest)
 
 add_executable(utility_irange_unittest utility/irange.cpp)
 apply_common_options(utility_irange_unittest)

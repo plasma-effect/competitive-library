@@ -1,6 +1,6 @@
 #pragma once
 #include "atcoder/all"
-#include "competitive/utility.hpp"
+#include <bits/stdc++.h>
 
 namespace common::internal {
 template <typename T>
@@ -96,56 +96,31 @@ public:
     }
     return *this;
   }
-  template <typename T>
-  print_base_t& operator<<(common::dual_array<T> const& ar) {
-    auto [H, W] = ar.dimensions();
-    const char* outer_delim = "";
-    ost << rng_dec.prefix;
-    for (auto i : common::irange(H)) {
-      ost << std::exchange(outer_delim, rng_dec.delim) << rng_dec.prefix;
-      const char* inner_delim = "";
-      for (auto j : common::irange(W)) {
-        ost << std::exchange(inner_delim, rng_dec.delim);
-        *this << ar(i, j);
-      }
-      ost << rng_dec.suffix;
-    }
-    ost << rng_dec.suffix;
-    return *this;
+  std::array<const char*, 3> get_range_decolater() {
+    return {
+        rng_dec.prefix,
+        rng_dec.suffix,
+        rng_dec.delim,
+    };
   }
-  print_base_t& operator<<(common::dual_array<bool> const& ar) {
-    auto [H, W] = ar.dimensions();
-    const char* outer_delim = "";
-    ost << rng_dec.prefix;
-    for (auto i : common::irange(H)) {
-      ost << std::exchange(outer_delim, rng_dec.delim) << rng_dec.prefix;
-      const char* inner_delim = "";
-      for (auto j : common::irange(W)) {
-        ost << std::exchange(inner_delim, rng_dec.delim);
-        ost << bool(ar(i, j));
-      }
-      ost << rng_dec.suffix;
-    }
-    ost << rng_dec.suffix;
-    return *this;
+  void set_range_decolater(const char* prefix, const char* suffix,
+                           const char* delim) {
+    rng_dec.prefix = prefix;
+    rng_dec.suffix = suffix;
+    rng_dec.delim = delim;
   }
-  void set_range_prefix(const char* new_prefix) {
-    rng_dec.prefix = new_prefix;
+  std::array<const char*, 3> get_tuple_decolater() {
+    return {
+        tpl_dec.prefix,
+        tpl_dec.suffix,
+        tpl_dec.delim,
+    };
   }
-  void set_range_suffix(const char* new_suffix) {
-    rng_dec.suffix = new_suffix;
-  }
-  void set_range_delim(const char* new_delim) {
-    rng_dec.delim = new_delim;
-  }
-  void set_tuple_prefix(const char* new_prefix) {
-    tpl_dec.prefix = new_prefix;
-  }
-  void set_tuple_suffix(const char* new_suffix) {
-    tpl_dec.suffix = new_suffix;
-  }
-  void set_tuple_delim(const char* new_delim) {
-    tpl_dec.delim = new_delim;
+  void set_tuple_decolater(const char* prefix, const char* suffix,
+                           const char* delim) {
+    tpl_dec.prefix = prefix;
+    tpl_dec.suffix = suffix;
+    tpl_dec.delim = delim;
   }
 };
 

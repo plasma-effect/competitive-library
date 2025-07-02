@@ -1,4 +1,5 @@
 #include "competitive/algorithm/warshall_floyd.hpp"
+#include "competitive/container/dual_array.hpp"
 #include <gtest/gtest.h>
 
 TEST(WarshallFloyd, LocalUpdate) {
@@ -45,7 +46,7 @@ TEST(WarshallFloyd, LocalUpdate) {
 }
 
 TEST(WarshallFloyd, Execute) {
-  common::dual_array<std::optional<int>> data(4, 4);
+  competitive::container::dual_array<std::optional<int>> data(4, 4);
   // structure
   // 0 --> 1
   // | ┌   |

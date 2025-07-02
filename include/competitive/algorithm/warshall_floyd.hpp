@@ -1,4 +1,5 @@
 #pragma once
+#include "competitive/container/dual_array.hpp"
 #include "competitive/utility.hpp"
 
 namespace algorithm {
@@ -18,7 +19,8 @@ template <typename T> void local_update(T& base, T a, T b) {
   base = std::min(base, a + b);
 }
 } // namespace internal
-template <typename T> void warshall_floyd(common::dual_array<T>& data) {
+template <typename T>
+void warshall_floyd(competitive::container::dual_array<T>& data) {
   auto [N, d1] = data.dimensions();
   CL_ASSERT(N == d1);
   for (auto k : common::irange(N)) {
