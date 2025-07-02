@@ -62,7 +62,7 @@ struct xorshift {
     state ^= state << 13;
     state ^= state >> 7;
     state ^= state << 17;
-    return state ^ (state >> 16);
+    return state ^ (state >> 32);
   }
   using result_type = std::uint64_t;
   static constexpr std::uint64_t min() {
