@@ -35,6 +35,9 @@ endfunction()
 add_executable(container_dual_array_unittest container/dual_array.cpp)
 apply_common_options(container_dual_array_unittest)
 
+add_executable(container_static_dual_array_unittest container/static_dual_array.cpp)
+apply_common_options(container_static_dual_array_unittest)
+
 # data structure
 add_executable(data_structure_min_max_heap_unittest data_structure/min_max_heap.cpp)
 apply_common_options(data_structure_min_max_heap_unittest)
