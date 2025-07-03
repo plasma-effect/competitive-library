@@ -7,6 +7,13 @@
 #include <memory>
 #include <set>
 
+const char* license =
+    R"(// plasma-effect/competitive-library Copyright (c) plasma-effect
+// https://github.com/plasma-effect/competitive-library
+// plasma-effect/competitive-library released under the MIT license
+// see https://github.com/plasma-effect/competitive-library/blob/master/LICENSE
+)";
+
 int main(int argc, const char* argv[]) {
   namespace fs = std::filesystem;
   auto result = source_expander::parse_argc(argc, argv);
@@ -26,9 +33,11 @@ int main(int argc, const char* argv[]) {
     auto data = source_expander::get_data();
     std::fstream infst(fs::canonical(result.inpath), std::ios::in);
     if (result.outpath.empty()) {
+      std::cout << license;
       source_expander::expand(infst, std::cout, data.headers);
     } else {
       std::fstream outfst(fs::weakly_canonical(result.outpath), std::ios::out);
+      outfst << license;
       source_expander::expand(infst, outfst, data.headers);
     }
   } catch (std::exception& e) {

@@ -27,4 +27,5 @@ g++ -std=c++23 -Icompetitive-library/include main.cpp
 ## ライセンス
 
 - ac-library下を除くコードはMITライセンスで提供されるものとします。
+  - なおexpanderを用いて展開したコードにはコピーライト表記とライセンスのURLが貼られるのでそのまま使用できます。
 - ac-library下のコードはCC0で提供されるものとします。
