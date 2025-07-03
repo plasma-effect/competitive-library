@@ -1,10 +1,12 @@
 #pragma once
+#include "boost/container/static_vector.hpp"
 #include "competitive/utility.hpp"
 #include <bits/stdc++.h>
 
 namespace competitive {
-template <std::movable T> class min_max_heap {
-  std::vector<T> values;
+template <std::movable T, typename Container = std::vector<T>>
+class min_max_heap {
+  Container values;
   std::function<bool(T const&, T const&)> comp;
   template <bool is_less> bool compare(std::size_t i0, std::size_t i1) {
     if constexpr (is_less) {
@@ -101,18 +103,24 @@ public:
   }
 
   void pop_min() {
+    CL_ASSERT(size() != 0);
     std::swap(values.front(), values.back());
     values.pop_back();
     trickle_down<true>(1);
   }
   void pop_max() {
-    std::size_t i = 2;
-    if (values.size() > 2 && compare<true>(2, 3)) {
-      i = 3;
+    CL_ASSERT(size() != 0);
+    if (values.size() > 1) {
+      std::size_t i = values.size() > 2 && compare<true>(2, 3) ? 3 : 2;
+      std::swap(values[i - 1], values.back());
+      values.pop_back();
+      trickle_down<false>(i);
+    } else {
+      values.pop_back();
     }
-    std::swap(values[i - 1], values.back());
-    values.pop_back();
-    trickle_down<false>(i);
   }
 };
+template <typename T, std::size_t Capacity>
+using static_min_max_heap =
+    min_max_heap<T, boost::container::static_vector<T, Capacity>>;
 } // namespace competitive

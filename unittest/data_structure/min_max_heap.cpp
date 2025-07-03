@@ -17,10 +17,20 @@ struct uncopyable {
     return v == u;
   }
 };
+struct vector_adaptor {
+  template <typename T> using type = competitive::min_max_heap<T>;
+};
+struct static_vector_adaptor {
+  template <typename T> using type = competitive::static_min_max_heap<T, 32>;
+};
 } // namespace
 
-TEST(DataStructure, MinMaxHeapGeneral) {
-  competitive::min_max_heap<int> heap;
+template <typename T> class DataStructureMinMaxHeap : public ::testing::Test {};
+using types = ::testing::Types<vector_adaptor, static_vector_adaptor>;
+TYPED_TEST_CASE(DataStructureMinMaxHeap, types);
+
+TYPED_TEST(DataStructureMinMaxHeap, General) {
+  typename TypeParam::type<int> heap;
   EXPECT_EQ(heap.size(), 0);
 
   heap.push(2);
@@ -44,8 +54,8 @@ TEST(DataStructure, MinMaxHeapGeneral) {
   EXPECT_EQ(heap.max(), 4);
 }
 
-TEST(DataStructure, MinMaxHeapPopMin) {
-  competitive::min_max_heap<int> heap;
+TYPED_TEST(DataStructureMinMaxHeap, PopMin) {
+  typename TypeParam::type<int> heap;
   for (int i : common::irange(31)) {
     heap.push(i);
   }
@@ -57,8 +67,8 @@ TEST(DataStructure, MinMaxHeapPopMin) {
   EXPECT_EQ(heap.size(), 0);
 }
 
-TEST(DataStructure, MinMaxHeapPopMax) {
-  competitive::min_max_heap<int> heap;
+TYPED_TEST(DataStructureMinMaxHeap, PopMax) {
+  typename TypeParam::type<int> heap;
   for (int i : common::irange(31)) {
     heap.push(i);
   }
@@ -70,8 +80,8 @@ TEST(DataStructure, MinMaxHeapPopMax) {
   EXPECT_EQ(heap.size(), 0);
 }
 
-TEST(DataStructure, MinMaxHeapPopMinMax) {
-  competitive::min_max_heap<int> heap;
+TYPED_TEST(DataStructureMinMaxHeap, PopMinMax) {
+  typename TypeParam::type<int> heap;
   for (int i : common::irange(31)) {
     heap.push(i);
   }
@@ -85,8 +95,8 @@ TEST(DataStructure, MinMaxHeapPopMinMax) {
   EXPECT_EQ(heap.size(), 0);
 }
 
-TEST(DataStructure, MinMaxHeapCustomProj) {
-  competitive::min_max_heap<common::pair<int>> heap(
+TYPED_TEST(DataStructureMinMaxHeap, CustomProj) {
+  typename TypeParam::type<common::pair<int>> heap(
       [](common::pair<int> const& p) { return p.first + p.second; });
   heap.emplace(2, 4);
   EXPECT_EQ(heap.min(), std::pair(2, 4));
@@ -109,8 +119,8 @@ TEST(DataStructure, MinMaxHeapCustomProj) {
   EXPECT_EQ(heap.max(), std::pair(0, 8));
 }
 
-TEST(DataStructure, MinMaxHeapUnCopyable) {
-  competitive::min_max_heap<uncopyable> heap;
+TYPED_TEST(DataStructureMinMaxHeap, UnCopyable) {
+  typename TypeParam::type<uncopyable> heap;
   EXPECT_EQ(heap.size(), 0);
 
   heap.push(uncopyable(2));
@@ -134,8 +144,8 @@ TEST(DataStructure, MinMaxHeapUnCopyable) {
   EXPECT_EQ(heap.max(), 4);
 }
 
-TEST(DataStructure, MinMaxHeapUnCopyablePopMin) {
-  competitive::min_max_heap<uncopyable> heap;
+TYPED_TEST(DataStructureMinMaxHeap, UnCopyablePopMin) {
+  typename TypeParam::type<uncopyable> heap;
   for (int i : common::irange(31)) {
     heap.push(uncopyable(i));
   }
@@ -147,8 +157,8 @@ TEST(DataStructure, MinMaxHeapUnCopyablePopMin) {
   EXPECT_EQ(heap.size(), 0);
 }
 
-TEST(DataStructure, MinMaxHeapUnCopyablePopMax) {
-  competitive::min_max_heap<uncopyable> heap;
+TYPED_TEST(DataStructureMinMaxHeap, UnCopyablePopMax) {
+  typename TypeParam::type<uncopyable> heap;
   for (int i : common::irange(31)) {
     heap.push(uncopyable(i));
   }
@@ -160,8 +170,8 @@ TEST(DataStructure, MinMaxHeapUnCopyablePopMax) {
   EXPECT_EQ(heap.size(), 0);
 }
 
-TEST(DataStructure, MinMaxHeapUnCopyablePopMinMax) {
-  competitive::min_max_heap<uncopyable> heap;
+TYPED_TEST(DataStructureMinMaxHeap, UnCopyablePopMinMax) {
+  typename TypeParam::type<uncopyable> heap;
   for (int i : common::irange(31)) {
     heap.push(uncopyable(i));
   }
@@ -175,8 +185,8 @@ TEST(DataStructure, MinMaxHeapUnCopyablePopMinMax) {
   EXPECT_EQ(heap.size(), 0);
 }
 
-TEST(DataStructure, MinMaxHeapUnCopyableCustomProj) {
-  competitive::min_max_heap<uncopyable> heap(
+TYPED_TEST(DataStructureMinMaxHeap, UnCopyableCustomProj) {
+  typename TypeParam::type<uncopyable> heap(
       [](uncopyable const& p) { return std::popcount(p.v); });
   heap.emplace(0b0'00'111'0000'00000);
   EXPECT_EQ(heap.min(), 0b0'00'111'0000'00000);
