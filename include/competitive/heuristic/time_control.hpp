@@ -10,57 +10,86 @@ inline auto get_time() {
   return duration_cast<milliseconds>(system_clock::now() - start);
 }
 namespace internal {
-template <typename Derived> class time_control_base {
-  time_t time_limit_, current_;
-  std::size_t update_frequency_, update_count_;
+
+template <std::int64_t time_limit_ms, std::size_t update_frequency,
+          typename Derived>
+class time_control_base {
+  std::size_t update_count_;
 
 public:
-  time_control_base(time_t time_limit, std::size_t ufreq = 1)
-      : time_limit_(time_limit), current_(get_time()), update_frequency_(ufreq),
-        update_count_() {}
   operator bool() {
-    if (++update_count_ == update_frequency_) {
+    if (++update_count_ == update_frequency) {
       update_count_ = 0;
-      current_ = get_time();
-      static_cast<Derived&>(*this).update(time_limit_, current_);
+      auto current = get_time();
+      static_cast<Derived&>(*this).update(current);
+      return current.count() < time_limit_ms;
+    } else {
+      return true;
     }
-    return current_ < time_limit_;
   }
 };
 } // namespace internal
 
-struct time_control_t : internal::time_control_base<time_control_t> {
-  void update(time_t const&, time_t const&) {}
-  using time_control_base::time_control_base;
+template <std::int64_t time_limit_ms, std::size_t update_frequency = 1>
+struct time_control_t : internal::time_control_base<
+                            time_limit_ms, update_frequency,
+                            time_control_t<time_limit_ms, update_frequency>> {
+  void update(time_t const&) {}
 };
 
-template <typename Engine = std::minstd_rand>
+template <std::int64_t time_limit_ms, std::int64_t start_temperature,
+          std::int64_t end_temperature, std::size_t update_frequency = 1,
+          typename Engine = std::minstd_rand>
 class time_control_with_annealing
-    : public internal::time_control_base<time_control_with_annealing<Engine>> {
-  using basetype =
-      internal::time_control_base<time_control_with_annealing<Engine>>;
+    : public internal::time_control_base<
+          time_limit_ms, update_frequency,
+          time_control_with_annealing<time_limit_ms, start_temperature,
+                                      end_temperature, update_frequency,
+                                      Engine>> {
+  using basetype = internal::time_control_base<
+      time_limit_ms, update_frequency,
+      time_control_with_annealing<time_limit_ms, start_temperature,
+                                  end_temperature, update_frequency, Engine>>;
   using generator = random_engine_generator<Engine>;
+  static constexpr std::size_t particle = 1 << 8;
+  static constexpr std::array<double, particle> make_log_table() {
+    std::array<double, particle> table;
+    table[0] = -std::numeric_limits<double>::infinity();
+    for (std::size_t i = 1; i < particle; ++i) {
+      table[i] = std::log(double(i) / double(particle));
+    }
+    return table;
+  }
+  static constexpr std::array<double, time_limit_ms> make_temperature_table() {
+    std::array<double, time_limit_ms> table;
+    double T1 = end_temperature;
+    double dT = double(start_temperature) / double(end_temperature);
+    for (int i = 0; i < time_limit_ms; ++i) {
+      double nt = i / double(time_limit_ms);
+      table[i] = T1 * std::pow(dT, 1 - nt);
+    }
+    return table;
+  }
+  static constexpr auto log_table = make_log_table();
+  static constexpr auto temp_table = make_temperature_table();
+
+  std::function<std::size_t()> dist;
+  double T;
 
 public:
-  double T1, dT, T;
-  time_control_with_annealing(time_t time_limit, std::size_t ufreq, double t0,
-                              double t1)
-      : basetype(time_limit, ufreq), T1(t1), dT(t0 / t1), T(t0) {}
-  time_control_with_annealing(time_t time_limit, double t0, double t1)
-      : time_control_with_annealing(time_limit, 1, t0, t1) {}
-  void update(time_t const& time_limit, time_t const& current) {
-    auto nt = double(current.count()) / double(time_limit.count());
-    T = T1 * std::pow(dT, 1 - nt);
+  time_control_with_annealing()
+      : dist(generator::uniform_int_distribution(particle - 1)),
+        T(temp_table[0]) {}
+  void update(time_t const& current) {
+    T = temp_table[current.count()];
   }
 
-  double annealing_threshold(double diff) {
-    return std::exp(diff / T);
-  }
   bool transition_check(double diff) {
     if (diff > 0) {
       return true;
     } else {
-      return generator::generate_canonical() < annealing_threshold(diff);
+      auto p = dist();
+      return log_table[p] * T < diff;
     }
   }
 };

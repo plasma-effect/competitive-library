@@ -26,7 +26,7 @@ TEST(HeuristicGeneral, GetTimeThreadLocal) {
 
 TEST(TimeControl, OperatorBool) {
   auto [first, second] = test_utils::async([] {
-    heuristic::time_control_t control(100ms);
+    heuristic::time_control_t<100> control;
     auto f = static_cast<bool>(control);
     std::this_thread::sleep_for(100ms);
     auto s = static_cast<bool>(control);
@@ -39,7 +39,7 @@ TEST(TimeControl, OperatorBool) {
 TEST(TimeControl, Frequency) {
   auto result = test_utils::async([] {
     std::array<bool, 4> ret{};
-    heuristic::time_control_t control(100ms, 2);
+    heuristic::time_control_t<100, 2> control;
     ret[0] = static_cast<bool>(control);
     ret[1] = static_cast<bool>(control);
     std::this_thread::sleep_for(100ms);
@@ -53,28 +53,13 @@ TEST(TimeControl, Frequency) {
   EXPECT_FALSE(result[3]);
 }
 
-TEST(TimeControlAnnealing, AnnealingThreshold) {
-  auto result = test_utils::async([] {
-    heuristic::time_control_with_annealing control(100ms, 100, 50);
-    if (control.annealing_threshold(0.5) <= 1.0) {
-      return false;
-    } else if (control.annealing_threshold(0.0) != 1.0) {
-      return false;
-    } else if (control.annealing_threshold(-0.5) >= 1.0) {
-      return false;
-    }
-    return true;
-  });
-  EXPECT_TRUE(result);
-}
-
 TEST(TimeControlAnnealing, TransitionCheck) {
   auto result = test_utils::async([] {
-    heuristic::time_control_with_annealing control(100ms, 100, 50);
+    heuristic::time_control_with_annealing<100, 100, 50> control;
     std::array<int, 3> count{};
     count[0] = control.transition_check(1.0);
     for (int c = 0; c < 10000; ++c) {
-      if (control.transition_check(-1000)) {
+      if (control.transition_check(-50)) {
         ++count[1];
       } else {
         ++count[2];
@@ -84,5 +69,25 @@ TEST(TimeControlAnnealing, TransitionCheck) {
   });
   EXPECT_EQ(result[0], 1);
   EXPECT_NE(result[1], 0);
+  EXPECT_NE(result[2], 0);
+}
+
+TEST(TimeControlAnnealing, TransitionSuccessDecrease) {
+  auto result = test_utils::async([] {
+    heuristic::time_control_with_annealing<100, 100, 50> control;
+    auto start = std::chrono::system_clock::now();
+    std::array<int, 3> count{};
+    for (int i = 0; i < 3 && control; ++i) {
+      for (int c = 0; c < 10000; ++c) {
+        if (control.transition_check(-75)) {
+          ++count[i];
+        }
+      }
+      std::this_thread::sleep_until(start + (i + 1) * 25ms);
+    }
+    return count;
+  });
+  EXPECT_GT(result[0], result[1]);
+  EXPECT_GT(result[1], result[2]);
   EXPECT_NE(result[2], 0);
 }
