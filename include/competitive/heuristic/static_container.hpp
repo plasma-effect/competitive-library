@@ -6,22 +6,15 @@
 #include <bits/stdc++.h>
 
 namespace heuristic {
-template <typename T, std::size_t Capacity,
-          common::priority p = common::priority::greater>
+namespace internal {
+template <typename T, std::size_t Capacity, typename Proj, typename Comp>
 class static_priority_container {
+  using compare_t = common::internal::projected_compare<T, Proj, Comp>;
   boost::container::static_vector<T, Capacity> cont;
-  std::function<bool(T const&, T const&)> comp;
+  compare_t comp;
 
 public:
-  template <typename Proj = std::identity>
-  static_priority_container(Proj proj = {})
-      : cont{}, comp([proj](T const& a, T const& b) {
-          if constexpr (p == common::priority::less) {
-            return proj(a) < proj(b);
-          } else {
-            return proj(a) > proj(b);
-          }
-        }) {}
+  static_priority_container(Proj p, Comp c) : cont{}, comp{p, c} {}
   void push(T value) {
     if (cont.size() < Capacity) {
       cont.push_back(value);
@@ -48,4 +41,23 @@ public:
     cont.clear();
   }
 };
+} // namespace internal
+template <typename T, std::size_t Capacity, typename Proj = std::identity>
+auto make_static_priority_container(common::internal::greater_t,
+                                    Proj proj = {}) {
+  return internal::static_priority_container<T, Capacity, Proj, std::greater<>>(
+      proj, {});
+}
+template <typename T, std::size_t Capacity, typename Proj = std::identity>
+auto make_static_priority_container(common::internal::less_t, Proj proj = {}) {
+  return internal::static_priority_container<T, Capacity, Proj, std::less<>>(
+      proj, {});
+}
+template <typename T, std::size_t Capacity, typename Proj = std::identity>
+auto make_static_priority_container(Proj proj = {})
+  requires(!common::internal::is_priority_tag<Proj>)
+{
+  return internal::static_priority_container<T, Capacity, Proj, std::greater<>>(
+      proj, {});
+}
 } // namespace heuristic

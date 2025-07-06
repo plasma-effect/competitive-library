@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 
 TEST(StaticPriorityContainer, General) {
-  heuristic::static_priority_container<int, 4> container;
+  auto container = heuristic::make_static_priority_container<int, 4>();
   container.push(0);
   EXPECT_EQ(container.size(), 1);
   container.push(1);
@@ -39,8 +39,8 @@ TEST(StaticPriorityContainer, General) {
 }
 
 TEST(StaticPriorityContainer, Less) {
-  heuristic::static_priority_container<int, 4, common::priority::less>
-      container;
+  auto container =
+      heuristic::make_static_priority_container<int, 4>(common::priority::less);
   container.push(0);
   container.push(1);
   container.push(2);
@@ -67,8 +67,8 @@ TEST(StaticPriorityContainer, Less) {
 }
 
 TEST(StaticPriorityContainer, Greater) {
-  heuristic::static_priority_container<int, 4, common::priority::greater>
-      container;
+  auto container = heuristic::make_static_priority_container<int, 4>(
+      common::priority::greater);
   container.push(0);
   container.push(1);
   container.push(2);
@@ -95,8 +95,9 @@ TEST(StaticPriorityContainer, Greater) {
 }
 
 TEST(StaticPriorityContainer, WithProj) {
-  heuristic::static_priority_container<std::pair<int, int>, 4> container(
-      [](auto p) { return std::get<0>(p) + std::get<1>(p); });
+  auto container =
+      heuristic::make_static_priority_container<std::pair<int, int>, 4>(
+          [](auto p) { return std::get<0>(p) + std::get<1>(p); });
   container.emplace(3, 0);
   container.emplace(2, 2);
   container.emplace(1, 4);
@@ -123,9 +124,10 @@ TEST(StaticPriorityContainer, WithProj) {
 }
 
 TEST(StaticPriorityContainer, LessWithProj) {
-  heuristic::static_priority_container<std::pair<int, int>, 4,
-                                       common::priority::less>
-      container([](auto p) { return std::get<0>(p) + std::get<1>(p); });
+  auto container =
+      heuristic::make_static_priority_container<std::pair<int, int>, 4>(
+          common::priority::less,
+          [](auto p) { return std::get<0>(p) + std::get<1>(p); });
   container.emplace(3, 0);
   container.emplace(2, 2);
   container.emplace(1, 4);
@@ -152,9 +154,10 @@ TEST(StaticPriorityContainer, LessWithProj) {
 }
 
 TEST(StaticPriorityContainer, GreaterWithProj) {
-  heuristic::static_priority_container<std::pair<int, int>, 4,
-                                       common::priority::greater>
-      container([](auto p) { return std::get<0>(p) + std::get<1>(p); });
+  auto container =
+      heuristic::make_static_priority_container<std::pair<int, int>, 4>(
+          common::priority::greater,
+          [](auto p) { return std::get<0>(p) + std::get<1>(p); });
   container.emplace(3, 0);
   container.emplace(2, 2);
   container.emplace(1, 4);

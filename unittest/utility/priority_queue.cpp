@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 
 TEST(Utility, PriorityQueueDefault) {
-  common::priority_queue<int> queue;
+  auto queue = common::make_priority_queue<int>();
   for (auto v : {1, 3, 2, 4}) {
     queue.emplace(v);
   }
@@ -29,7 +29,7 @@ TEST(Utility, PriorityQueueDefault) {
 }
 
 TEST(Utility, PriorityQueueLess) {
-  common::priority_queue<int, common::priority::less> queue;
+  auto queue = common::make_priority_queue<int>(common::priority::less);
   for (auto v : {1, 3, 2, 4}) {
     queue.emplace(v);
   }
@@ -56,7 +56,7 @@ TEST(Utility, PriorityQueueLess) {
 }
 
 TEST(Utility, PriorityQueueGreater) {
-  common::priority_queue<int, common::priority::greater> queue;
+  auto queue = common::make_priority_queue<int>(common::priority::greater);
   for (auto v : {1, 3, 2, 4}) {
     queue.emplace(v);
   }
@@ -83,8 +83,8 @@ TEST(Utility, PriorityQueueGreater) {
 }
 
 TEST(Utility, PriorityQueueWithProjection) {
-  common::priority_queue<std::pair<int, int>> queue(
-      [](std::tuple<int, int> t) { return std::get<0>(t) + std::get<1>(t); });
+  auto queue = common::make_priority_queue<std::pair<int, int>>(
+      [](std::pair<int, int> t) { return std::get<0>(t) + std::get<1>(t); });
   for (auto v :
        {std::pair(0, 1), std::pair(2, 1), std::pair(1, 1), std::pair(2, 2)}) {
     queue.emplace(v);
@@ -116,8 +116,10 @@ TEST(Utility, PriorityQueueWithProjection) {
 }
 
 TEST(Utility, PriorityQueueLessWithProj) {
-  common::priority_queue<std::pair<int, int>, common::priority::less> queue(
-      [](std::tuple<int, int> t) { return std::get<0>(t) + std::get<1>(t); });
+  auto queue = common::make_priority_queue<std::pair<int, int>>(
+      common::priority::less,
+      [](auto t) { return std::get<0>(t) + std::get<1>(t); });
+
   for (auto v :
        {std::pair(0, 1), std::pair(2, 1), std::pair(1, 1), std::pair(2, 2)}) {
     queue.emplace(v);
@@ -149,7 +151,8 @@ TEST(Utility, PriorityQueueLessWithProj) {
 }
 
 TEST(Utility, PriorityQueueGreaterWithProj) {
-  common::priority_queue<std::pair<int, int>, common::priority::greater> queue(
+  auto queue = common::make_priority_queue<std::pair<int, int>>(
+      common::priority::greater,
       [](std::tuple<int, int> t) { return std::get<0>(t) + std::get<1>(t); });
   for (auto v :
        {std::pair(0, 1), std::pair(2, 1), std::pair(1, 1), std::pair(2, 2)}) {
