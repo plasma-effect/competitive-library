@@ -5,7 +5,7 @@
 template <typename T> class HeuristicRandom : public ::testing::Test {};
 using types =
     ::testing::Types<std::mt19937, std::minstd_rand, heuristic::xorshift>;
-TYPED_TEST_CASE(HeuristicRandom, types);
+TYPED_TEST_SUITE(HeuristicRandom, types);
 
 TYPED_TEST(HeuristicRandom, MakeUniformIntDistribution1) {
   using generator = heuristic::random_engine_generator<TypeParam>;

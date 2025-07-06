@@ -27,7 +27,7 @@ struct static_vector_adaptor {
 
 template <typename T> class DataStructureMinMaxHeap : public ::testing::Test {};
 using types = ::testing::Types<vector_adaptor, static_vector_adaptor>;
-TYPED_TEST_CASE(DataStructureMinMaxHeap, types);
+TYPED_TEST_SUITE(DataStructureMinMaxHeap, types);
 
 TYPED_TEST(DataStructureMinMaxHeap, General) {
   typename TypeParam::type<int> heap;
