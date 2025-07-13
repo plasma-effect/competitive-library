@@ -1,7 +1,4 @@
 #pragma once
-#ifndef __GNUC__
-#include "boost/multiprecision/cpp_int.hpp"
-#endif
 #include "competitive/utility.hpp"
 #include <bits/stdc++.h>
 
@@ -24,11 +21,7 @@ inline std::vector<T> make_pow(T base, T mod, std::size_t N) {
 } // namespace internal
 template <char Min, char Max, std::size_t MaxSize = 100'000>
 class rolling_hash {
-#ifdef __GNUC__
   using int_t = __int128_t;
-#else
-  using int_t = boost::multiprecision::int128_t;
-#endif
   static int_t base() {
     static const int_t b = internal::make_base();
     return b;
