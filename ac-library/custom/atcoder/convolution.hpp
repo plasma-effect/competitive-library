@@ -221,8 +221,10 @@ std::vector<mint> convolution(std::vector<mint>&& a, std::vector<mint>&& b) {
     int n = int(a.size()), m = int(b.size());
     if (!n || !m) return {};
 
+#ifndef NDEBUG
     int z = (int)std::bit_ceil((unsigned int)(n + m - 1));
     assert((mint::mod() - 1) % z == 0);
+#endif
 
     if (std::min(n, m) <= 60)
         return convolution_naive(std::move(a), std::move(b));
@@ -250,8 +252,10 @@ std::vector<T> convolution(const std::vector<T>& a, const std::vector<T>& b) {
 
     using mint = static_modint<mod>;
 
+#ifndef NDEBUG
     int z = (int)std::bit_ceil((unsigned int)(n + m - 1));
     assert((mint::mod() - 1) % z == 0);
+#endif
 
     std::vector<mint> a2(n), b2(m);
     for (int i = 0; i < n; i++) {

@@ -176,9 +176,11 @@ std::vector<int> sa_is(const std::vector<int>& s, int upper) {
 
 inline std::vector<int> suffix_array(const std::vector<int>& s, int upper) {
     assert(0 <= upper);
+#ifndef NDEBUG
     for (int d : s) {
         assert(0 <= d && d <= upper);
     }
+#endif
     auto sa = internal::sa_is(s, upper);
     return sa;
 }

@@ -2,6 +2,7 @@
 #define ATCODER_SEGTREE_HPP 1
 
 #include <algorithm>
+#include <bit>
 #include <cassert>
 #include <functional>
 #include <vector>

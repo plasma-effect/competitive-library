@@ -15,9 +15,11 @@ struct scc_graph {
     explicit scc_graph(int n) : internal(n) {}
 
     void add_edge(int from, int to) {
+#ifndef NDEBUG
         int n = internal.num_vertices();
         assert(0 <= from && from < n);
         assert(0 <= to && to < n);
+#endif
         internal.add_edge(from, to);
     }
 
