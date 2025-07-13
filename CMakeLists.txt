@@ -23,10 +23,18 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(googletest)
 
+FetchContent_Declare(
+  PlasmaMeasurement
+  DOWNLOAD_EXTRACT_TIMESTAMP ON
+  GIT_REPOSITORY https://github.com/plasma-effect/measurement.git
+)
+FetchContent_MakeAvailable(PlasmaMeasurement)
+
 include(GoogleTest)
 add_subdirectory(unittest)
 add_subdirectory(expander)
 add_subdirectory(random_test)
+add_subdirectory(measure)
 
 function(check_testfile_exists)
   file(GLOB_RECURSE ALL_HEADERS "${CMAKE_SOURCE_DIR}/include/competitive/*.hpp")
