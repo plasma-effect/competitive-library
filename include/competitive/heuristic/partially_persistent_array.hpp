@@ -84,11 +84,14 @@ public:
   partially_persistent_array(std::size_t s)
       : root(std::make_shared<inside::persistent_array_inside<T>>(0, s)),
         size_(s) {}
+  partially_persistent_array() = default;
 
   void update(std::size_t i, T const& v) {
+    CL_ASSERT(root);
     root = root->update(i, v);
   }
   T const& get(std::size_t i) const {
+    CL_ASSERT(root);
     CL_ASSERT(i < size_);
     return root->get(i);
   }
@@ -96,11 +99,13 @@ public:
     return size_;
   }
   auto begin() const {
+    CL_ASSERT(root);
     typename inside::persistent_array_inside<T>::iterator ite{};
     ite.ptrs.push(root);
     return ite;
   }
   auto end() const {
+    CL_ASSERT(root);
     return std::default_sentinel;
   }
 };
