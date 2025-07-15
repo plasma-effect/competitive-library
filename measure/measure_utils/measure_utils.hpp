@@ -27,7 +27,7 @@ template <typename T> auto add(T const& a, T const& b) {
     return a + b;
   }
 }
-template <typename T> auto generate(std::mt19937& engine) {
+template <typename T, typename Engine> auto generate(Engine& engine) {
   if constexpr (std::is_same_v<T, bool>) {
     return engine() % 2 == 0;
   } else if constexpr (std::is_integral_v<T>) {
@@ -38,6 +38,23 @@ template <typename T> auto generate(std::mt19937& engine) {
     return std::generate_canonical<T, digits>(engine);
   }
 }
+struct xorshift {
+  std::uint64_t state;
+  xorshift(std::uint64_t seed = 1) : state(seed) {}
+  std::uint64_t operator()() {
+    state ^= state << 13;
+    state ^= state >> 7;
+    state ^= state << 17;
+    return state ^ (state >> 32);
+  }
+  using result_type = std::uint64_t;
+  static constexpr std::uint64_t min() {
+    return 1;
+  }
+  static constexpr std::uint64_t max() {
+    return std::numeric_limits<std::uint64_t>::max();
+  }
+};
 struct DefaultNameSelector {
   template <typename T> static std::string GetName(std::size_t) {
     if constexpr (std::is_same_v<T, int>) {

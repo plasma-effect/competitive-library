@@ -29,13 +29,21 @@ auto all_sum(static_dual_array<T, N, M> const& ar) {
   }
   return sum;
 }
+template <typename T> constexpr std::size_t get_size() {
+  if constexpr (std::is_same_v<T, double>) {
+    return 10;
+  } else if constexpr (std::is_same_v<T, int>) {
+    return 12;
+  } else {
+    return 14;
+  }
+}
 } // namespace
 
 template <typename T>
 class StaticDualArrayMeasure : public ::measurement::Measure {
 protected:
-  static constexpr int N = 1 << (std::is_same_v<T, double> ? 10 : 12),
-                       M = 1 << 8;
+  static constexpr int N = 1 << get_size<T>(), M = 1 << 8;
   std::array<T, N> vec0{};
   std::array<T, M> vec1{};
 
