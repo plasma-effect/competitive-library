@@ -40,6 +40,9 @@ apply_common_options(algorithm_rolling_hash_random_test)
 add_executable(algorithm_topological_sort_random_test algorithm/topological_sort.cpp)
 apply_common_options(algorithm_topological_sort_random_test)
 
+add_executable(heuristic_persistent_array_random_test heuristic/persistent_array.cpp)
+apply_common_options(heuristic_persistent_array_random_test)
+
 file(GLOB_RECURSE TEST_SOURCES CONFIGURE_DEPENDS *.cpp)
 add_executable(random_test ${TEST_SOURCES})
 apply_common_options(random_test "ignore")

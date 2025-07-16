@@ -1,8 +1,8 @@
-#include "competitive/heuristic/partially_persistent_array.hpp"
+#include "competitive/heuristic/persistent_array.hpp"
 #include <gtest/gtest.h>
 
 TEST(HeuristicPersistentArray, General) {
-  heuristic::partially_persistent_array<int> ar(4);
+  heuristic::persistent_array<int, 4> ar;
   ar.update(0, 1);
   ar.update(1, 3);
   ar.update(2, 5);
@@ -14,21 +14,25 @@ TEST(HeuristicPersistentArray, General) {
   EXPECT_EQ(ar.get(3), 7);
 }
 
-TEST(HeuristicPersistentArray, SaveHistory) {
-  heuristic::partially_persistent_array<int> ar0(6);
+TEST(HeuristicPersistentArray, BranchingHistory) {
+  heuristic::persistent_array<int, 6> ar0;
   ar0.update(0, 1);
   ar0.update(1, 3);
   auto ar1 = ar0;
+  ar0.update(2, 4);
   ar1.update(2, 5);
+  ar0.update(3, 6);
   ar1.update(3, 7);
   auto ar2 = ar1;
+  ar1.update(4, 8);
   ar2.update(4, 9);
+  ar1.update(5, 10);
   ar2.update(5, 11);
 
   EXPECT_EQ(ar0.get(0), 1);
   EXPECT_EQ(ar0.get(1), 3);
-  EXPECT_EQ(ar0.get(2), 0);
-  EXPECT_EQ(ar0.get(3), 0);
+  EXPECT_EQ(ar0.get(2), 4);
+  EXPECT_EQ(ar0.get(3), 6);
   EXPECT_EQ(ar0.get(4), 0);
   EXPECT_EQ(ar0.get(5), 0);
 
@@ -36,8 +40,8 @@ TEST(HeuristicPersistentArray, SaveHistory) {
   EXPECT_EQ(ar1.get(1), 3);
   EXPECT_EQ(ar1.get(2), 5);
   EXPECT_EQ(ar1.get(3), 7);
-  EXPECT_EQ(ar1.get(4), 0);
-  EXPECT_EQ(ar1.get(5), 0);
+  EXPECT_EQ(ar1.get(4), 8);
+  EXPECT_EQ(ar1.get(5), 10);
 
   EXPECT_EQ(ar2.get(0), 1);
   EXPECT_EQ(ar2.get(1), 3);
@@ -48,7 +52,7 @@ TEST(HeuristicPersistentArray, SaveHistory) {
 }
 
 TEST(HeuristicPersistentArray, MemoryExpired) {
-  heuristic::partially_persistent_array<std::shared_ptr<int>> ar(4);
+  heuristic::persistent_array<std::shared_ptr<int>, 4> ar;
   ar.update(0, std::make_shared<int>(0));
   ar.update(1, std::make_shared<int>(1));
   ar.update(2, std::make_shared<int>(2));
@@ -88,7 +92,7 @@ TEST(HeuristicPersistentArray, MemoryExpired) {
 }
 
 TEST(HeuristicPersistentArray, Iteration) {
-  heuristic::partially_persistent_array<int> ar(4);
+  heuristic::persistent_array<int, 4> ar;
   ar.update(0, 1);
   ar.update(1, 3);
   ar.update(2, 5);

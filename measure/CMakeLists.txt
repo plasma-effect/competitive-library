@@ -51,8 +51,8 @@ apply_common_options(data_structure_min_max_heap_measure)
 # add_executable(heuristic_grid_bfs_queue_measure heuristic/grid_bfs_queue.cpp)
 # apply_common_options(heuristic_grid_bfs_queue_measure)
 
-add_executable(heuristic_partially_persistent_array_measure heuristic/partially_persistent_array.cpp)
-apply_common_options(heuristic_partially_persistent_array_measure)
+add_executable(heuristic_persistent_array_measure heuristic/persistent_array.cpp)
+apply_common_options(heuristic_persistent_array_measure)
 
 # add_executable(heuristic_random_measure heuristic/random.cpp)
 # apply_common_options(heuristic_random_measure)
