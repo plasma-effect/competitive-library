@@ -43,7 +43,7 @@ TYPED_MEASURE(PersistentArrayMeasure, UpdateSequenceOld) {
   std::vector<array_t> vec;
   vec.reserve(N / TypeParam::span);
   Start();
-  for (std::size_t idx = 0, c = 0; c < N / TypeParam::span; ++c) {
+  for (std::size_t idx = 0, c = 0; c < N; ++c) {
     for (std::size_t u = 0; u < TypeParam::span; ++u, ++idx) {
       ar.update(idx & (N - 1), generate<T>(engine));
     }
@@ -67,7 +67,7 @@ TYPED_MEASURE(PersistentArrayMeasure, UpdateOtherOrderOld) {
   std::vector<array_t> vec;
   vec.reserve(N / TypeParam::span);
   Start();
-  for (std::size_t idx = 0, c = 0; c < N / TypeParam::span; ++c) {
+  for (std::size_t idx = 0, c = 0; c < N; ++c) {
     for (std::size_t u = 0; u < TypeParam::span; ++u, idx += 3) {
       ar.update(idx & (N - 1), generate<T>(engine));
     }
@@ -90,7 +90,7 @@ TYPED_MEASURE(PersistentArrayMeasure, UpdateSequenceNew) {
   std::vector<array_t> vec(1);
   vec.reserve(N / TypeParam::span);
   Start();
-  for (std::size_t idx = 0, c = 0; c < N / TypeParam::span; ++c) {
+  for (std::size_t idx = 0, c = 0; c < N; ++c) {
     for (std::size_t u = 0; u < TypeParam::span; ++u, ++idx) {
       vec.back().update(idx & (N - 1), generate<T>(engine));
     }
@@ -113,7 +113,7 @@ TYPED_MEASURE(PersistentArrayMeasure, UpdateOtherOrderNew) {
   std::vector<array_t> vec(1);
   vec.reserve(N / TypeParam::span);
   Start();
-  for (std::size_t idx = 0, c = 0; c < N / TypeParam::span; ++c) {
+  for (std::size_t idx = 0, c = 0; c < N; ++c) {
     for (std::size_t u = 0; u < TypeParam::span; ++u, idx += 3) {
       vec.back().update(idx & (N - 1), generate<T>(engine));
     }
@@ -136,7 +136,7 @@ TYPED_MEASURE(PersistentArrayMeasure, ReadSequence) {
   array_t ar;
   std::vector<array_t> vec;
   vec.reserve(N / TypeParam::span);
-  for (std::size_t idx = 0, c = 0; c < N / TypeParam::span; ++c) {
+  for (std::size_t idx = 0, c = 0; c < N; ++c) {
     for (std::size_t u = 0; u < TypeParam::span; ++u, ++idx) {
       ar.update(idx & (N - 1), generate<T>(engine));
     }
@@ -160,7 +160,7 @@ TYPED_MEASURE(PersistentArrayMeasure, ReadOtherOrder) {
   array_t ar;
   std::vector<array_t> vec;
   vec.reserve(N / TypeParam::span);
-  for (std::size_t idx = 0, c = 0; c < N / TypeParam::span; ++c) {
+  for (std::size_t idx = 0, c = 0; c < N; ++c) {
     for (std::size_t u = 0; u < TypeParam::span; ++u, ++idx) {
       ar.update(idx & (N - 1), generate<T>(engine));
     }
