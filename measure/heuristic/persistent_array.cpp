@@ -18,7 +18,7 @@ struct NameSelector {
         : std::is_same_v<typename T::value_t, double> ? "double"
                                                       : "bool";
     char buf[0x10];
-    std::sprintf(buf, "%s%zu", type, T::span);
+    std::sprintf(buf, "%s%02zu", type, T::span);
     return std::string(buf);
   }
 };
