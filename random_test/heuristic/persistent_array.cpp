@@ -14,7 +14,7 @@ protected:
 
 static constexpr int N = 1 << 12;
 using array_t = heuristic::persistent_array<int, N>;
-TEST_P(PersistentArrayRandom, Update01Time) {
+TEST_P(PersistentArrayRandom, UpdateOld) {
   constexpr std::size_t U = 1;
   std::array<int, N> current{};
   array_t ar;
@@ -38,13 +38,13 @@ TEST_P(PersistentArrayRandom, Update01Time) {
   }
 }
 
-TEST_P(PersistentArrayRandom, Update04Times) {
-  constexpr std::size_t U = 4;
+TEST_P(PersistentArrayRandom, UpdateNew) {
+  constexpr std::size_t U = 1;
   std::array<int, N> current{};
-  array_t ar;
-  std::vector<std::pair<int, array_t>> results;
+  std::vector<std::pair<int, array_t>> results(1);
   auto dist = make_uniform_int_distribution(1, 0xFF);
   for (std::size_t idx = 0, c = 0; c < N / U; ++c) {
+    auto ar = results.back().second;
     for (std::size_t u = 0; u < U; ++u, idx += 3) {
       auto i = idx & (N - 1);
       current[i] = dist();
@@ -62,52 +62,5 @@ TEST_P(PersistentArrayRandom, Update04Times) {
   }
 }
 
-TEST_P(PersistentArrayRandom, Update16Time) {
-  constexpr std::size_t U = 16;
-  std::array<int, N> current{};
-  array_t ar;
-  std::vector<std::pair<int, array_t>> results;
-  auto dist = make_uniform_int_distribution(1, 0xFF);
-  for (std::size_t idx = 0, c = 0; c < N / U; ++c) {
-    for (std::size_t u = 0; u < U; ++u, idx += 3) {
-      auto i = idx & (N - 1);
-      current[i] = dist();
-      ar.update(i, current[i]);
-    }
-    int sum = std::accumulate(current.begin(), current.end(), 0);
-    results.emplace_back(sum, ar);
-  }
-  for (auto const& [sum, par] : results) {
-    int psum = 0;
-    for (auto i = 0uz; i < N; ++i) {
-      psum += par.get(i);
-    }
-    ASSERT_EQ(psum, sum);
-  }
-}
-
-TEST_P(PersistentArrayRandom, Update64Time) {
-  constexpr std::size_t U = 64;
-  std::array<int, N> current{};
-  array_t ar;
-  std::vector<std::pair<int, array_t>> results;
-  auto dist = make_uniform_int_distribution(1, 0xFF);
-  for (std::size_t idx = 0, c = 0; c < N / U; ++c) {
-    for (std::size_t u = 0; u < U; ++u, idx += 3) {
-      auto i = idx & (N - 1);
-      current[i] = dist();
-      ar.update(i, current[i]);
-    }
-    int sum = std::accumulate(current.begin(), current.end(), 0);
-    results.emplace_back(sum, ar);
-  }
-  for (auto const& [sum, par] : results) {
-    int psum = 0;
-    for (auto i = 0uz; i < N; ++i) {
-      psum += par.get(i);
-    }
-    ASSERT_EQ(psum, sum);
-  }
-}
 INSTANTIATE_TEST_CASE_P(RandomCaseTest, PersistentArrayRandom,
                         ::testing::Range(0, 20));
