@@ -2,7 +2,7 @@
 #include "gtest/gtest.h"
 
 TEST(RollingHash, Utilities) {
-  using hash_t = algorithm::rolling_hash<'a', 'z'>;
+  using hash_t = competitive::rolling_hash<'a', 'z'>;
   hash_t h0("abc");
   auto raw0 = h0.raw();
   EXPECT_EQ(h0.size(), 3);
@@ -16,7 +16,7 @@ TEST(RollingHash, Utilities) {
 }
 
 TEST(RollingHash, Parent) {
-  using hash_t = algorithm::rolling_hash<'a', 'z'>;
+  using hash_t = competitive::rolling_hash<'a', 'z'>;
   std::string s0 = "abc";
   std::string s1 = "abcd";
   std::string s2 = "abd";
@@ -30,7 +30,7 @@ TEST(RollingHash, Parent) {
 }
 
 TEST(RollingHash, UsingViews) {
-  using hash_t = algorithm::rolling_hash<'a', 'z'>;
+  using hash_t = competitive::rolling_hash<'a', 'z'>;
   std::string s0 = "abc";
   std::string s1 = "cba";
   hash_t h0(s0);
@@ -39,7 +39,7 @@ TEST(RollingHash, UsingViews) {
 }
 
 TEST(RollingHash, SubHash) {
-  using hash_t = algorithm::rolling_hash<'a', 'z'>;
+  using hash_t = competitive::rolling_hash<'a', 'z'>;
   std::string s0 = "abcabc";
   hash_t h0(s0);
   auto sh0 = h0.subhash(0, 3);
@@ -58,7 +58,7 @@ TEST(RollingHash, SubHash) {
 }
 
 TEST(RollingHash, Set) {
-  using hash_t = algorithm::rolling_hash<'a', 'z'>;
+  using hash_t = competitive::rolling_hash<'a', 'z'>;
   std::set<hash_t> set;
   set.emplace("abc");
   set.emplace("def");
@@ -69,7 +69,7 @@ TEST(RollingHash, Set) {
 }
 
 TEST(RollingHash, UnorderedSet) {
-  using hash_t = algorithm::rolling_hash<'a', 'z'>;
+  using hash_t = competitive::rolling_hash<'a', 'z'>;
   std::unordered_set<hash_t> set;
   set.emplace("abc");
   set.emplace("def");

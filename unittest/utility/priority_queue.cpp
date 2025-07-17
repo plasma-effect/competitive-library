@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 
 TEST(Utility, PriorityQueueDefault) {
-  auto queue = common::make_priority_queue<int>();
+  auto queue = competitive::make_priority_queue<int>();
   for (auto v : {1, 3, 2, 4}) {
     queue.emplace(v);
   }
@@ -29,7 +29,8 @@ TEST(Utility, PriorityQueueDefault) {
 }
 
 TEST(Utility, PriorityQueueLess) {
-  auto queue = common::make_priority_queue<int>(common::priority::less);
+  auto queue =
+      competitive::make_priority_queue<int>(competitive::priority::less);
   for (auto v : {1, 3, 2, 4}) {
     queue.emplace(v);
   }
@@ -56,7 +57,8 @@ TEST(Utility, PriorityQueueLess) {
 }
 
 TEST(Utility, PriorityQueueGreater) {
-  auto queue = common::make_priority_queue<int>(common::priority::greater);
+  auto queue =
+      competitive::make_priority_queue<int>(competitive::priority::greater);
   for (auto v : {1, 3, 2, 4}) {
     queue.emplace(v);
   }
@@ -83,7 +85,7 @@ TEST(Utility, PriorityQueueGreater) {
 }
 
 TEST(Utility, PriorityQueueWithProjection) {
-  auto queue = common::make_priority_queue<std::pair<int, int>>(
+  auto queue = competitive::make_priority_queue<std::pair<int, int>>(
       [](std::pair<int, int> t) { return std::get<0>(t) + std::get<1>(t); });
   for (auto v :
        {std::pair(0, 1), std::pair(2, 1), std::pair(1, 1), std::pair(2, 2)}) {
@@ -116,8 +118,8 @@ TEST(Utility, PriorityQueueWithProjection) {
 }
 
 TEST(Utility, PriorityQueueLessWithProj) {
-  auto queue = common::make_priority_queue<std::pair<int, int>>(
-      common::priority::less,
+  auto queue = competitive::make_priority_queue<std::pair<int, int>>(
+      competitive::priority::less,
       [](auto t) { return std::get<0>(t) + std::get<1>(t); });
 
   for (auto v :
@@ -151,8 +153,8 @@ TEST(Utility, PriorityQueueLessWithProj) {
 }
 
 TEST(Utility, PriorityQueueGreaterWithProj) {
-  auto queue = common::make_priority_queue<std::pair<int, int>>(
-      common::priority::greater,
+  auto queue = competitive::make_priority_queue<std::pair<int, int>>(
+      competitive::priority::greater,
       [](std::tuple<int, int> t) { return std::get<0>(t) + std::get<1>(t); });
   for (auto v :
        {std::pair(0, 1), std::pair(2, 1), std::pair(1, 1), std::pair(2, 2)}) {

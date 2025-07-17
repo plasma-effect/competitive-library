@@ -56,10 +56,10 @@ TYPED_TEST(DataStructureMinMaxHeap, General) {
 
 TYPED_TEST(DataStructureMinMaxHeap, PopMin) {
   typename TypeParam::type<int> heap;
-  for (int i : common::irange(31)) {
+  for (int i : competitive::irange(31)) {
     heap.push(i);
   }
-  for (int i : common::irange(1, 31)) {
+  for (int i : competitive::irange(1, 31)) {
     heap.pop_min();
     EXPECT_EQ(heap.min(), i);
   }
@@ -69,10 +69,10 @@ TYPED_TEST(DataStructureMinMaxHeap, PopMin) {
 
 TYPED_TEST(DataStructureMinMaxHeap, PopMax) {
   typename TypeParam::type<int> heap;
-  for (int i : common::irange(31)) {
+  for (int i : competitive::irange(31)) {
     heap.push(i);
   }
-  for (int i : common::irange(30) | std::views::reverse) {
+  for (int i : competitive::irange(30) | std::views::reverse) {
     heap.pop_max();
     EXPECT_EQ(heap.max(), i);
   }
@@ -82,10 +82,10 @@ TYPED_TEST(DataStructureMinMaxHeap, PopMax) {
 
 TYPED_TEST(DataStructureMinMaxHeap, PopMinMax) {
   typename TypeParam::type<int> heap;
-  for (int i : common::irange(31)) {
+  for (int i : competitive::irange(31)) {
     heap.push(i);
   }
-  for (int i : common::irange(1, 16)) {
+  for (int i : competitive::irange(1, 16)) {
     heap.pop_min();
     heap.pop_max();
     EXPECT_EQ(heap.min(), i);
@@ -96,8 +96,8 @@ TYPED_TEST(DataStructureMinMaxHeap, PopMinMax) {
 }
 
 TYPED_TEST(DataStructureMinMaxHeap, CustomProj) {
-  typename TypeParam::type<common::pair<int>> heap(
-      [](common::pair<int> const& p) { return p.first + p.second; });
+  typename TypeParam::type<competitive::pair<int>> heap(
+      [](competitive::pair<int> const& p) { return p.first + p.second; });
   heap.emplace(2, 4);
   EXPECT_EQ(heap.min(), std::pair(2, 4));
   EXPECT_EQ(heap.max(), std::pair(2, 4));
@@ -146,10 +146,10 @@ TYPED_TEST(DataStructureMinMaxHeap, UnCopyable) {
 
 TYPED_TEST(DataStructureMinMaxHeap, UnCopyablePopMin) {
   typename TypeParam::type<uncopyable> heap;
-  for (int i : common::irange(31)) {
+  for (int i : competitive::irange(31)) {
     heap.push(uncopyable(i));
   }
-  for (int i : common::irange(1, 31)) {
+  for (int i : competitive::irange(1, 31)) {
     heap.pop_min();
     EXPECT_EQ(heap.min(), i);
   }
@@ -159,10 +159,10 @@ TYPED_TEST(DataStructureMinMaxHeap, UnCopyablePopMin) {
 
 TYPED_TEST(DataStructureMinMaxHeap, UnCopyablePopMax) {
   typename TypeParam::type<uncopyable> heap;
-  for (int i : common::irange(31)) {
+  for (int i : competitive::irange(31)) {
     heap.push(uncopyable(i));
   }
-  for (int i : common::irange(30) | std::views::reverse) {
+  for (int i : competitive::irange(30) | std::views::reverse) {
     heap.pop_max();
     EXPECT_EQ(heap.max(), i);
   }
@@ -172,10 +172,10 @@ TYPED_TEST(DataStructureMinMaxHeap, UnCopyablePopMax) {
 
 TYPED_TEST(DataStructureMinMaxHeap, UnCopyablePopMinMax) {
   typename TypeParam::type<uncopyable> heap;
-  for (int i : common::irange(31)) {
+  for (int i : competitive::irange(31)) {
     heap.push(uncopyable(i));
   }
-  for (int i : common::irange(1, 16)) {
+  for (int i : competitive::irange(1, 16)) {
     heap.pop_min();
     heap.pop_max();
     EXPECT_EQ(heap.min(), i);

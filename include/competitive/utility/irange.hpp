@@ -1,7 +1,7 @@
 #pragma once
 #include "competitive/utility/assert.hpp"
 
-namespace common {
+namespace competitive {
 template <std::integral Int> auto irange(Int first, Int last) {
   CL_ASSERT(std::cmp_less_equal(first, last));
   return std::views::iota(first, last);
@@ -58,4 +58,4 @@ template <std::integral Int> auto dual_irange(Int f0, Int e0, Int f1, Int e1) {
 template <std::integral Int> auto dual_irange(Int e0, Int e1) {
   return dual_irange(Int(0), e0, Int(0), e1);
 }
-} // namespace common
+} // namespace competitive

@@ -3,17 +3,18 @@
 
 TEST(Utility, Irange1Arg) {
   std::vector vec = {0, 1, 2, 3, 4};
-  ASSERT_TRUE(std::ranges::equal(vec, common::irange(5)));
+  ASSERT_TRUE(std::ranges::equal(vec, competitive::irange(5)));
 }
 
 TEST(Utility, Irange2Args) {
   std::vector vec = {3, 4, 5, 6, 7};
-  ASSERT_TRUE(std::ranges::equal(vec, common::irange(3, 8)));
+  ASSERT_TRUE(std::ranges::equal(vec, competitive::irange(3, 8)));
 }
 
 TEST(Utility, IrangeReverse) {
   std::vector vec = {4, 3, 2, 1, 0};
-  ASSERT_TRUE(std::ranges::equal(vec, common::irange(5) | std::views::reverse));
+  ASSERT_TRUE(
+      std::ranges::equal(vec, competitive::irange(5) | std::views::reverse));
 }
 
 TEST(Utility, DualIrange2Args) {
@@ -28,7 +29,7 @@ TEST(Utility, DualIrange2Args) {
       {2, 1},
       {2, 2},
   };
-  ASSERT_TRUE(std::ranges::equal(vec, common::dual_irange(3, 3)));
+  ASSERT_TRUE(std::ranges::equal(vec, competitive::dual_irange(3, 3)));
 }
 
 TEST(Utility, DualIrange4Args) {
@@ -43,5 +44,5 @@ TEST(Utility, DualIrange4Args) {
       {4, 2},
       {4, 3},
   };
-  ASSERT_TRUE(std::ranges::equal(vec, common::dual_irange(2, 5, 1, 4)));
+  ASSERT_TRUE(std::ranges::equal(vec, competitive::dual_irange(2, 5, 1, 4)));
 }

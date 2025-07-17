@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 
 TEST(Container, StaticDualArrayAssignAndRead) {
-  competitive::container::static_dual_array<int, 2, 3> ar;
+  competitive::static_dual_array<int, 2, 3> ar;
   ar(0, 0) = 0;
   ar(0, 1) = 1;
   ar(0, 2) = 2;
@@ -19,7 +19,7 @@ TEST(Container, StaticDualArrayAssignAndRead) {
 }
 
 TEST(Container, StaticDualArrayAssignAndReadByAt) {
-  competitive::container::static_dual_array<int, 2, 3> ar;
+  competitive::static_dual_array<int, 2, 3> ar;
   ar.at(0, 0) = 0;
   ar.at(0, 1) = 1;
   ar.at(0, 2) = 2;
@@ -35,19 +35,19 @@ TEST(Container, StaticDualArrayAssignAndReadByAt) {
 }
 
 TEST(Container, StaticDualArrayGetDimensions) {
-  competitive::container::static_dual_array<int, 2, 3> ar;
+  competitive::static_dual_array<int, 2, 3> ar;
   auto [d0, d1] = ar.dimensions();
   ASSERT_EQ(d0, 2u);
   ASSERT_EQ(d1, 3u);
 }
 
 TEST(Container, StaticDualArrayGetSize) {
-  competitive::container::static_dual_array<int, 2, 3> ar;
+  competitive::static_dual_array<int, 2, 3> ar;
   ASSERT_EQ(ar.size(), 6u);
 }
 
 TEST(Container, StaticDualArrayOutOfBound) {
-  competitive::container::static_dual_array<int, 2, 3> ar;
+  competitive::static_dual_array<int, 2, 3> ar;
   const auto& car = ar;
 
 #ifdef LOCAL_DEBUG
@@ -107,7 +107,7 @@ TEST(Container, StaticDualArrayOutOfBound) {
 }
 
 TEST(Container, StaticDualArrayDebugPrint) {
-  competitive::container::static_dual_array<int, 2, 3> ar;
+  competitive::static_dual_array<int, 2, 3> ar;
   ar(0, 0) = 0;
   ar(0, 1) = 1;
   ar(0, 2) = 2;
@@ -115,12 +115,12 @@ TEST(Container, StaticDualArrayDebugPrint) {
   ar(1, 1) = 4;
   ar(1, 2) = 5;
   testing::internal::CaptureStderr();
-  debug::println(ar);
+  competitive::debug::println(ar);
   EXPECT_EQ(testing::internal::GetCapturedStderr(), "{{0, 1, 2}, {3, 4, 5}}\n");
 }
 
 TEST(Container, StaticDualArrayNormalPrint) {
-  competitive::container::static_dual_array<int, 2, 3> ar;
+  competitive::static_dual_array<int, 2, 3> ar;
   ar(0, 0) = 0;
   ar(0, 1) = 1;
   ar(0, 2) = 2;
@@ -128,6 +128,6 @@ TEST(Container, StaticDualArrayNormalPrint) {
   ar(1, 1) = 4;
   ar(1, 2) = 5;
   testing::internal::CaptureStdout();
-  common::println(ar);
+  competitive::println(ar);
   EXPECT_EQ(testing::internal::GetCapturedStdout(), "0 1 2 3 4 5\n");
 }

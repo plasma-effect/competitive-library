@@ -6,14 +6,14 @@ using testing::internal::GetCapturedStdout;
 
 TEST(NormalPrint, Integer1) {
   CaptureStdout();
-  common::println(1);
+  competitive::println(1);
   std::cout << std::flush;
   EXPECT_EQ(GetCapturedStdout(), "1\n");
 }
 
 TEST(NormalPrint, Integer2) {
   CaptureStdout();
-  common::println(1, 2);
+  competitive::println(1, 2);
   std::cout << std::flush;
   EXPECT_EQ(GetCapturedStdout(), "1 2\n");
 }
@@ -21,28 +21,28 @@ TEST(NormalPrint, Integer2) {
 TEST(NormalPrint, IntVector) {
   CaptureStdout();
   std::vector vec = {1, 2, 3};
-  common::println(vec);
+  competitive::println(vec);
   std::cout << std::flush;
   EXPECT_EQ(GetCapturedStdout(), "1 2 3\n");
 }
 
 TEST(NormalPrint, Irange) {
   CaptureStdout();
-  common::println(common::irange(5));
+  competitive::println(competitive::irange(5));
   std::cout << std::flush;
   EXPECT_EQ(GetCapturedStdout(), "0 1 2 3 4\n");
 }
 
 TEST(NormalPrint, Pair) {
   CaptureStdout();
-  common::println(std::make_pair(1, 2.5));
+  competitive::println(std::make_pair(1, 2.5));
   std::cout << std::flush;
   EXPECT_EQ(GetCapturedStdout(), "1 2.5\n");
 }
 
 TEST(NormalPrint, Tuple) {
   CaptureStdout();
-  common::println(std::make_tuple(1, 2.5, "3"));
+  competitive::println(std::make_tuple(1, 2.5, "3"));
   std::cout << std::flush;
   EXPECT_EQ(GetCapturedStdout(), "1 2.5 3\n");
 }
@@ -53,14 +53,14 @@ TEST(NormalPrint, TupleVector) {
       std::make_tuple(1, 2, 3),
       std::make_tuple(4, 5, 6),
   };
-  common::println(vec);
+  competitive::println(vec);
   std::cout << std::flush;
   EXPECT_EQ(GetCapturedStdout(), "1 2 3 4 5 6\n");
 }
 
 TEST(NormalPrint, UseManip) {
   CaptureStdout();
-  common::println(std::boolalpha, true);
+  competitive::println(std::boolalpha, true);
   std::cout << std::flush;
   EXPECT_EQ(GetCapturedStdout(), "true\n");
 }

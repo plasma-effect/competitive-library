@@ -1,7 +1,7 @@
 #pragma once
 #include <bits/stdc++.h>
 
-namespace math {
+namespace competitive {
 template <typename T> std::vector<T> make_factorial_array(std::size_t max) {
   std::vector<T> ret(max + 1);
   ret[0] = T(1);
@@ -10,4 +10,4 @@ template <typename T> std::vector<T> make_factorial_array(std::size_t max) {
   }
   return ret;
 }
-} // namespace math
+} // namespace competitive

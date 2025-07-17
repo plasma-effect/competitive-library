@@ -3,7 +3,7 @@
 #include "competitive/utility/assert.hpp"
 #include <bits/stdc++.h>
 
-namespace competitive::container {
+namespace competitive {
 template <typename T, std::size_t H, std::size_t W> class static_dual_array {
   std::array<T, W * H> inside_;
 
@@ -53,9 +53,8 @@ public:
   }
 };
 template <typename T, std::size_t H, std::size_t W>
-common::internal::print_base_t&
-operator<<(common::internal::print_base_t& pb,
-           static_dual_array<T, H, W> const& ar) {
+internal::print_base_t& operator<<(internal::print_base_t& pb,
+                                   static_dual_array<T, H, W> const& ar) {
   const auto [prefix, suffix, delim] = pb.get_range_decolater();
   const char* outer_delim = "";
   pb << prefix;
@@ -70,4 +69,4 @@ operator<<(common::internal::print_base_t& pb,
   pb << suffix;
   return pb;
 }
-} // namespace competitive::container
+} // namespace competitive

@@ -3,7 +3,7 @@
 #include <measurement.hpp>
 
 static constexpr std::size_t N = 100'000;
-using hash_t = algorithm::rolling_hash<'a', 'z'>;
+using hash_t = competitive::rolling_hash<'a', 'z'>;
 
 class RollingHashMeasure : public ::measurement::Measure {
   static inline heuristic::xorshift engine;

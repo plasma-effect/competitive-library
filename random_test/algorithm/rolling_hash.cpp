@@ -15,7 +15,7 @@ protected:
     auto dist = make_uniform_int_distribution('a', 'z');
     std::string s;
     s.reserve(N);
-    for ([[maybe_unused]] auto _ : common::irange(N)) {
+    for ([[maybe_unused]] auto _ : competitive::irange(N)) {
       s.push_back(dist());
     }
     return s;
@@ -23,9 +23,9 @@ protected:
 };
 
 TEST_P(RollingHashRandom, Simple) {
-  using hash_t = algorithm::rolling_hash<'a', 'z'>;
+  using hash_t = competitive::rolling_hash<'a', 'z'>;
   std::map<hash_t, std::string> hashes;
-  for ([[maybe_unused]] auto _ : common::irange(1000)) {
+  for ([[maybe_unused]] auto _ : competitive::irange(1000)) {
     auto s = make_random_string();
     hash_t hash(s);
     if (hashes.contains(hash)) {
@@ -37,13 +37,13 @@ TEST_P(RollingHashRandom, Simple) {
 }
 
 TEST_P(RollingHashRandom, SubStr) {
-  using hash_t = algorithm::rolling_hash<'a', 'z'>;
+  using hash_t = competitive::rolling_hash<'a', 'z'>;
   auto str0 = make_random_string();
   auto str1 = make_random_string();
   std::string_view view0(str0), view1(str1);
   hash_t hash0(str0), hash1(str1);
-  for (auto i : common::irange(10)) {
-    for (auto j : common::irange(10)) {
+  for (auto i : competitive::irange(10)) {
+    for (auto j : competitive::irange(10)) {
       auto v0 = view0.substr(i, N / 10);
       auto v1 = view1.substr(j, N / 10);
       if (v0 != v1) {

@@ -8,7 +8,7 @@ class MinMaxHeapRandom : public test_utils::RandomTestBase,
 
 protected:
   std::vector<int> order;
-  std::vector<common::pair<int>> forward_min_max;
+  std::vector<competitive::pair<int>> forward_min_max;
   static constexpr int N = 100'000;
   virtual std::mt19937& get_random_engine() override {
     return engine;
@@ -18,7 +18,7 @@ protected:
     forward_min_max.reserve(N);
     std::iota(order.begin(), order.end(), 0);
     shuffle(order);
-    int min = common::max_v<int>, max = common::min_v<int>;
+    int min = competitive::max_v<int>, max = competitive::min_v<int>;
     for (auto v : order) {
       min = std::min(min, v);
       max = std::max(max, v);
@@ -29,7 +29,7 @@ protected:
 
 TEST_P(MinMaxHeapRandom, RandomPermutation) {
   competitive::min_max_heap<int> heap;
-  for (auto i : common::irange(N)) {
+  for (auto i : competitive::irange(N)) {
     heap.push(order[i]);
     auto [min, max] = forward_min_max[i];
     ASSERT_EQ(heap.min(), min);
@@ -40,7 +40,7 @@ TEST_P(MinMaxHeapRandom, RandomPermutation) {
 
   auto dist = make_uniform_int_distribution(0, 1);
   for (int min = 0, max = N - 1;
-       [[maybe_unused]] auto _ : common::irange(N - 1)) {
+       [[maybe_unused]] auto _ : competitive::irange(N - 1)) {
     if (dist()) {
       heap.pop_min();
       ++min;

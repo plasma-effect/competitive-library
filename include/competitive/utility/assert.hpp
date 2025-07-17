@@ -2,7 +2,7 @@
 #include <bits/stdc++.h>
 
 #ifdef LOCAL_DEBUG
-namespace debug::internal {
+namespace competitive::debug::internal {
 [[noreturn]] inline void assertion_fail(const char* expr) {
   auto st = std::stacktrace::current(1);
   std::cerr << "assertion failed: \"" << expr << "\"\nwhere: " << st[0] << "\n";
@@ -14,9 +14,11 @@ namespace debug::internal {
   std::cerr << std::flush;
   throw std::logic_error("assertion failed");
 }
-} // namespace debug::internal
+} // namespace competitive::debug::internal
 #define CL_ASSERT(expr)                                                        \
-  (static_cast<bool>(expr) ? void(0) : debug::internal::assertion_fail(#expr))
+  (static_cast<bool>(expr)                                                     \
+       ? void(0)                                                               \
+       : competitive::debug::internal::assertion_fail(#expr))
 #else
 #define CL_ASSERT(expr) assert(expr)
 #endif

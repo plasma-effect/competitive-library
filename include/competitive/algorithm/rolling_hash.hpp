@@ -2,7 +2,7 @@
 #include "competitive/utility.hpp"
 #include <bits/stdc++.h>
 
-namespace algorithm {
+namespace competitive {
 namespace internal {
 inline std::int64_t make_base() {
   std::uniform_int_distribution<std::int64_t> dist(2, 2LL << 50);
@@ -13,7 +13,7 @@ template <typename T>
 inline std::vector<T> make_pow(T base, T mod, std::size_t N) {
   std::vector<T> ret(N + 1);
   ret[0] = 1;
-  for (auto i : common::irange(N)) {
+  for (auto i : irange(N)) {
     ret[i + 1] = (ret[i] * base) % mod;
   }
   return ret;
@@ -78,7 +78,7 @@ public:
     friend class rolling_hash;
   };
   subhash_t subhash(std::size_t first,
-                    std::size_t len = common::max_v<std::size_t>) const {
+                    std::size_t len = max_v<std::size_t>) const {
     CL_ASSERT(first <= size_);
     len = std::min(len, size_ - first);
     return subhash_t{*this, first, len};
@@ -103,11 +103,11 @@ template <rolling_hash_t Lhs, rolling_hash_t Rhs>
 auto operator<=>(Lhs const& lhs, Rhs const& rhs) {
   return lhs == rhs ? std::strong_ordering::equal : lhs.hash() <=> rhs.hash();
 }
-} // namespace algorithm
+} // namespace competitive
 namespace std {
 template <char Min, char Max, std::size_t Size>
-struct hash<algorithm::rolling_hash<Min, Max, Size>> {
-  auto operator()(algorithm::rolling_hash<Min, Max, Size> const& h) const {
+struct hash<competitive::rolling_hash<Min, Max, Size>> {
+  auto operator()(competitive::rolling_hash<Min, Max, Size> const& h) const {
     return h.raw();
   }
 };

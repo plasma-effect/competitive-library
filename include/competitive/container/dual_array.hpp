@@ -3,7 +3,7 @@
 #include "competitive/utility/assert.hpp"
 #include <bits/stdc++.h>
 
-namespace competitive::container {
+namespace competitive {
 template <typename T> class dual_array {
   std::vector<T> inside_;
   std::size_t dim0, dim1;
@@ -68,8 +68,8 @@ public:
   using dual_array<internal::bool_ploxy>::dual_array;
 };
 template <typename T>
-common::internal::print_base_t& operator<<(common::internal::print_base_t& pb,
-                                           dual_array<T> const& ar) {
+internal::print_base_t& operator<<(internal::print_base_t& pb,
+                                   dual_array<T> const& ar) {
   auto [H, W] = ar.dimensions();
   const auto [prefix, suffix, delim] = pb.get_range_decolater();
   const char* outer_delim = "";
@@ -85,4 +85,4 @@ common::internal::print_base_t& operator<<(common::internal::print_base_t& pb,
   pb << suffix;
   return pb;
 }
-} // namespace competitive::container
+} // namespace competitive

@@ -4,7 +4,7 @@
 TEST(GridBFSQueue, General) {
   heuristic::grid_bfs_queue<int, 3, 3> queue;
   queue.emplace(0, 0, 0);
-  competitive::container::static_dual_array<std::optional<int>, 3, 3> result;
+  competitive::static_dual_array<std::optional<int>, 3, 3> result;
   while (auto top = queue.pop()) {
     auto [i, j, d] = *top;
     EXPECT_FALSE(result(i, j)) << "i = " << i << ", j = " << j;
@@ -29,14 +29,14 @@ TEST(GridBFSQueue, Snake) {
   // .#...
   // .#.#.
   // ...#.
-  competitive::container::static_dual_array<bool, 3, 5> maze;
+  competitive::static_dual_array<bool, 3, 5> maze;
   maze(0, 1) = true;
   maze(1, 1) = true;
   maze(1, 3) = true;
   maze(2, 3) = true;
   heuristic::grid_bfs_queue<int, 3, 5> queue;
   queue.emplace(0, 0, 0);
-  competitive::container::static_dual_array<std::optional<int>, 3, 5> result;
+  competitive::static_dual_array<std::optional<int>, 3, 5> result;
   while (auto top = queue.pop()) {
     auto [i, j, d] = *top;
     EXPECT_FALSE(result(i, j)) << "i = " << i << ", j = " << j;
@@ -70,14 +70,14 @@ TEST(GridBFSQueue, Emplace) {
   // .#...
   // .#.#.
   // ...#.
-  competitive::container::static_dual_array<bool, 3, 5> maze;
+  competitive::static_dual_array<bool, 3, 5> maze;
   maze(0, 1) = true;
   maze(1, 1) = true;
   maze(1, 3) = true;
   maze(2, 3) = true;
   heuristic::grid_bfs_queue<std::pair<int, int>, 3, 5> queue;
   queue.emplace(0, 0, 0, 0);
-  competitive::container::static_dual_array<std::pair<int, int>, 3, 5> result;
+  competitive::static_dual_array<std::pair<int, int>, 3, 5> result;
   while (auto top = queue.pop()) {
     auto [i, j, p] = *top;
     if (maze(i, j)) {
@@ -103,7 +103,7 @@ TEST(GridBFSQueue, Emplace) {
 }
 
 TEST(GridBFSQueue, Recursive) {
-  competitive::container::static_dual_array<int, 3, 3> count;
+  competitive::static_dual_array<int, 3, 3> count;
   heuristic::grid_bfs_queue<int, 3, 3> queue;
   queue.emplace(0, 0);
   while (auto center = queue.pop()) {

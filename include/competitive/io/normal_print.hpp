@@ -2,13 +2,13 @@
 #include "competitive/io/print_base.hpp"
 #include <bits/stdc++.h>
 
-namespace common {
+namespace competitive {
 inline void println() {
   std::cout << "\n";
 }
 template <typename... Ts> void println(Ts const&... args) {
-  common::internal::print_base_t pb(std::cout);
-  common::internal::print<false>(pb, args...);
+  internal::print_base_t pb(std::cout);
+  internal::print<false>(pb, args...);
   std::cout << "\n";
 }
-} // namespace common
+} // namespace competitive

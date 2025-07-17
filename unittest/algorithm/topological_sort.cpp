@@ -11,10 +11,10 @@ TEST(TopologicalSort, ExecuteSizeT) {
   edge[1].emplace(4);
   edge[2].emplace(3);
   edge[2].emplace(4);
-  auto result = algorithm::topological_sort(edge);
+  auto result = competitive::topological_sort(edge);
   EXPECT_TRUE(result);
   const auto vec = *result;
-  for (std::size_t i : common::irange(N)) {
+  for (std::size_t i : competitive::irange(N)) {
     for (auto n : edge[i]) {
       auto a = std::ranges::find(vec, i);
       auto b = std::ranges::find(vec, n);
@@ -32,10 +32,10 @@ TEST(TopologicalSort, ExecuteInt) {
   edge[1].emplace(4);
   edge[2].emplace(3);
   edge[2].emplace(4);
-  auto result = algorithm::topological_sort(edge);
+  auto result = competitive::topological_sort(edge);
   EXPECT_TRUE(result);
   const auto vec = *result;
-  for (int i : common::irange(N)) {
+  for (int i : competitive::irange(N)) {
     for (auto n : edge[i]) {
       auto a = std::ranges::find(vec, i);
       auto b = std::ranges::find(vec, n);
@@ -50,6 +50,6 @@ TEST(TopologicalSort, DetectCycle) {
   edge[0].emplace(1);
   edge[1].emplace(2);
   edge[2].emplace(0);
-  auto result = algorithm::topological_sort(edge);
+  auto result = competitive::topological_sort(edge);
   EXPECT_FALSE(result);
 }

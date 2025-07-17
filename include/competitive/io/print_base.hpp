@@ -2,7 +2,7 @@
 #include "atcoder/all"
 #include <bits/stdc++.h>
 
-namespace common::internal {
+namespace competitive::internal {
 template <typename T>
 concept stdstream_able = requires(T a) { std::declval<std::ostream&>() << a; };
 
@@ -141,4 +141,4 @@ void print(print_base_t& pb, T const& arg, Ts const&... args) {
   pb << arg;
   print<!is_std_manip_v<std::remove_cv_t<T>>>(pb, args...);
 }
-} // namespace common::internal
+} // namespace competitive::internal
