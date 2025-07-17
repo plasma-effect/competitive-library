@@ -39,6 +39,7 @@ class rolling_hash {
 public:
   template <std::ranges::input_range Rng>
   rolling_hash(Rng&& rng) : hashes(), size_(std::size(rng)) {
+    CL_ASSERT(size_ <= MaxSize);
     int_t hash = 0;
     hashes.reserve(size_ + 1);
     hashes.emplace_back(hash);

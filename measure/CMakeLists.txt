@@ -38,8 +38,8 @@ apply_common_options(data_structure_min_max_heap_measure)
 # apply_common_options(data_structure_segtree_measure)
 
 # algorithm
-# add_executable(algorithm_rolling_hash_measure algorithm/rolling_hash.cpp)
-# apply_common_options(algorithm_rolling_hash_measure)
+add_executable(algorithm_rolling_hash_measure algorithm/rolling_hash.cpp)
+apply_common_options(algorithm_rolling_hash_measure)
 
 # add_executable(algorithm_topological_sort_measure algorithm/topological_sort.cpp)
 # apply_common_options(algorithm_topological_sort_measure)
