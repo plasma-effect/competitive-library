@@ -41,8 +41,8 @@ apply_common_options(data_structure_min_max_heap_measure)
 add_executable(algorithm_rolling_hash_measure algorithm/rolling_hash.cpp)
 apply_common_options(algorithm_rolling_hash_measure)
 
-# add_executable(algorithm_topological_sort_measure algorithm/topological_sort.cpp)
-# apply_common_options(algorithm_topological_sort_measure)
+add_executable(algorithm_topological_sort_measure algorithm/topological_sort.cpp)
+apply_common_options(algorithm_topological_sort_measure)
 
 # add_executable(algorithm_warshall_floyd_measure algorithm/warshall_floyd.cpp)
 # apply_common_options(algorithm_warshall_floyd_measure)
