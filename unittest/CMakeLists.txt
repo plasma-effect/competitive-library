@@ -56,9 +56,6 @@ add_executable(algorithm_warshall_floyd_unittest algorithm/warshall_floyd.cpp)
 apply_common_options(algorithm_warshall_floyd_unittest)
 
 # heuristic utility
-add_executable(heuristic_grid_bfs_queue_unittest heuristic/grid_bfs_queue.cpp)
-apply_common_options(heuristic_grid_bfs_queue_unittest)
-
 add_executable(heuristic_persistent_array_unittest heuristic/persistent_array.cpp)
 apply_common_options(heuristic_persistent_array_unittest)
 
