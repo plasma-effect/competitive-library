@@ -34,8 +34,8 @@ apply_common_options(container_static_dual_array_measure)
 add_executable(data_structure_min_max_heap_measure data_structure/min_max_heap.cpp)
 apply_common_options(data_structure_min_max_heap_measure)
 
-# add_executable(data_structure_segtree_measure data_structure/segtree.cpp)
-# apply_common_options(data_structure_segtree_measure)
+add_executable(data_structure_segtree_measure data_structure/segtree.cpp)
+apply_common_options(data_structure_segtree_measure)
 
 # algorithm
 add_executable(algorithm_rolling_hash_measure algorithm/rolling_hash.cpp)
