@@ -48,14 +48,11 @@ add_executable(algorithm_warshall_floyd_measure algorithm/warshall_floyd.cpp)
 apply_common_options(algorithm_warshall_floyd_measure)
 
 # heuristic utility
-# add_executable(heuristic_grid_bfs_queue_measure heuristic/grid_bfs_queue.cpp)
-# apply_common_options(heuristic_grid_bfs_queue_measure)
-
 add_executable(heuristic_persistent_array_measure heuristic/persistent_array.cpp)
 apply_common_options(heuristic_persistent_array_measure)
 
-# add_executable(heuristic_random_measure heuristic/random.cpp)
-# apply_common_options(heuristic_random_measure)
+add_executable(heuristic_random_measure heuristic/random.cpp)
+apply_common_options(heuristic_random_measure)
 
 # add_executable(heuristic_static_container_measure heuristic/static_container.cpp)
 # apply_common_options(heuristic_static_container_measure)
