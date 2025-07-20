@@ -44,8 +44,8 @@ apply_common_options(algorithm_rolling_hash_measure)
 add_executable(algorithm_topological_sort_measure algorithm/topological_sort.cpp)
 apply_common_options(algorithm_topological_sort_measure)
 
-# add_executable(algorithm_warshall_floyd_measure algorithm/warshall_floyd.cpp)
-# apply_common_options(algorithm_warshall_floyd_measure)
+add_executable(algorithm_warshall_floyd_measure algorithm/warshall_floyd.cpp)
+apply_common_options(algorithm_warshall_floyd_measure)
 
 # heuristic utility
 # add_executable(heuristic_grid_bfs_queue_measure heuristic/grid_bfs_queue.cpp)
