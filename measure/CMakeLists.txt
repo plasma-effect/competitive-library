@@ -57,8 +57,8 @@ apply_common_options(heuristic_random_measure)
 # add_executable(heuristic_static_container_measure heuristic/static_container.cpp)
 # apply_common_options(heuristic_static_container_measure)
 
-# add_executable(heuristic_time_control_measure heuristic/time_control.cpp)
-# apply_common_options(heuristic_time_control_measure)
+add_executable(heuristic_time_control_measure heuristic/time_control.cpp)
+apply_common_options(heuristic_time_control_measure)
 
 # common utility
 # add_executable(utility_assert_measure utility/assert.cpp)

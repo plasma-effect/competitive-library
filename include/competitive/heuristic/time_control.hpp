@@ -14,7 +14,7 @@ namespace internal {
 template <std::int64_t time_limit_ms, std::size_t update_frequency,
           typename Derived>
 class time_control_base {
-  std::size_t update_count_;
+  std::size_t update_count_ = 0;
 
 public:
   operator bool() {
