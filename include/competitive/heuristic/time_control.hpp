@@ -37,7 +37,7 @@ struct time_control_t : internal::time_control_base<
 
 template <std::int64_t time_limit_ms, std::int64_t start_temperature,
           std::int64_t end_temperature, std::size_t update_frequency = 1,
-          typename Engine = std::minstd_rand>
+          typename Engine = xorshift>
 class time_control_with_annealing
     : public internal::time_control_base<
           time_limit_ms, update_frequency,
@@ -48,7 +48,6 @@ class time_control_with_annealing
       time_limit_ms, update_frequency,
       time_control_with_annealing<time_limit_ms, start_temperature,
                                   end_temperature, update_frequency, Engine>>;
-  using generator = random_engine_generator<Engine>;
   static constexpr std::size_t particle = 1 << 8;
   static constexpr std::array<double, particle> make_log_table() {
     std::array<double, particle> table;
@@ -72,7 +71,7 @@ class time_control_with_annealing
   static constexpr auto temp_table = make_temperature_table();
 
   std::uniform_int_distribution<std::size_t> dist;
-  xorshift engine;
+  Engine engine;
   double T;
 
 public:
