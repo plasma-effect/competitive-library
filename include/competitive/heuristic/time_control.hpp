@@ -4,23 +4,21 @@
 
 namespace heuristic {
 using time_t = std::chrono::milliseconds;
-inline auto get_time() {
-  using namespace std::chrono;
-  thread_local const auto start = system_clock::now();
-  return duration_cast<milliseconds>(system_clock::now() - start);
-}
 namespace internal {
-
+using std::chrono::duration_cast;
+using std::chrono::system_clock;
 template <std::int64_t time_limit_ms, std::size_t update_frequency,
           typename Derived>
 class time_control_base {
   std::size_t update_count_ = 0;
+  system_clock::time_point start;
 
 public:
+  time_control_base() : start(system_clock::now()) {}
   operator bool() {
     if (++update_count_ == update_frequency) {
       update_count_ = 0;
-      auto current = get_time();
+      auto current = duration_cast<time_t>(system_clock::now() - start);
       static_cast<Derived&>(*this).update(current);
       return current.count() < time_limit_ms;
     } else {
@@ -73,13 +71,13 @@ class time_control_with_annealing
   static constexpr auto log_table = make_log_table();
   static constexpr auto temp_table = make_temperature_table();
 
-  std::function<std::size_t()> dist;
+  std::uniform_int_distribution<std::size_t> dist;
+  xorshift engine;
   double T;
 
 public:
   time_control_with_annealing()
-      : dist(generator::uniform_int_distribution(particle - 1)),
-        T(temp_table[0]) {}
+      : dist(0uz, particle - 1), engine(), T(temp_table[0]) {}
   void update(time_t const& current) {
     T = temp_table[current.count()];
   }
@@ -88,7 +86,7 @@ public:
     if (diff > 0) {
       return true;
     } else {
-      auto p = dist();
+      auto p = dist(engine);
       return log_table[p] * T < diff;
     }
   }
