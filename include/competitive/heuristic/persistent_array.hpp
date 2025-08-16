@@ -8,7 +8,7 @@ template <std::copy_constructible T, std::size_t N> class persistent_array {
   static constexpr std::size_t total_size = 512;
   static_assert(total_size % sizeof(T) == 0);
   static constexpr auto chunk_size = total_size / sizeof(T);
-  static constexpr auto array_size = competitive::div_ceil(N, chunk_size);
+  static constexpr auto array_size = common::div_ceil(N, chunk_size);
   using chunk_ptr = std::shared_ptr<std::array<T, chunk_size>>;
   std::array<std::pair<std::size_t, chunk_ptr>, array_size> chunks;
   static inline std::size_t latest_version = 0;

@@ -43,7 +43,7 @@ protected:
 TYPED_MEASURE_SUITE(WarshallFloydMeasure, types, NameSelector);
 
 TYPED_MEASURE(WarshallFloydMeasure, Execute) {
-  competitive::dual_array<TypeParam> data(N, N);
+  common::dual_array<TypeParam> data(N, N);
   for (int i = 0; i < N; ++i) {
     for (int j = 0; j < N; ++j) {
       if (TestFixture::edge[i].contains(j)) {

@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 
 TEST(Math, FactorialInt) {
-  auto fact = competitive::make_factorial_array<int>(5);
+  auto fact = common::make_factorial_array<int>(5);
   ASSERT_EQ(fact.size(), 6);
   EXPECT_EQ(fact[0], 1);
   EXPECT_EQ(fact[1], 1);
@@ -15,7 +15,7 @@ TEST(Math, FactorialInt) {
 
 TEST(Math, FactorialModInt) {
   using modint = atcoder::static_modint<7>;
-  auto fact = competitive::make_factorial_array<modint>(5);
+  auto fact = common::make_factorial_array<modint>(5);
   ASSERT_EQ(fact.size(), 6);
   EXPECT_EQ(fact[0], 1);
   EXPECT_EQ(fact[1], 1);

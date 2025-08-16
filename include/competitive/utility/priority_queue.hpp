@@ -1,7 +1,7 @@
 #pragma once
 #include <bits/stdc++.h>
 
-namespace competitive {
+namespace common {
 namespace internal {
 template <typename T, typename Proj, typename Comp> struct projected_compare {
   Proj proj;
@@ -59,4 +59,4 @@ auto make_priority_queue(Proj proj = {})
 {
   return internal::priority_queue<T, Proj, std::greater<>>(proj, {});
 }
-} // namespace competitive
+} // namespace common

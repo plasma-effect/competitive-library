@@ -3,7 +3,7 @@
 #include "competitive/math/monoid.hpp"
 #include "competitive/utility/assert.hpp"
 
-namespace competitive {
+namespace common {
 template <std::integral T> constexpr T div_ceil(T a, T b) {
   CL_ASSERT(std::cmp_greater(b, 0));
   if (std::cmp_less(a, 0)) {
@@ -12,4 +12,4 @@ template <std::integral T> constexpr T div_ceil(T a, T b) {
     return (a + b - 1) / b;
   }
 }
-} // namespace competitive
+} // namespace common

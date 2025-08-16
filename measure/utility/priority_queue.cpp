@@ -16,24 +16,24 @@ int get_first(std::pair<int, int> p) {
 
 struct LessMeasureBase {
   static auto make_queue() {
-    constexpr auto priority = competitive::priority::less;
-    return competitive::make_priority_queue<int>(priority);
+    constexpr auto priority = common::priority::less;
+    return common::make_priority_queue<int>(priority);
   }
   using value_t = int;
   static constexpr const char* p_name = "Less";
 };
 struct GreaterMeasureBase {
   static auto make_queue() {
-    constexpr auto priority = competitive::priority::greater;
-    return competitive::make_priority_queue<int>(priority);
+    constexpr auto priority = common::priority::greater;
+    return common::make_priority_queue<int>(priority);
   }
   using value_t = int;
   static constexpr const char* p_name = "Greater";
 };
 struct LessWithProjMeasureBase {
   static auto make_queue() {
-    constexpr auto priority = competitive::priority::less;
-    return competitive::make_priority_queue<std::pair<int, int>>(
+    constexpr auto priority = common::priority::less;
+    return common::make_priority_queue<std::pair<int, int>>(
         priority, [](std::pair<int, int> const& p) {
           return std::get<0>(p) + std::get<1>(p);
         });
@@ -43,8 +43,8 @@ struct LessWithProjMeasureBase {
 };
 struct GreaterWithProjMeasureBase {
   static auto make_queue() {
-    constexpr auto priority = competitive::priority::greater;
-    return competitive::make_priority_queue<std::pair<int, int>>(
+    constexpr auto priority = common::priority::greater;
+    return common::make_priority_queue<std::pair<int, int>>(
         priority, [](std::pair<int, int> const& p) {
           return std::get<0>(p) + std::get<1>(p);
         });

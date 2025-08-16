@@ -18,11 +18,11 @@ template <typename T, typename F> struct monoid_t {
 template <typename T> constexpr monoid_t plus{T(0), std::plus<>()};
 template <typename T> constexpr monoid_t multiplies{T(1), std::multiplies<>()};
 template <typename T>
-constexpr monoid_t min{max_v<T>, [](T const& a, T const& b) {
+constexpr monoid_t min{common::max_v<T>, [](T const& a, T const& b) {
                          return std::min(a, b);
                        }};
 template <typename T>
-constexpr monoid_t max{min_v<T>, [](T const& a, T const& b) {
+constexpr monoid_t max{common::min_v<T>, [](T const& a, T const& b) {
                          return std::max(a, b);
                        }};
 } // namespace competitive

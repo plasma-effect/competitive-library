@@ -19,12 +19,12 @@ template <typename T> void local_update(T& base, T a, T b) {
   base = std::min(base, a + b);
 }
 } // namespace internal
-template <typename T> void warshall_floyd(dual_array<T>& data) {
+template <typename T> void warshall_floyd(common::dual_array<T>& data) {
   auto [N, d1] = data.dimensions();
   CL_ASSERT(N == d1);
-  for (auto k : irange(N)) {
-    for (auto i : irange(N)) {
-      for (auto j : irange(N)) {
+  for (auto k : common::irange(N)) {
+    for (auto i : common::irange(N)) {
+      for (auto j : common::irange(N)) {
         internal::local_update(data(i, j), data(i, k), data(k, j));
       }
     }

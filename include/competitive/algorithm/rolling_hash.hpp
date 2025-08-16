@@ -13,7 +13,7 @@ template <typename T>
 inline std::vector<T> make_pow(T base, T mod, std::size_t N) {
   std::vector<T> ret(N + 1);
   ret[0] = 1;
-  for (auto i : irange(N)) {
+  for (auto i : common::irange(N)) {
     ret[i + 1] = (ret[i] * base) % mod;
   }
   return ret;
@@ -78,7 +78,7 @@ public:
     friend class rolling_hash;
   };
   subhash_t subhash(std::size_t first,
-                    std::size_t len = max_v<std::size_t>) const {
+                    std::size_t len = common::max_v<std::size_t>) const {
     CL_ASSERT(first <= size_);
     len = std::min(len, size_ - first);
     return subhash_t{*this, first, len};

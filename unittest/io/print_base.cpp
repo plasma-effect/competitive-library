@@ -4,7 +4,7 @@
 
 TEST(PrintBase, String) {
   std::stringstream ss;
-  competitive::internal::print_base_t base(ss);
+  common::internal::print_base_t base(ss);
   std::string str = "str";
   base << str;
   EXPECT_EQ(ss.str(), "str");
@@ -12,7 +12,7 @@ TEST(PrintBase, String) {
 
 TEST(PrintBase, StringView) {
   std::stringstream ss;
-  competitive::internal::print_base_t base(ss);
+  common::internal::print_base_t base(ss);
   std::string_view str = "str";
   base << str;
   EXPECT_EQ(ss.str(), "str");
@@ -20,7 +20,7 @@ TEST(PrintBase, StringView) {
 
 TEST(PrintBase, CharPtr) {
   std::stringstream ss;
-  competitive::internal::print_base_t base(ss);
+  common::internal::print_base_t base(ss);
   const char* str = "str";
   base << str;
   EXPECT_EQ(ss.str(), "str");
@@ -28,14 +28,14 @@ TEST(PrintBase, CharPtr) {
 
 TEST(PrintBase, CharLiteral) {
   std::stringstream ss;
-  competitive::internal::print_base_t base(ss);
+  common::internal::print_base_t base(ss);
   base << "str";
   EXPECT_EQ(ss.str(), "str");
 }
 
 TEST(PrintBase, Integer) {
   std::stringstream ss;
-  competitive::internal::print_base_t base(ss);
+  common::internal::print_base_t base(ss);
   base << 1;
   base << 2u;
   EXPECT_EQ(ss.str(), "12");
@@ -43,14 +43,14 @@ TEST(PrintBase, Integer) {
 
 TEST(PrintBase, Floating) {
   std::stringstream ss;
-  competitive::internal::print_base_t base(ss);
+  common::internal::print_base_t base(ss);
   base << 1.5;
   EXPECT_EQ(ss.str(), "1.5");
 }
 
 TEST(PrintBase, ExecuteManip) {
   std::stringstream ss;
-  competitive::internal::print_base_t base(ss);
+  common::internal::print_base_t base(ss);
   base << std::setprecision(3);
   base << 0.1234;
   EXPECT_EQ(ss.str(), "0.123");
@@ -58,7 +58,7 @@ TEST(PrintBase, ExecuteManip) {
 
 TEST(PrintBase, AtCoderStaticModint) {
   std::stringstream ss;
-  competitive::internal::print_base_t base(ss);
+  common::internal::print_base_t base(ss);
   atcoder::static_modint<7> mod(2);
   base << mod;
   EXPECT_EQ(ss.str(), "2");
@@ -66,14 +66,14 @@ TEST(PrintBase, AtCoderStaticModint) {
 
 TEST(PrintBase, CommonRange) {
   std::stringstream ss;
-  competitive::internal::print_base_t base(ss);
-  base << competitive::irange(5);
+  common::internal::print_base_t base(ss);
+  base << common::irange(5);
   EXPECT_EQ(ss.str(), "0 1 2 3 4");
 }
 
 TEST(PrintBase, StdVector) {
   std::stringstream ss;
-  competitive::internal::print_base_t base(ss);
+  common::internal::print_base_t base(ss);
   std::vector vec = {0, 2, 4};
   base << vec;
   EXPECT_EQ(ss.str(), "0 2 4");
@@ -81,7 +81,7 @@ TEST(PrintBase, StdVector) {
 
 TEST(PrintBase, StaticArray) {
   std::stringstream ss;
-  competitive::internal::print_base_t base(ss);
+  common::internal::print_base_t base(ss);
   int ar[] = {1, 3, 5};
   base << ar;
   EXPECT_EQ(ss.str(), "1 3 5");
@@ -89,7 +89,7 @@ TEST(PrintBase, StaticArray) {
 
 TEST(PrintBase, Pair) {
   std::stringstream ss;
-  competitive::internal::print_base_t base(ss);
+  common::internal::print_base_t base(ss);
   std::pair p(1, "2");
   base << p;
   EXPECT_EQ(ss.str(), "1 2");
@@ -97,7 +97,7 @@ TEST(PrintBase, Pair) {
 
 TEST(PrintBase, Tuple) {
   std::stringstream ss;
-  competitive::internal::print_base_t base(ss);
+  common::internal::print_base_t base(ss);
   std::tuple t(1, "2", 3u);
   base << t;
   EXPECT_EQ(ss.str(), "1 2 3");
@@ -105,7 +105,7 @@ TEST(PrintBase, Tuple) {
 
 TEST(PrintBase, Optional) {
   std::stringstream ss;
-  competitive::internal::print_base_t base(ss);
+  common::internal::print_base_t base(ss);
   std::optional<int> a;
   base << a;
   a = 1;
@@ -115,7 +115,7 @@ TEST(PrintBase, Optional) {
 
 TEST(PrintBase, OptionalVector) {
   std::stringstream ss;
-  competitive::internal::print_base_t base(ss);
+  common::internal::print_base_t base(ss);
   std::vector<std::optional<int>> vec(3);
   vec[0] = 1;
   vec[2] = 3;
@@ -125,7 +125,7 @@ TEST(PrintBase, OptionalVector) {
 
 TEST(PrintBase, SetRangeDec) {
   std::stringstream ss;
-  competitive::internal::print_base_t base(ss);
+  common::internal::print_base_t base(ss);
   std::vector vec = {0, 1, 2};
   base.set_range_decolater("{", "}", ",");
   base << vec;
@@ -134,7 +134,7 @@ TEST(PrintBase, SetRangeDec) {
 
 TEST(PrintBase, SetTupleDec) {
   std::stringstream ss;
-  competitive::internal::print_base_t base(ss);
+  common::internal::print_base_t base(ss);
   std::tuple tpl(0, 1, 2);
   base.set_tuple_decolater("(", ")", ",");
   base << tpl;
@@ -143,7 +143,7 @@ TEST(PrintBase, SetTupleDec) {
 
 TEST(PrintBase, SetCombDec) {
   std::stringstream ss;
-  competitive::internal::print_base_t base(ss);
+  common::internal::print_base_t base(ss);
   std::vector vec = {std::pair(1, 2), std::pair(3, 4)};
   base.set_range_decolater("{", "}", ", ");
   base.set_tuple_decolater("(", ")", ", ");

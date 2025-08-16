@@ -2,7 +2,7 @@
 #include "measure_utils.hpp"
 #include <measurement.hpp>
 
-using competitive::static_dual_array;
+using common::static_dual_array;
 using measure_utils::add;
 using measure_utils::generate;
 namespace {

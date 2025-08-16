@@ -39,8 +39,8 @@ TEST(StaticPriorityContainer, General) {
 }
 
 TEST(StaticPriorityContainer, Less) {
-  auto container = heuristic::make_static_priority_container<int, 4>(
-      competitive::priority::less);
+  auto container =
+      heuristic::make_static_priority_container<int, 4>(common::priority::less);
   container.push(0);
   container.push(1);
   container.push(2);
@@ -68,7 +68,7 @@ TEST(StaticPriorityContainer, Less) {
 
 TEST(StaticPriorityContainer, Greater) {
   auto container = heuristic::make_static_priority_container<int, 4>(
-      competitive::priority::greater);
+      common::priority::greater);
   container.push(0);
   container.push(1);
   container.push(2);
@@ -126,7 +126,7 @@ TEST(StaticPriorityContainer, WithProj) {
 TEST(StaticPriorityContainer, LessWithProj) {
   auto container =
       heuristic::make_static_priority_container<std::pair<int, int>, 4>(
-          competitive::priority::less,
+          common::priority::less,
           [](auto p) { return std::get<0>(p) + std::get<1>(p); });
   container.emplace(3, 0);
   container.emplace(2, 2);
@@ -156,7 +156,7 @@ TEST(StaticPriorityContainer, LessWithProj) {
 TEST(StaticPriorityContainer, GreaterWithProj) {
   auto container =
       heuristic::make_static_priority_container<std::pair<int, int>, 4>(
-          competitive::priority::greater,
+          common::priority::greater,
           [](auto p) { return std::get<0>(p) + std::get<1>(p); });
   container.emplace(3, 0);
   container.emplace(2, 2);

@@ -14,7 +14,7 @@ TEST(TopologicalSort, ExecuteSizeT) {
   auto result = competitive::topological_sort(edge);
   EXPECT_TRUE(result);
   const auto vec = *result;
-  for (std::size_t i : competitive::irange(N)) {
+  for (std::size_t i : common::irange(N)) {
     for (auto n : edge[i]) {
       auto a = std::ranges::find(vec, i);
       auto b = std::ranges::find(vec, n);
@@ -35,7 +35,7 @@ TEST(TopologicalSort, ExecuteInt) {
   auto result = competitive::topological_sort(edge);
   EXPECT_TRUE(result);
   const auto vec = *result;
-  for (int i : competitive::irange(N)) {
+  for (int i : common::irange(N)) {
     for (auto n : edge[i]) {
       auto a = std::ranges::find(vec, i);
       auto b = std::ranges::find(vec, n);

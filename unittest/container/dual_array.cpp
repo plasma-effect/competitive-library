@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 
 TEST(Container, DualArrayAssignAndRead) {
-  competitive::dual_array<int> ar(2, 3);
+  common::dual_array<int> ar(2, 3);
   ar(0, 0) = 0;
   ar(0, 1) = 1;
   ar(0, 2) = 2;
@@ -19,7 +19,7 @@ TEST(Container, DualArrayAssignAndRead) {
 }
 
 TEST(Container, DualArrayAssignAndReadByAt) {
-  competitive::dual_array<int> ar(2, 3);
+  common::dual_array<int> ar(2, 3);
   ar.at(0, 0) = 0;
   ar.at(0, 1) = 1;
   ar.at(0, 2) = 2;
@@ -35,19 +35,19 @@ TEST(Container, DualArrayAssignAndReadByAt) {
 }
 
 TEST(Container, DualArrayGetDimensions) {
-  competitive::dual_array<int> ar(2, 3);
+  common::dual_array<int> ar(2, 3);
   auto [d0, d1] = ar.dimensions();
   ASSERT_EQ(d0, 2u);
   ASSERT_EQ(d1, 3u);
 }
 
 TEST(Container, DualArrayGetSize) {
-  competitive::dual_array<int> ar(2, 3);
+  common::dual_array<int> ar(2, 3);
   ASSERT_EQ(ar.size(), 6u);
 }
 
 TEST(Container, DualArrayOutOfBound) {
-  competitive::dual_array<int> ar(2, 3);
+  common::dual_array<int> ar(2, 3);
   const auto& car = ar;
 
 #ifdef LOCAL_DEBUG
@@ -107,7 +107,7 @@ TEST(Container, DualArrayOutOfBound) {
 }
 
 TEST(Container, DualArrayBoolAssignAndRead) {
-  competitive::dual_array<bool> ar(2, 2);
+  common::dual_array<bool> ar(2, 2);
   ar(0, 0) = true;
   ar(1, 1) = true;
   ASSERT_EQ(ar(0, 0), true);
@@ -117,7 +117,7 @@ TEST(Container, DualArrayBoolAssignAndRead) {
 }
 
 TEST(Container, DualArrayBoolAssignAndReadByAt) {
-  competitive::dual_array<bool> ar(2, 2);
+  common::dual_array<bool> ar(2, 2);
   ar.at(0, 0) = true;
   ar.at(1, 1) = true;
   ASSERT_EQ(ar.at(0, 0), true);
@@ -127,19 +127,19 @@ TEST(Container, DualArrayBoolAssignAndReadByAt) {
 }
 
 TEST(Container, DualArrayBoolGetDimensions) {
-  competitive::dual_array<bool> ar(2, 3);
+  common::dual_array<bool> ar(2, 3);
   auto [d0, d1] = ar.dimensions();
   ASSERT_EQ(d0, 2u);
   ASSERT_EQ(d1, 3u);
 }
 
 TEST(Container, DualArrayBoolGetSize) {
-  competitive::dual_array<bool> ar(2, 3);
+  common::dual_array<bool> ar(2, 3);
   ASSERT_EQ(ar.size(), 6u);
 }
 
 TEST(Container, DualArrayBoolOutOfBound) {
-  competitive::dual_array<bool> ar(2, 3);
+  common::dual_array<bool> ar(2, 3);
   const auto& car = ar;
 
 #ifdef LOCAL_DEBUG
@@ -199,7 +199,7 @@ TEST(Container, DualArrayBoolOutOfBound) {
 }
 
 TEST(Container, DualArrayNormalPrint) {
-  competitive::dual_array<int> ar(2, 3);
+  common::dual_array<int> ar(2, 3);
   ar(0, 0) = 1;
   ar(0, 1) = 2;
   ar(0, 2) = 3;
@@ -207,13 +207,13 @@ TEST(Container, DualArrayNormalPrint) {
   ar(1, 1) = 5;
   ar(1, 2) = 6;
   testing::internal::CaptureStdout();
-  competitive::println(ar);
+  common::println(ar);
   std::cout << std::flush;
   EXPECT_EQ(testing::internal::GetCapturedStdout(), "1 2 3 4 5 6\n");
 }
 
 TEST(Container, DualArrayBoolNormalPrint) {
-  competitive::dual_array<bool> ar(2, 3);
+  common::dual_array<bool> ar(2, 3);
   ar(0, 0) = true;
   ar(0, 1) = false;
   ar(0, 2) = true;
@@ -221,25 +221,25 @@ TEST(Container, DualArrayBoolNormalPrint) {
   ar(1, 1) = true;
   ar(1, 2) = false;
   testing::internal::CaptureStdout();
-  competitive::println(ar);
+  common::println(ar);
   std::cout << std::flush;
   EXPECT_EQ(testing::internal::GetCapturedStdout(), "1 0 1 0 1 0\n");
 }
 
 TEST(Container, DualArrayBoolElemNormalPrint) {
-  competitive::dual_array<bool> ar(2, 2);
+  common::dual_array<bool> ar(2, 2);
   ar(0, 0) = true;
   ar(0, 1) = false;
   ar(1, 0) = false;
   ar(1, 1) = true;
   testing::internal::CaptureStdout();
-  competitive::println(ar(0, 0), ar(0, 1), ar(1, 0), ar(1, 1));
+  common::println(ar(0, 0), ar(0, 1), ar(1, 0), ar(1, 1));
   std::cout << std::flush;
   EXPECT_EQ(testing::internal::GetCapturedStdout(), "1 0 0 1\n");
 }
 
 TEST(Container, DualArrayDebugPrint) {
-  competitive::dual_array<int> ar(2, 3);
+  common::dual_array<int> ar(2, 3);
   ar(0, 0) = 1;
   ar(0, 1) = 2;
   ar(0, 2) = 3;
@@ -247,12 +247,12 @@ TEST(Container, DualArrayDebugPrint) {
   ar(1, 1) = 5;
   ar(1, 2) = 6;
   testing::internal::CaptureStderr();
-  competitive::debug::println(ar);
+  common::debug::println(ar);
   EXPECT_EQ(testing::internal::GetCapturedStderr(), "{{1, 2, 3}, {4, 5, 6}}\n");
 }
 
 TEST(Container, DualArrayBoolDebugPrint) {
-  competitive::dual_array<bool> ar(2, 3);
+  common::dual_array<bool> ar(2, 3);
   ar(0, 0) = true;
   ar(0, 1) = false;
   ar(0, 2) = true;
@@ -260,17 +260,17 @@ TEST(Container, DualArrayBoolDebugPrint) {
   ar(1, 1) = true;
   ar(1, 2) = false;
   testing::internal::CaptureStderr();
-  competitive::debug::println(ar);
+  common::debug::println(ar);
   EXPECT_EQ(testing::internal::GetCapturedStderr(), "{{1, 0, 1}, {0, 1, 0}}\n");
 }
 
 TEST(Container, DualArrayBoolElemDebugPrint) {
-  competitive::dual_array<bool> ar(2, 2);
+  common::dual_array<bool> ar(2, 2);
   ar(0, 0) = true;
   ar(0, 1) = false;
   ar(1, 0) = false;
   ar(1, 1) = true;
   testing::internal::CaptureStderr();
-  competitive::debug::println(ar(0, 0), ar(0, 1), ar(1, 0), ar(1, 1));
+  common::debug::println(ar(0, 0), ar(0, 1), ar(1, 0), ar(1, 1));
   EXPECT_EQ(testing::internal::GetCapturedStderr(), "1 0 0 1\n");
 }

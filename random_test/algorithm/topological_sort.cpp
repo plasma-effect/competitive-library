@@ -23,7 +23,7 @@ protected:
     shuffle(order);
     auto dist = make_uniform_int_distribution(N - 1);
     atcoder::dsu dsu(N);
-    for ([[maybe_unused]] auto _ : competitive::irange(N - 1)) {
+    for ([[maybe_unused]] auto _ : common::irange(N - 1)) {
       int i, j;
       do {
         i = dist();
@@ -34,7 +34,7 @@ protected:
       }
       edge[i].emplace(j);
     }
-    for ([[maybe_unused]] auto _ : competitive::irange(N - 1, E)) {
+    for ([[maybe_unused]] auto _ : common::irange(N - 1, E)) {
       int i, j;
       do {
         i = dist();
@@ -54,10 +54,10 @@ TEST_P(TopologicalSortRandom, NonCycleGraph) {
   const auto& vec = *result;
   std::vector<int> rvec(N);
   ASSERT_EQ(vec.size(), N);
-  for (auto i : competitive::irange(N)) {
+  for (auto i : common::irange(N)) {
     rvec[vec[i]] = i;
   }
-  for (auto i : competitive::irange(N)) {
+  for (auto i : common::irange(N)) {
     for (auto j : edge[i]) {
       ASSERT_LT(rvec[i], rvec[j]);
     }

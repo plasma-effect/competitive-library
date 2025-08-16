@@ -2,7 +2,7 @@
 #include "competitive/io/print_base.hpp"
 #include <bits/stdc++.h>
 
-namespace competitive {
+namespace common {
 inline void println() {
   std::cout << "\n";
 }
@@ -11,4 +11,4 @@ template <typename... Ts> void println(Ts const&... args) {
   internal::print<false>(pb, args...);
   std::cout << "\n";
 }
-} // namespace competitive
+} // namespace common

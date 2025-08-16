@@ -32,7 +32,7 @@ topological_sort(std::vector<std::set<Int>> const& edge) {
   const auto N = edge.size();
   internal::topological_sort_impl<Int> impl{edge, {}, {}};
   impl.flags.resize(N);
-  for (auto i : irange(N)) {
+  for (auto i : common::irange(N)) {
     if (!impl.visit(static_cast<Int>(i))) {
       return std::nullopt;
     }

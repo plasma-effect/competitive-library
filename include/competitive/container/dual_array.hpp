@@ -3,7 +3,7 @@
 #include "competitive/utility/assert.hpp"
 #include <bits/stdc++.h>
 
-namespace competitive {
+namespace common {
 template <typename T> class dual_array {
   std::vector<T> inside_;
   std::size_t dim0, dim1;
@@ -85,4 +85,4 @@ internal::print_base_t& operator<<(internal::print_base_t& pb,
   pb << suffix;
   return pb;
 }
-} // namespace competitive
+} // namespace common

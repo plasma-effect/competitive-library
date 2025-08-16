@@ -46,7 +46,7 @@ TEST(WarshallFloyd, LocalUpdate) {
 }
 
 TEST(WarshallFloyd, Execute) {
-  competitive::dual_array<std::optional<int>> data(4, 4);
+  common::dual_array<std::optional<int>> data(4, 4);
   // structure
   // 0 --> 1
   // | ┌   |
