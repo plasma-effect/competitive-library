@@ -10,12 +10,21 @@ TEST(HeuristicTimeControl, OperatorBool) {
   EXPECT_FALSE(static_cast<bool>(control));
 }
 
-TEST(HeuristicTimeControl, Frequency) {
+TEST(HeuristicTimeControl, Frequency1) {
+  heuristic::time_control_t<100> control;
+  EXPECT_TRUE(static_cast<bool>(control));
+  std::this_thread::sleep_for(100ms);
+  EXPECT_FALSE(static_cast<bool>(control));
+  EXPECT_FALSE(static_cast<bool>(control));
+}
+
+TEST(HeuristicTimeControl, Frequency2) {
   heuristic::time_control_t<100, 2> control;
   EXPECT_TRUE(static_cast<bool>(control));
   EXPECT_TRUE(static_cast<bool>(control));
   std::this_thread::sleep_for(100ms);
   EXPECT_TRUE(static_cast<bool>(control));
+  EXPECT_FALSE(static_cast<bool>(control));
   EXPECT_FALSE(static_cast<bool>(control));
 }
 

@@ -11,6 +11,7 @@ template <std::int64_t time_limit_ms, std::size_t update_frequency,
           typename Derived>
 class time_control_base {
   std::size_t update_count_ = 0;
+  bool enable_ = true;
   system_clock::time_point start;
 
 public:
@@ -20,10 +21,22 @@ public:
       update_count_ = 0;
       auto current = duration_cast<time_t>(system_clock::now() - start);
       static_cast<Derived&>(*this).update(current);
-      return current.count() < time_limit_ms;
+      return enable_ = (current.count() < time_limit_ms);
     } else {
-      return true;
+      return enable_;
     }
+  }
+};
+template <std::int64_t time_limit_ms, typename Derived>
+class time_control_base<time_limit_ms, 1, Derived> {
+  system_clock::time_point start;
+
+public:
+  time_control_base() : start(system_clock::now()) {}
+  operator bool() {
+    auto current = duration_cast<time_t>(system_clock::now() - start);
+    static_cast<Derived&>(*this).update(current);
+    return current.count() < time_limit_ms;
   }
 };
 } // namespace internal
