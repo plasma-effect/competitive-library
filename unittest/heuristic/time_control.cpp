@@ -28,6 +28,24 @@ TEST(HeuristicTimeControl, Frequency2) {
   EXPECT_FALSE(static_cast<bool>(control));
 }
 
+TEST(HeuristicTimeControl, TotalUpdateCount1) {
+  heuristic::time_control_t<100> control;
+  static_cast<bool>(control);
+  static_cast<bool>(control);
+  static_cast<bool>(control);
+  EXPECT_EQ(control.total_update_count(), 3);
+}
+
+TEST(HeuristicTimeControl, TotalUpdateCount2) {
+  heuristic::time_control_t<100, 2> control;
+  static_cast<bool>(control);
+  static_cast<bool>(control);
+  static_cast<bool>(control);
+  static_cast<bool>(control);
+  static_cast<bool>(control);
+  EXPECT_EQ(control.total_update_count(), 5);
+}
+
 TEST(HeuristicTimeControlAnnealing, TransitionCheck) {
   heuristic::time_control_with_annealing<100, 100, 50> control;
   std::array<int, 3> count{};
