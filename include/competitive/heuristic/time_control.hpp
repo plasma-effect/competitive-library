@@ -5,68 +5,45 @@
 
 namespace heuristic {
 using time_t = std::chrono::milliseconds;
-namespace internal {
-using std::chrono::duration_cast;
-using std::chrono::system_clock;
-template <std::int64_t time_limit_ms, std::size_t update_frequency,
-          typename Derived>
-class time_control_base {
+template <std::int64_t time_limit_ms, std::size_t update_frequency = 1>
+class time_control_t {
   std::size_t update_count_ = 0, total_update_count_ = 0;
   bool enable_ = true;
-  system_clock::time_point start;
+  std::chrono::system_clock::time_point start_;
+  time_t current_;
 
 public:
-  time_control_base() : start(system_clock::now()) {}
+  time_control_t() : start_(std::chrono::system_clock::now()), current_() {}
   operator bool() {
     ++total_update_count_;
-    if (++update_count_ == update_frequency) {
-      update_count_ = 0;
-      auto current = duration_cast<time_t>(system_clock::now() - start);
-      static_cast<Derived&>(*this).update(current);
-      return enable_ = (current.count() < time_limit_ms);
+    if constexpr (update_frequency != 1) {
+      if (++update_count_ == update_frequency) {
+        update_count_ = 0;
+        current_ = std::chrono::duration_cast<time_t>(
+            std::chrono::system_clock::now() - start_);
+        return enable_ = (current_.count() < time_limit_ms);
+      } else {
+        return enable_;
+      }
     } else {
-      return enable_;
+      current_ = std::chrono::duration_cast<time_t>(
+          std::chrono::system_clock::now() - start_);
+      return (current_.count() < time_limit_ms);
     }
   }
-  std::size_t total_update_count() const {
-    return total_update_count_;
-  }
-};
-template <std::int64_t time_limit_ms, typename Derived>
-class time_control_base<time_limit_ms, 1, Derived> {
-  std::size_t total_update_count_ = 0;
-  system_clock::time_point start;
-
-public:
-  time_control_base() : start(system_clock::now()) {}
-  operator bool() {
-    ++total_update_count_;
-    auto current = duration_cast<time_t>(system_clock::now() - start);
-    static_cast<Derived&>(*this).update(current);
-    return current.count() < time_limit_ms;
+  time_t current() const {
+    return current_;
   }
   std::size_t total_update_count() const {
     return total_update_count_;
   }
-};
-} // namespace internal
-
-template <std::int64_t time_limit_ms, std::size_t update_frequency = 1>
-struct time_control_t : internal::time_control_base<
-                            time_limit_ms, update_frequency,
-                            time_control_t<time_limit_ms, update_frequency>> {
-  void update(time_t const&) {}
 };
 
 template <std::int64_t time_limit_ms, std::int64_t start_temperature,
           std::int64_t end_temperature, std::size_t update_frequency = 1,
           typename Engine = xorshift>
 class time_control_with_annealing
-    : public internal::time_control_base<
-          time_limit_ms, update_frequency,
-          time_control_with_annealing<time_limit_ms, start_temperature,
-                                      end_temperature, update_frequency,
-                                      Engine>> {
+    : public time_control_t<time_limit_ms, update_frequency> {
   static constexpr std::size_t particle = 1 << 8;
   static constexpr std::array<double, particle> make_log_table() {
     std::array<double, particle> table;
@@ -91,21 +68,16 @@ class time_control_with_annealing
 
   std::uniform_int_distribution<std::size_t> dist;
   Engine engine;
-  std::int64_t idx;
 
 public:
-  time_control_with_annealing() : dist(0uz, particle - 1), engine(), idx() {}
-  void update(time_t const& current) {
-    idx = current.count();
-  }
-
+  time_control_with_annealing() : dist(0uz, particle - 1), engine() {}
   bool transition_check(double diff) {
-    CL_ASSERT(idx < time_limit_ms);
+    CL_ASSERT(this->current().count() < time_limit_ms);
     if (diff > 0) {
       return true;
     } else {
       auto p = dist(engine);
-      return log_table[p] * temp_table[idx] < diff;
+      return log_table[p] * temp_table[this->current().count()] < diff;
     }
   }
 };
