@@ -1,5 +1,6 @@
 #pragma once
 #include "competitive/heuristic/random.hpp"
+#include "competitive/utility/assert.hpp"
 #include <bits/stdc++.h>
 
 namespace heuristic {
@@ -57,10 +58,6 @@ class time_control_with_annealing
           time_control_with_annealing<time_limit_ms, start_temperature,
                                       end_temperature, update_frequency,
                                       Engine>> {
-  using basetype = internal::time_control_base<
-      time_limit_ms, update_frequency,
-      time_control_with_annealing<time_limit_ms, start_temperature,
-                                  end_temperature, update_frequency, Engine>>;
   static constexpr std::size_t particle = 1 << 8;
   static constexpr std::array<double, particle> make_log_table() {
     std::array<double, particle> table;
@@ -85,21 +82,21 @@ class time_control_with_annealing
 
   std::uniform_int_distribution<std::size_t> dist;
   Engine engine;
-  double T;
+  std::int64_t idx;
 
 public:
-  time_control_with_annealing()
-      : dist(0uz, particle - 1), engine(), T(temp_table[0]) {}
+  time_control_with_annealing() : dist(0uz, particle - 1), engine(), idx() {}
   void update(time_t const& current) {
-    T = temp_table[current.count()];
+    idx = current.count();
   }
 
   bool transition_check(double diff) {
+    CL_ASSERT(idx < time_limit_ms);
     if (diff > 0) {
       return true;
     } else {
       auto p = dist(engine);
-      return log_table[p] * T < diff;
+      return log_table[p] * temp_table[idx] < diff;
     }
   }
 };
