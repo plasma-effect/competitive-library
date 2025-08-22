@@ -41,6 +41,9 @@ apply_common_options(container_static_dual_array_unittest)
 add_executable(container_static_queue_unittest container/static_queue.cpp)
 apply_common_options(container_static_queue_unittest)
 
+add_executable(container_static_stack_unittest container/static_stack.cpp)
+apply_common_options(container_static_stack_unittest)
+
 # data structure
 add_executable(data_structure_min_max_heap_unittest data_structure/min_max_heap.cpp)
 apply_common_options(data_structure_min_max_heap_unittest)
